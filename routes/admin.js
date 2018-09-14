@@ -62,4 +62,15 @@ router.post ('/removeFromMenu', (req, res) => {
 	});
 });
 
+router.post ('/addProduct', (req, res) => {
+	timeProduct = new Date (); // time when product will be expired 
+	expireTime = req.body.expire [0] * 3600 + req.body.expire [1] * 60 + req.body.expire [2]// time to live from client 
+	let product = new Product ();
+	product.name = req.body.name;
+	product.value = req.body.value;
+	product.expire = timeProduct.setSeconds (timeProduct.getSeconds () + expireTime) // array[hh, mm, ss];
+	product.save ();
+	res.json (true);
+});
+
 module.exports = router;

@@ -1,37 +1,39 @@
 const router = require ("express").Router ();
-const userFunctions = require ("../components/user_functions");
+const regAuthMethods = require ("../components/reg_auth");
 
 router.post ('/register', (req, res) => {
-	canCreate = userFuncitons.validUserData (req.body.data);
+	canCreate = regAuthMethods.validUserData (req.body.data);
 
 	if (canCreate == true) {
-		userFunctions.createNewUser (req.body.data);
-		res.send (true); //success
-	} else res.send (false); // failrule 
+		regAuthMethods.createNewUser (req.body.data);
+		res.json (true); //success
+	} else res.json (false); // failrule 
 });
 
 router.post ('/login', async (req, res) => {
-	userData = await userFunctions.getUserDataByLogin (req.body.login);
-	userPass = userFunctions.createPassword (req.body.password, req.body.login);
+	userData = await regAuthMethods.getUserDataByLogin (req.body.login);
+	userPass = regAuthMethods.createPassword (req.body.password, req.body.login);
 	
 	if (userPass == userData.password) {
 		req.session.pass = userPass;
-		res.send (true);
+		res.json (true);
 	} else {
-		res.send (false);
+		res.json (false);
 	}
 });
 
 router.get ('/info', async (req, res) => {
 	if (!req.session.pass) {
-		res.send ("Not logged in!");
+		res.json ("Not logged in!");
 		return false;
 	}
 
-	result = await userFunctions.getUserDataByPass (req.session.pass);
-	res.send (result);
+	result = await regAuthMethods.getUserDataByPass (req.session.pass);
+	res.json (result);
 });
 
-
+router.post ('/makeOrder', (req, res) => {
+	let orders = req.body.orders;
+});
 
 module.exports = router;
