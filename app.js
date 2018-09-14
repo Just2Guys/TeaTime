@@ -15,6 +15,7 @@ class App extends EventEmitter {
 
 	}
 
+	//
 	//check expire time of the all products in "store", if products expired remove them from collection
 	checkExpireTimeProducts () {
 		setInterval (async () => {
