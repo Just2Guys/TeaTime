@@ -21,7 +21,7 @@ class App extends EventEmitter {
 		setInterval (async () => {
 			let products = await Products.find ();
 			for (let product of products) {
-				if (Date.now () - product.expire < 0) {
+				if (product.expire - Date.now () < 0) {
 					Products.remove ({_id: product._id});
 				}
 			}
