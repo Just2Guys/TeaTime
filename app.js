@@ -21,11 +21,12 @@ class App extends EventEmitter {
 		setInterval (async () => {
 			let products = await Products.find ();
 			for (let product of products) {
+				console.log (product.expire - Date.now ());
 				if (product.expire - Date.now () < 0) {
-					Products.remove ({_id: product._id});
+					await Products.remove ({_id: product._id});
 				}
 			}
-		}, 60 * 1000); //every hour
+		}, 3600 * 1000); //every hour
 	}
 }
 

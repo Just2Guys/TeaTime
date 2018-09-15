@@ -1,5 +1,6 @@
 const router = require ("express").Router ();
 const regAuthMethods = require ("../components/reg_auth");
+const orderMethods = require ("../components/order");
 
 router.post ('/register', (req, res) => {
 	canCreate = regAuthMethods.validUserData (req.body.data);
@@ -32,8 +33,22 @@ router.get ('/info', async (req, res) => {
 	res.json (result);
 });
 
-router.post ('/makeOrder', (req, res) => {
+router.post ('/makeOrder', async (req, res) => {
 	let orders = req.body.orders;
+	ordersResults = [];
+
+	for (let order of orders) {
+		let canOrder = await orderMethods.canMakeDish (order);
+
+		if (canOrder == true) {
+			orderMethods.makeOrder (order);
+			ordersResults.push (1)
+		} else {
+			ordersResults.push (0);
+		}
+	}
+
+	res.json (ordersResults);
 });
 
 module.exports = router;

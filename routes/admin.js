@@ -22,6 +22,7 @@ router.use ((req, res, next) => {
 	});
 });
 
+
 router.get ('/users', (req, res) => {
 	Users.find ({}, (err, data) => {
 		if (err) {
@@ -39,6 +40,15 @@ router.get ('/products', (req, res) => {
 		} else {
 			res.json (data);
 		}
+	});
+});
+
+router.get ('/menu', (req, res) => {
+	Dishes.find ({}, (err, data) => {
+		if (err)
+			console.log (err);
+		else
+			res.json (data);
 	});
 });
 
