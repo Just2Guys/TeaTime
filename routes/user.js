@@ -1,19 +1,19 @@
 const router = require ("express").Router ();
-const regAuthMethods = require ("../components/reg_auth");
-const orderMethods = require ("../components/order");
+const regAuthClass = new (require ("../components/reg_auth"));
+const orderHelper = new (require ("../components/order"));
 
 router.post ('/register', (req, res) => {
-	canCreate = regAuthMethods.validUserData (req.body.data);
+	canCreate = regAuthClass.validUserData (req.body.data);
 
 	if (canCreate == true) {
-		regAuthMethods.createNewUser (req.body.data);
+		regAuthClass.createNewUser (req.body.data);
 		res.json (true); //success
 	} else res.json (false); // failrule 
 });
 
 router.post ('/login', async (req, res) => {
-	userData = await regAuthMethods.getUserDataByLogin (req.body.login);
-	userPass = regAuthMethods.createPassword (req.body.password, req.body.login);
+	userData = await regAuthClass.getUserDataByLogin (req.body.login);
+	userPass = regAuthClass.createPassword (req.body.password, req.body.login);
 	
 	if (userPass == userData.password) {
 		req.session.pass = userPass;
@@ -29,7 +29,7 @@ router.get ('/info', async (req, res) => {
 		return false;
 	}
 
-	result = await regAuthMethods.getUserDataByPass (req.session.pass);
+	result = await regAuthClass.getUserDataByPass (req.session.pass);
 	res.json (result);
 });
 
@@ -38,10 +38,10 @@ router.post ('/makeOrder', async (req, res) => {
 	ordersResults = [];
 
 	for (let order of orders) {
-		let canOrder = await orderMethods.canMakeDish (order);
+		let canOrder = await orderHelper.canMakeDish (order);
 
 		if (canOrder == true) {
-			orderMethods.makeOrder (order);
+			orderHelper.makeOrder (order);
 			ordersResults.push (1)
 		} else {
 			ordersResults.push (0);

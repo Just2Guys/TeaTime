@@ -1,4 +1,7 @@
 const router = require ("express").Router ();
+const multer = require ("multer");
+
+const multerSetting = multer ({dest: 'photos/'});
 
 const Users = require ('../models/user');
 const Products = require ('../models/product');
@@ -14,7 +17,7 @@ router.use ((req, res, next) => {
 
 		if (err || !data) {
 			res.json ("you aren't admin");
-		} else if (data.role < 3) {
+		} else if (data.role < 2) {
 			res.json ("you aren't admin");	
 		} else {
 			next ();
@@ -25,31 +28,30 @@ router.use ((req, res, next) => {
 
 router.get ('/users', (req, res) => {
 	Users.find ({}, (err, data) => {
-		if (err) {
-			console.log (err);
-		} else {
-			res.json (data);
-		}
+		err ? console.log (err) : res.json (data);
 	});
 });
 
 router.get ('/products', (req, res) => {
 	Products.find ({}, (err, data) => {
-		if (err) {
-			console.log (err);
-		} else {
-			res.json (data);
-		}
+		err ? console.log (err) : res.json (data);
 	});
 });
 
 router.get ('/menu', (req, res) => {
 	Dishes.find ({}, (err, data) => {
-		if (err)
-			console.log (err);
-		else
-			res.json (data);
+		err ? console.log (err) : res.json (data);
 	});
+});
+
+router.post ('/removeFromMenu', (req, res) => {
+	Dishes.remove ({_id: req.body.id}, err => {
+		err ? console.log (err) : res.json (true);
+	});
+});
+
+router.post ('/upload' multerSetting.single ("photo"), (req, res) => {
+	res.json (req.file.filename);
 });
 
 router.post ('/addInMenu', (req, res) => {
@@ -61,15 +63,6 @@ router.post ('/addInMenu', (req, res) => {
 	dish.price = req.body.price;	
 	dish.save ();
 	res.json (true); 
-});
-
-router.post ('/removeFromMenu', (req, res) => {
-	Dishes.remove ({_id: req.body.id}, err => {
-		if (err)
-			console.log (err);
-		else
-			res.json (true);
-	});
 });
 
 router.post ('/addProduct', (req, res) => {
