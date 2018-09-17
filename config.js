@@ -4,3 +4,4 @@ clientUrl = "http://localhost:4200";
 
 exports.port = port;
 exports.dbLink = dbLink;
+exports.clientUrl = clientUrl;
