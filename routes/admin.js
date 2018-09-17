@@ -50,7 +50,7 @@ router.post ('/removeFromMenu', (req, res) => {
 	});
 });
 
-router.post ('/upload' multerSetting.single ("photo"), (req, res) => {
+router.post ('/upload', multerSetting.single ("photo"), (req, res) => {
 	res.json (req.file.filename);
 });
 
