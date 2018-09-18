@@ -76,4 +76,16 @@ router.post ('/addProduct', (req, res) => {
 	res.json (true);
 });
 
+router.post ('/setRole', (req, res) => {
+	Users.findOne ({_id: req.body.id}, (err, data) => {
+		if (err) {
+			res.json (false);
+		} else {
+			Users.update ({_id: req.body.id}, {role: req.body.role}, err => {
+				err ? res.json (false) : res.json (true);
+			});
+		}
+	});
+});
+
 module.exports = router;

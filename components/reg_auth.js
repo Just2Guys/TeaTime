@@ -10,7 +10,7 @@ class reg_auth {
 
 	createNewUser (data) {
 		let user = new User ();
-		user.role = data.role;
+		user.role = 0;
 		user.name = data.name;
 		user.surname = data.surname;
 		user.password = createPassword (data.password, data.login);
