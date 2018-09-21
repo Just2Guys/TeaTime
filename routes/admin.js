@@ -9,7 +9,7 @@ const Dishes = require ('../models/menu');
 
 router.use ((req, res, next) => {
 	if (!req.session.pass) {
-		res.json ("you aren't admin");
+		res.json (false);
 		return false;
 	} 
 

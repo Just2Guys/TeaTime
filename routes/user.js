@@ -2,6 +2,8 @@ const router = require ("express").Router ();
 const regAuthClass = new (require ("../components/reg_auth"));
 const orderHelper = new (require ("../components/order"));
 
+
+
 router.post ('/register', async (req, res) => {
 	canCreate = regAuthClass.validUserData (req.body.data);
 	userData = await getUserDataByLogin (req.body.login);
