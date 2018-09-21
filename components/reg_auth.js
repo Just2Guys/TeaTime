@@ -13,7 +13,7 @@ class reg_auth {
 		user.role = 0;
 		user.name = data.name;
 		user.surname = data.surname;
-		user.password = createPassword (data.password, data.login);
+		user.password = this.createPassword (data.password, data.login);
 		user.login = data.login;
 		user.save ();
 	}	

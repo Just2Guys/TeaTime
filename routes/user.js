@@ -2,10 +2,11 @@ const router = require ("express").Router ();
 const regAuthClass = new (require ("../components/reg_auth"));
 const orderHelper = new (require ("../components/order"));
 
-router.post ('/register', (req, res) => {
+router.post ('/register', async (req, res) => {
 	canCreate = regAuthClass.validUserData (req.body.data);
+	userData = await getUserDataByLogin (req.body.login);
 
-	if (canCreate == true) {
+	if (canCreate == true && !userData) {
 		regAuthClass.createNewUser (req.body.data);
 		res.json (true); //success
 	} else res.json (false); // failrule 
@@ -31,6 +32,11 @@ router.get ('/info', async (req, res) => {
 
 	result = await regAuthClass.getUserDataByPass (req.session.pass);
 	res.json (result);
+});
+
+router.get ('/exit', (req, res) => {
+	req.session.pass = "";
+	res.json (true);
 });
 
 router.post ('/makeOrder', async (req, res) => {

@@ -14,11 +14,7 @@ class DishHelper {
 				value += box.value;
 			}
 
-			if (value >= component.value) {
-				canDo = true;
-			} else {
-				canDo = false;
-			}
+			canDo = value >= component.value ? true : false; 
 		}
 
 		return canDo;
@@ -28,7 +24,6 @@ class DishHelper {
 	async makeOrder (order) {
 		for (let component of order.recipe) {
 			let product = await Products.find ({name: component.name});
-			product.sort ((a, b) => b.value - a.value);
 
 			for (let box of product) {
 				if (component.value == 0) {
@@ -37,9 +32,9 @@ class DishHelper {
 
 				if (box.value <= component.value) {
 					component.value -= box.value;
-					await Products.remove ({_id: box._id});
+					Products.remove ({_id: box._id}).exec ();
 				} else {
-					await Products.update ({_id: box._id}, {value: box.value - component.value});
+					Products.update ({_id: box._id}, {value: box.value - component.value}).exec ();
 					component.value = 0;
 				}
 			}
