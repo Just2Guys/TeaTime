@@ -34,8 +34,7 @@ class App extends EventEmitter {
 	//update cars cords and then will send it to backend
 	setCordsOfCars (emit) {
 		setInterval (() => {
-			for (let car of )
-			emit (car.coords);
+			
 		}, 30 * 1000);
 	}
 
