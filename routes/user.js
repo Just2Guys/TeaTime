@@ -18,7 +18,7 @@ router.post ('/login', async (req, res) => {
 	
 	if (userPass == userData.password) {
 		req.session.pass = userPass;
-		res.json (true);
+		res.json (userData);
 	} else {
 		res.json (false);
 	}
@@ -26,7 +26,7 @@ router.post ('/login', async (req, res) => {
 
 router.get ('/info', async (req, res) => {
 	if (!req.session.pass) {
-		res.json ("Not logged in!");
+		res.json (false);
 		return false;
 	}
 
