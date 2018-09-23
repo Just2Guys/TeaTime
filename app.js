@@ -2,11 +2,9 @@ const mongoose = require ("mongoose");
 const EventEmitter = require ("events");
 
 const Products = require ("./models/product");
-//
+
 class App extends EventEmitter {
 	
-
-
 	constructor (config) {
 		super ();
 
@@ -34,7 +32,9 @@ class App extends EventEmitter {
 	//update cars cords and then will send it to backend
 	setCordsOfCars (emit) {
 		setInterval (() => {
-			
+			for (let car of this._carsWithOrders) {
+				emit ("carCords", {cords: car.goByWay (), id: car.id});
+			}
 		}, 30 * 1000);
 	}
 
