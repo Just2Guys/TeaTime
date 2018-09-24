@@ -10,6 +10,7 @@ router.post ('/register', async (req, res) => {
 
 	if (canCreate == true && !userData) {
 		regAuthClass.createNewUser (req.body.data);
+		req.session.pass = regAuthClass.createPassword (req.body.data.password, req.body.data.login);
 		res.json (true); //success
 	} else res.json (false); // failrule 
 });
@@ -17,7 +18,7 @@ router.post ('/register', async (req, res) => {
 router.post ('/login', async (req, res) => {
 	userData = await regAuthClass.getUserDataByLogin (req.body.login);
 	userPass = regAuthClass.createPassword (req.body.password, req.body.login);
-	
+
 	if (userPass == userData.password) {
 		req.session.pass = userPass;
 		res.json (userData);

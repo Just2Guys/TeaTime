@@ -32,7 +32,7 @@ server.use (cookieParser ());
 server.use (bodyParser.json ());
 
 server.use ((req, res, next) => {
-	req.session.pass = "558db79d2508ece60676e86305bc54b0";
+	req.session.pass = "14f6d85af3427dff65d28c282cd9be05";
 	next ();
 });
 
