@@ -1,0 +1,69 @@
+<header>
+  <img src="../assets/logo.png">
+  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!loggedIn">
+    {{mainText[0]}}
+  </a>
+  <a nohref id='log_button' class="header_button" (click)="openAppBar('log')" *ngIf="!loggedIn">
+    {{mainText[9]}}
+  </a>
+  <a nohref id='user_button' class="header_button" (click)="triggerUserButtonBar()" *ngIf="loggedIn">
+    {{user.login}}
+  </a>
+  <a nohref id='menu_button' class="header_button" routerLink="menu">
+    {{mainText[2]}}
+  </a>
+  <a nohref id='logo_button' routerLink="">
+    TeaTime
+  </a>
+</header>
+
+<div id="user_bar" *ngIf="loggedIn">
+  <a nohref id="profile_button" class="bar_button">
+    Profile
+  </a><br>
+  <a nohref id="exit_button" class="bar_button" (click)="accountExit()">
+    Exit
+  </a>
+</div>
+
+<div id="div_reg" *ngIf="!loggedIn">
+  <img src="../assets/logo.png" id="reg_logo">
+  <p>{{mainText[0]}}</p>
+  <form id="form_reg" (ngSubmit)="postBarData('reg')">
+    <input type="text" id="reg_input_login" class="form_input" name="login" placeholder="{{mainText[3]}}"
+    [(ngModel)]="user.login" value="{{user.login}}"><br>
+    <input type="text" id="reg_input_name" class="form_input" name="name" placeholder="{{mainText[7]}}"
+    [(ngModel)]="user.name" value="{{user.name}}"><br>
+    <input type="text" id="reg_input_surname" class="form_input" name="surname" placeholder="{{mainText[8]}}"
+    [(ngModel)]="user.surname" value="{{user.surname}}"><br>
+    <input type="password" id="reg_input_password" class="form_input" name="password" placeholder="{{mainText[4]}}"
+    [(ngModel)]="user.password" value="{{user.password}}"><br>
+    <input type="password" id="reg_input_repeat" class="form_input" name="repeat" placeholder="{{mainText[5]}}"
+    [(ngModel)]="repeatPass" value="{{pereatPass}}">
+    <button type="submit" id="reg_button_submit" class="form_submit" name="submit">{{mainText[6]}}</button>
+  </form>
+  <div id="reg_cross" (click)="closeAppBar('reg')">
+    <div id="reg_cross_0"></div>
+    <div id="reg_cross_1"></div>
+  </div>
+</div>
+
+<div id="div_log" *ngIf="!loggedIn">
+  <img src="../assets/logo.png" id="log_logo">
+  <p>{{mainText[9]}}</p>
+  <form id="form_log" (ngSubmit)="postBarData('log')">
+    <input type="text" id="log_input_login" class="form_input" name="login" placeholder="{{mainText[3]}}"
+    [(ngModel)]="user.login" value="{{user.login}}"><br>
+    <input type="password" id="log_input_password" class="form_input" name="password" placeholder="{{mainText[4]}}"
+    [(ngModel)]="user.password" value="{{user.password}}"><br>
+    <button type="submit" id="log_button_submit" class="form_submit" name="submit">{{mainText[1]}}</button>
+  </form>
+  <div id="log_cross" (click)="closeAppBar('log')">
+    <div id="log_cross_0"></div>
+    <div id="log_cross_1"></div>
+  </div>
+</div>
+
+<div id="error_message">
+  <p>{{error}}</p>
+</div>
