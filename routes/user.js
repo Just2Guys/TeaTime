@@ -6,7 +6,7 @@ const orderHelper = new (require ("../components/order"));
 
 router.post ('/register', async (req, res) => {
 	canCreate = regAuthClass.validUserData (req.body.data);
-	userData = await getUserDataByLogin (req.body.login);
+	userData = await getUserDataByLogin (req.body.data.login);
 
 	if (canCreate == true && !userData) {
 		regAuthClass.createNewUser (req.body.data);
