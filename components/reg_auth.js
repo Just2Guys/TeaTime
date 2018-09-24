@@ -5,7 +5,7 @@ const md5 = require ("md5");
 class reg_auth {
 	
 	createPassword (pass, login) {
-		return md5 ("look at" + data.password + "that security" + data.login);
+		return md5 ("look at" + pass + "that security" + login);
 	}
 
 	createNewUser (data) {
