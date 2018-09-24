@@ -32,18 +32,6 @@ router.get ('/users', (req, res) => {
 	});
 });
 
-router.get ('/products', (req, res) => {
-	Products.find ({}, (err, data) => {
-		err ? console.log (err) : res.json (data);
-	});
-});
-
-router.get ('/menu', (req, res) => {
-	Dishes.find ({}, (err, data) => {
-		err ? console.log (err) : res.json (data);
-	});
-});
-
 router.post ('/removeFromMenu', (req, res) => {
 	Dishes.remove ({_id: req.body.id}, err => {
 		err ? console.log (err) : res.json (true);

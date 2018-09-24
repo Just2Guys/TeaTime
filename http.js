@@ -10,6 +10,7 @@ let app = new App (config);
 //routes
 const admin = require ("./routes/admin");
 const user = require ('./routes/user');
+const stock = require ("./routes/stock");
 
 app.on ("error", () => {
 	console.log ("ERROR: App crashed due to code problem!");
@@ -29,8 +30,10 @@ server.use((req, res, next) => {
 server.use (session ({secret: "omg test profile of this man!!!", resave: false, saveUninitialized: true, cookie: {maxAge: 60 * 60 * 1000}}));
 server.use (cookieParser ());
 server.use (bodyParser.json ());
+
 server.use ('/user', user);
 server.use ('/admin', admin);
+server.use ('/stock', stock);
 
 app.on ("ready", () => {
 	server.listen (config.port);
