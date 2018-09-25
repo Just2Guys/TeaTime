@@ -1,21 +1,29 @@
-const map = require ("../map");
+const generalMap = require ("../map");
+let map = [];
+
+for (let i = 0; i < generalMap.length; i++) {
+	map [i] = generalMap [i].slice ();
+}
+
 
 class Car {
 
 	constructor (order, destX, destY, id) {
 		this._order = order;
 		
-		this._x = 0;
-		this._y = 0;
+		this._x = 1;
+		this._y = 1;
 		this._way = [];
 		this._destX = destX;
 		this._destY = destY;
 		this._id = id;
+
+		this.findWay ();
 	}
 
 	findWay () {
-		wave = 0;
-		nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+		let wave = 0;
+		let nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 		map [this._x][this._y] = wave;
 
 		while (map [this._destX][this._destY] == -1) {
@@ -40,13 +48,13 @@ class Car {
 	}
 
 	writeWay (endX, endY) {
-		nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+		let nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 		
-		currentX = endX;
-		currentY = endY;
+		let currentX = endX;
+		let currentY = endY;
 
-		local_x = endX;
-		local_y = endY;
+		let local_x = endX;
+		let local_y = endY;
 		
 		this._way.unshift(currentX, currentY);
 
@@ -66,6 +74,8 @@ class Car {
 
 			this._way.unshift ([currentX, currentY]);
 		}
+
+
 	}
 
 	get way () {
@@ -81,6 +91,5 @@ class Car {
 		return this._way;
 	}
 }
-
 
 module.exports = Car;

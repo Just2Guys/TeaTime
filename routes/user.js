@@ -5,25 +5,26 @@ const orderHelper = new (require ("../components/order"));
 
 
 router.post ('/register', async (req, res) => {
-	canCreate = regAuthClass.validUserData (req.body.data);
+	typeOfError = regAuthClass.validUserData (req.body.data);
 	userData = await regAuthClass.getUserDataByLogin (req.body.data.login);
 
-	if (canCreate == true && !userData) {
+	if (typeOfError == 0 && !userData) {
 		regAuthClass.createNewUser (req.body.data);
 		req.session.pass = regAuthClass.createPassword (req.body.data.password, req.body.data.login);
-		res.json (true); //success
-	} else res.json (false); // failrule 
+	}
+
+	res.json (typeOfError);
 });
 
 router.post ('/login', async (req, res) => {
 	userData = await regAuthClass.getUserDataByLogin (req.body.login);
 	userPass = regAuthClass.createPassword (req.body.password, req.body.login);
 
-	if (userPass == userData.password) {
+	if (!userData || userPass != userData.password) {
+		res.json (false);
+	} else {
 		req.session.pass = userPass;
 		res.json (userData);
-	} else {
-		res.json (false);
 	}
 });
 
