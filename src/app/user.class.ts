@@ -4,4 +4,14 @@ export class User {
   name: string;
   surname: string;
   password: string;
+  loggedIn: boolean;
+}
+
+export let UserNull: User = {
+  role: 0,
+  login: '',
+  name: '',
+  surname: '',
+  password: '',
+  loggedIn: false
 }

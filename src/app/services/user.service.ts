@@ -1,15 +1,17 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+import { User } from '../user.class';
 
 @Injectable()
 export class UserService {
 
-  loggedIn: boolean = false;
+  user: User;
+  @Output() changeUserData: EventEmitter<User> = new EventEmitter();
 
-  @Output() change: EventEmitter<boolean> = new EventEmitter();
-
-  triggerSession () {
-    this.loggedIn = !this.loggedIn;
-    this.change.emit(this.loggedIn);
+  setUserData (USER: User) {
+    this.user = USER;
+    this.changeUserData.emit(this.user);
   }
+
+
 
 }

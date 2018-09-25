@@ -1,12 +1,12 @@
 <header>
   <img src="../assets/logo.png">
-  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!loggedIn">
+  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!user.loggedIn">
     {{mainText[0]}}
   </a>
-  <a nohref id='log_button' class="header_button" (click)="openAppBar('log')" *ngIf="!loggedIn">
+  <a nohref id='log_button' class="header_button" (click)="openAppBar('log')" *ngIf="!user.loggedIn">
     {{mainText[9]}}
   </a>
-  <a nohref id='user_button' class="header_button" (click)="triggerUserButtonBar()" *ngIf="loggedIn">
+  <a nohref id='user_button' class="header_button" (click)="triggerUserButtonBar()" *ngIf="user.loggedIn">
     {{user.login}}
   </a>
   <a nohref id='menu_button' class="header_button" routerLink="menu">
@@ -21,7 +21,7 @@
   <p>{{error}}</p>
 </div>
 
-<div id="user_bar" *ngIf="loggedIn">
+<div id="user_bar" *ngIf="user.loggedIn">
   <a nohref id="profile_button" class="bar_button">
     Profile
   </a><br>
@@ -30,7 +30,7 @@
   </a>
 </div>
 
-<div id="div_reg" *ngIf="!loggedIn">
+<div id="div_reg" *ngIf="!user.loggedIn">
   <img src="../assets/logo.png" id="reg_logo">
   <p>{{mainText[0]}}</p>
   <form id="form_reg" (ngSubmit)="postBarData('reg')">
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<div id="div_log" *ngIf="!loggedIn">
+<div id="div_log" *ngIf="!user.loggedIn">
   <img src="../assets/logo.png" id="log_logo">
   <p>{{mainText[9]}}</p>
   <form id="form_log" (ngSubmit)="postBarData('log')">

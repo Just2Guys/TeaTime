@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
 
-import { User } from '../user.class';
+import { User, UserNull } from '../user.class';
 import { UserService } from '../services/user.service';
 import { Settings } from '../config';
 
@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
     login: '',
     name: '',
     surname: '',
-    password: ''
+    password: '',
+    loggedIn: false
   }
 
   mainText = [
@@ -37,7 +38,6 @@ export class HeaderComponent implements OnInit {
     "Выход"
   ]
 
-  loggedIn = false;
   userBarOpened = false;
   repeatPass: string;
   error: string;
@@ -58,15 +58,16 @@ export class HeaderComponent implements OnInit {
 
       this.successedLogIn (data);
     });
+
+    this.userService.changeUserData.subscribe(USER => {
+      this.user = USER;
+    });
   }
 
   successedLogIn (data) {
-    this.loggedIn = true;
-    this.user.role = data.role;
-    this.user.name = data.name;
-    this.user.surname = data.surname;
-    this.user.login = data.login;
-    this.userService.triggerSession();
+    this.user = data;
+    this.user.loggedIn = true;
+    this.userService.setUserData(this.user);
   }
 
 
@@ -127,22 +128,21 @@ export class HeaderComponent implements OnInit {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       if (main == "reg") {
-        this.http.post("http://localhost:8080/user/register", JSON.stringify({data: this.user}), {headers: headers, withCredentials: true})
+        this.http.post(Settings.serverLink + "user/register", JSON.stringify({data: this.user}), {headers: headers, withCredentials: true})
         .map((res:Response) => res.json())
         .subscribe(data => {
           if (data) {
-            this.loggedIn = true;
-            this.userService.triggerSession();
+            this.user.loggedIn = true;
+            this.userService.setUserData(this.user);
           } else {
             this.error = "This account is.";
             this.showErrorMessage();
           }
         });
       } else {
-          this.http.post("http://localhost:8080/user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
+          this.http.post(Settings.serverLink + "user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
           .map((res:Response) => res.json())
           .subscribe(data => {
-
             if (data === false) {
               this.error = "Incorrect login or password.";
               this.showErrorMessage();
@@ -156,14 +156,14 @@ export class HeaderComponent implements OnInit {
   }
 
   accountExit () {
-    this.http.get("http://localhost:8080/user/exit", {withCredentials: true})
+    this.http.get(Settings.serverLink + "user/exit", {withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data) {
-        this.loggedIn = false;
         this.userBarOpened = false;
-        this.userService.triggerSession();
-      }
+        this.userService.setUserData(UserNull);
+      } else
+        alert("Unable to exit!");
     });
   }
 

@@ -3,6 +3,8 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { UserService } from '../services/user.service';
 import { DishClass } from '../dish.class';
+import { Settings } from '../config';
+import { User } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -14,7 +16,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  loggedIn: boolean;
+  user: User;
   dishes: Array<DishClass> = [
     {
       title: "soup",
@@ -36,6 +38,65 @@ export class MenuComponent implements OnInit {
         }
       ]
     },
+    {title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },{title: "soup",description: "Just a soup",price: 120.5,
+      image: "https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fimage%2F2017%2F08%2Fmain%2Ffire-roasted-tomato-basil-soup-1709p63.jpg%3Fitok%3DLIRxiAm0&w=800&q=85",
+      recipe: [{name: "pickle",value: 0.3},
+        {name: "tomato",value: 0.5},
+        {name: "whater",value: 1}
+      ]
+    },
+
     // {
     //   title: ,
     //   description: ,
@@ -55,18 +116,25 @@ export class MenuComponent implements OnInit {
   constructor(private http: Http, private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.change.subscribe(data => {
-      this.loggedIn = data;
+    this.userService.changeUserData.subscribe(USER => {
+      this.user = USER;
     });
   }
 
 
   showInfo (id) {
     document.getElementById("main_block_" + id).classList.add("main_block_active");
+    for (let productId = 0; productId < this.dishes[id].recipe.length; productId++)
+      document.getElementById("recipe_" + id + "_" + productId).classList.add("recipe_active");
+
   }
 
   closeInfo (id) {
-    document.getElementById("main_block_" + id).classList.remove("main_block_active");
+    for (let productId = 0; productId < this.dishes[id].recipe.length; productId++)
+      document.getElementById("recipe_" + id + "_" + productId).classList.remove("recipe_active");
+    setTimeout(() => {
+      document.getElementById("main_block_" + id).classList.remove("main_block_active");
+    }, 100)
   }
 
 }
