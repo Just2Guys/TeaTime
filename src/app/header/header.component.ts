@@ -3,6 +3,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { User } from '../user.class';
 import { UserService } from '../services/user.service';
+import { Settings } from '../config';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
   constructor(private http: Http, private userService: UserService) { }
 
   ngOnInit() {
-    this.http.get ("http://localhost:8080/user/info", {withCredentials: true})
+    this.http.get (Settings.serverLink + "user/info", {withCredentials: true})
     .map ((res:Response) => res.json ())
     .subscribe (data => {
 
@@ -102,11 +103,9 @@ export class HeaderComponent implements OnInit {
   triggerUserButtonBar () {
     if (this.userBarOpened) {
       document.getElementById("user_bar").style.height = "0px";
-      document.getElementById("user_button").style.backgroundColor = "#00A388";
       this.userBarOpened = false;
     } else {
       document.getElementById("user_bar").style.height = "80px";
-      document.getElementById("user_button").style.backgroundColor = "#FF6138";
       this.userBarOpened = true;
     }
   }
@@ -172,14 +171,10 @@ export class HeaderComponent implements OnInit {
   showErrorMessage () {
     document.getElementById("error_message").style.display = "block";
     setTimeout(() => {
-      document.getElementById("error_message").style.transform = "translate(-100%, 0px)";
-      setTimeout(() => {
-        document.getElementById("error_message").style.opacity = "1";
-      }, 50);
+      document.getElementById("error_message").style.opacity = "1";
     }, 1);
     setTimeout(() => {
       document.getElementById("error_message").style.opacity = "0";
-      document.getElementById("error_message").style.transform = "translate(0px, 0px)";
       setTimeout(() => {
         document.getElementById("error_message").style.display = "none";
       }, 501);

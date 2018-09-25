@@ -17,6 +17,10 @@
   </a>
 </header>
 
+<div id="error_message">
+  <p>{{error}}</p>
+</div>
+
 <div id="user_bar" *ngIf="loggedIn">
   <a nohref id="profile_button" class="bar_button">
     Profile
@@ -62,8 +66,4 @@
     <div id="log_cross_0"></div>
     <div id="log_cross_1"></div>
   </div>
-</div>
-
-<div id="error_message">
-  <p>{{error}}</p>
 </div>

@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  src: url("/assets/font.ttf");
+  font-family: "HeaderFont"
+}
+
+@font-face {
+  src: url("/assets/font-form.ttf");
+  font-family: "FormFont";
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -7,6 +17,7 @@
   /* font-family: "MainFont"; */
 }
 
-body {
+html, body {
+  max-width: 100%;
   background-color: #F0F0DF;
 }
