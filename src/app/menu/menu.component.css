@@ -11,6 +11,7 @@
     width: calc(18% - 2px);
     margin-left: calc(1% - 1px);
     margin-right: calc(1% - 1px);
+    border-radius: 2px;
     height: auto;
     z-index: 1;
     background-color: white;

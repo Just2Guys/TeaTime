@@ -64,6 +64,7 @@ header img {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: all 0.2s ease-in;
+  z-index: 4;
 }
 
 #error_message p {
@@ -88,6 +89,7 @@ header img {
   display: none;
   font-family: "FormFont";
   border: 1px solid #00846e;
+  z-index: 3;
 }
 
 #div_reg p, #div_log p {

@@ -131,12 +131,27 @@ export class HeaderComponent implements OnInit {
         this.http.post(Settings.serverLink + "user/register", JSON.stringify({data: this.user}), {headers: headers, withCredentials: true})
         .map((res:Response) => res.json())
         .subscribe(data => {
-          if (data) {
-            this.user.loggedIn = true;
-            this.userService.setUserData(this.user);
-          } else {
-            this.error = "This account is.";
-            this.showErrorMessage();
+          switch (data) {
+            case 0:
+              this.user.loggedIn = true;
+              this.userService.setUserData(this.user);
+              break;
+            case 1:
+              this.error = "Login must be less than 32 symbols.";
+              this.showErrorMessage();
+              break;
+            case 2:
+              this.error = "Name and surname must be less than 32 symbols.";
+              this.showErrorMessage();
+              break;
+            case 3:
+              this.error = "Password must be more than 4 symbols and less than 32 symbols";
+              this.showErrorMessage();
+              break;
+            case 4:
+              this.error = "This login exsist.";
+              this.showErrorMessage();
+              break;
           }
         });
       } else {
