@@ -2,11 +2,18 @@ const router = require ("express").Router ();
 const regAuthClass = new (require ("../components/reg_auth"));
 const orderHelper = new (require ("../components/order"));
 
-
+const events = require ("events");
+let eventEmitter = new events.EventEmitter ();
 
 router.post ('/register', async (req, res) => {
-	typeOfError = regAuthClass.validUserData (req.body.data);
-	userData = await regAuthClass.getUserDataByLogin (req.body.data.login);
+	let typeOfError = 0;
+	let userData = await regAuthClass.getUserDataByLogin (req.body.data.login);
+
+	if (userData) {
+		typeOfError = 4;
+	} else {
+		typeOfError = regAuthClass.validUserData (req.body.data);
+	}
 
 	if (typeOfError == 0 && !userData) {
 		regAuthClass.createNewUser (req.body.data);
@@ -45,20 +52,26 @@ router.get ('/exit', (req, res) => {
 
 router.post ('/makeOrder', async (req, res) => {
 	let orders = req.body.orders;
-	ordersResults = [];
+	let ordersResults = [];
+	let ordersToSend = [];
 
 	for (let order of orders) {
 		let canOrder = await orderHelper.canMakeDish (order);
 
 		if (canOrder == true) {
 			orderHelper.makeOrder (order);
-			ordersResults.push (1)
+			ordersResults.push (1);
+			ordersToSend.push({title: order.title, price: order.price});
 		} else {
 			ordersResults.push (0);
 		}
 	}
 
+	eventEmitter.emit ("order", {structure: ordersResults, place: req.body.place, login: req.body.login});
 	res.json (ordersResults);
 });
 
-module.exports = router;
+module.exports = {
+	router: router,
+	emitter: eventEmitter
+};

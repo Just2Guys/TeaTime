@@ -31,9 +31,15 @@ server.use (session ({secret: "omg test profile of this man!!!", resave: false, 
 server.use (cookieParser ());
 server.use (bodyParser.json ());
 
-server.use ('/user', user);
+server.use ('/user', user.router);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
+
+//in case of order
+user.emitter.on ("order", orders => {
+	//here will be methods
+	console.log (orders);
+});
 
 app.on ("ready", () => {
 	server.listen (config.port);

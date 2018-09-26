@@ -9,8 +9,7 @@ class App extends EventEmitter {
 		super ();
 
 		mongoose.connect (config.dbLink, {useNewUrlParser: true}, err => {
-			if (err) this.emit ("error")
-			else this.emit ("ready");
+			err ? this.emit ("error") : this.emit ("ready");
 		});	
 
 		this._freecars = 10;
@@ -19,14 +18,21 @@ class App extends EventEmitter {
 
 	//check expire time of the all products in "store", if products expired remove them from collection
 	checkExpireTimeProducts () {
+		this.checkExpireTime ();
+
 		setInterval (async () => {
-			let products = await Products.find ();
-			for (let product of products) {
-				if (product.expire - Date.now () < 0) {
-					Products.remove ({_id: product._id}).exec();
-				}
-			}
+			this.checkExpireTime ();
 		}, 3600 * 1000); //every hour
+	}
+
+	async checkExpireTime () {
+		let products = await Products.find ();
+		
+		for (let product of products) {
+			if (product.expire - Date.now () < 0) {
+					Products.remove ({_id: product._id}).exec();
+			}
+		}
 	}
 
 	//update cars cords and then will send it to backend
