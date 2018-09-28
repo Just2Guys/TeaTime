@@ -1,4 +1,4 @@
-export class DishClass {
+export class Dish {
   title: string;
   image: string;
   description: string;

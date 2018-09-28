@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
 
 import { UserService } from '../services/user.service';
-import { DishClass } from '../dish.class';
+import { BasketService } from '../services/basket.service';
+import { Dish } from '../dish.class';
 import { Settings } from '../config';
-import { User } from '../user.class';
+import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -17,7 +18,7 @@ import 'rxjs/add/operator/catch';
 })
 export class MenuComponent implements OnInit {
   user: User;
-  dishes: Array<DishClass> = [
+  dishes: Array<Dish> = [
     {
       title: "soup",
       description: "Just a soup",
@@ -113,7 +114,7 @@ export class MenuComponent implements OnInit {
     // }
   ];
 
-  constructor(private http: Http, private userService: UserService) {}
+  constructor(private http: Http, private userService: UserService, private basketService: BasketService) {}
 
   ngOnInit() {
     this.userService.changeUserData.subscribe(USER => {
@@ -123,6 +124,8 @@ export class MenuComponent implements OnInit {
 
 
   showInfo (id) {
+    document.getElementById("dish_price_" + id).classList.add("dish_price_active");
+    document.getElementById("dish_add_" + id).classList.add("dish_add_active");
     document.getElementById("main_block_" + id).classList.add("main_block_active");
     for (let productId = 0; productId < this.dishes[id].recipe.length; productId++)
       document.getElementById("recipe_" + id + "_" + productId).classList.add("recipe_active");
@@ -130,11 +133,17 @@ export class MenuComponent implements OnInit {
   }
 
   closeInfo (id) {
+    document.getElementById("dish_price_" + id).classList.remove("dish_price_active");
+    document.getElementById("dish_add_" + id).classList.remove("dish_add_active");
     for (let productId = 0; productId < this.dishes[id].recipe.length; productId++)
       document.getElementById("recipe_" + id + "_" + productId).classList.remove("recipe_active");
     setTimeout(() => {
       document.getElementById("main_block_" + id).classList.remove("main_block_active");
     }, 100)
+  }
+
+  addToBasket (dish: Dish) {
+    this.basketService.addToBasket(dish);
   }
 
 }

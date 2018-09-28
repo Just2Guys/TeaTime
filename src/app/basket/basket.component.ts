@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
+
+import { UserService } from '../services/user.service';
+import { BasketService } from '../services/basket.service';
+import { Dish } from '../dish.class';
+import { Settings } from '../config';
+import { User, UserNull } from '../user.class';
+
+import { Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-basket',
@@ -8,10 +19,18 @@ import { Component, OnInit } from '@angular/core';
 export class BasketComponent implements OnInit {
 
   openedBusket: boolean = false;
+  basket: Array<object>;
+  user: User;
 
-  constructor() { }
+  constructor(private http: Http, private userService: UserService, private basketService: BasketService) { }
 
   ngOnInit() {
+    this.userService.changeUserData.subscribe(USER => {
+      this.user = USER;
+    });
+    this.basketService.changeBasket.subscribe(BASKET => {
+      this.basket = BASKET;
+    });
   }
 
   triggerBasket () {
@@ -34,6 +53,22 @@ export class BasketComponent implements OnInit {
         document.getElementById("basket").style.borderWidth = "0px";
       }, 400);
     }
+  }
+
+  addToBasket (dish: Dish) {
+    this.basketService.addToBasket(dish);
+  }
+
+  removeOneDish (dishTitle: string) {
+    this.basketService.removeOneDish(dishTitle);
+  }
+
+  removeFromBasket (dishTitle: string) {
+    this.basketService.removeFromBasket(dishTitle);
+  }
+
+  makeOrder () {
+    alert("soon!");
   }
 
 }

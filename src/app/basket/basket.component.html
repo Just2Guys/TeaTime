@@ -3,4 +3,14 @@
   <div id="stick_2" class="stick"></div>
 </div>
 <div id="basket">
+  <div id="order">
+    <div class="dish" *ngFor="let dish of basket">
+      <p>{{dish.title}} {{dish.count}}
+        <a (click)="removeOneDish(dish.title)"> LESS </a>
+        <a (click)="addToBasket(dish)"> MORE </a>
+        price: {{dish.price}} * {{dish.count}}
+        <a (click)="removeFromBasket(dish.title)"> X </a></p><br>
+    </div>
+  </div>
+  <div id="order_button" (click)="makeOrder()">Make Order!</div>
 </div>
