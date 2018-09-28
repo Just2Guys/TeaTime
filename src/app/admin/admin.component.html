@@ -1,3 +1,13 @@
-<p>
-  admin works!
-</p>
+<div id="header"></div>
+
+<div *ngIf="!user.loggedIn">
+  <p>You are not logged in!</p>
+</div>
+
+<div *ngIf="user.role != 2 && user.loggedIn">
+  <p>You are not admin!</p>
+</div>
+
+<div id="admin_panel" *ngIf="user.role == 2">
+  
+</div>

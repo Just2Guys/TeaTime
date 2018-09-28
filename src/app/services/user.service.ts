@@ -1,10 +1,10 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { User } from '../user.class';
+import { User, UserNull } from '../user.class';
 
 @Injectable()
 export class UserService {
 
-  user: User;
+  user: User = UserNull;
   @Output() changeUserData: EventEmitter<User> = new EventEmitter();
 
   setUserData (USER: User) {

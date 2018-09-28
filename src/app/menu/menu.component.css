@@ -8,18 +8,20 @@
 
   .main_block {
     position: absolute;
-    width: calc(18% - 2px);
-    margin-left: calc(1% - 1px);
-    margin-right: calc(1% - 1px);
-    border-radius: 2px;
+    width: 18%;
+    margin: 0px 1% 0px 1%;
     height: auto;
     z-index: 1;
-    background-color: white;
-    border: 1px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    background-color: #f9f9e8;
+    transition: box-shadow 0.1s ease;
+    cursor: pointer;
+    border-radius: 20px 20px 2px 2px;
   }
 
   .main_block_active {
     z-index: 2;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   }
 
   #header {
@@ -30,9 +32,9 @@
   .dish_img {
     background-size: cover;
     background-position: center center;
-    width: 95%;
-    padding-top: 80%;
-    margin: 2.5%;
+    width: 100%;
+    padding-top: 85%;
+    border-radius: 20px 20px 0px 0px
   }
 
   .dish_title {

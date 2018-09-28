@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { MainComponent } from './main/main.component';
 import { AdminComponent } from './admin/admin.component';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AdminComponent } from './admin/admin.component';
     HeaderComponent,
     MenuComponent,
     MainComponent,
-    AdminComponent
+    AdminComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,10 @@ import { AdminComponent } from './admin/admin.component';
       {
         path: 'menu',
         component: MenuComponent
+      },
+      {
+        path: 'admin',
+        component: AdminComponent
       }
     ])
   ],

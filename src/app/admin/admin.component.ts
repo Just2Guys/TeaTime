@@ -3,7 +3,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { Settings } from '../config';
 import { UserService } from '../services/user.service';
-import { User } from '../user.class';
+import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -18,11 +18,12 @@ import 'rxjs/add/operator/catch';
 
 
 export class AdminComponent implements OnInit {
-  user: User;
+  user: User = UserNull;
 
   constructor(private http: Http, private userService: UserService) { }
 
   ngOnInit() {
+    this.user = this.userService.user;
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
     });
