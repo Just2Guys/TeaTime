@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
-
-import { Settings } from '../config';
-import { UserService } from '../services/user.service';
-import { User, UserNull } from '../user.class';
-
-import { Observable, Subject } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { AdminService } from './admin.service';
+import { RoleService } from '../services/role.service';
 
 
 @Component({
@@ -15,18 +8,53 @@ import 'rxjs/add/operator/catch';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
+export class AdminComponent {
+
+  constructor(private service: AdminService,
+  			  private role: RoleService) {
 
 
-export class AdminComponent implements OnInit {
-  user: User = UserNull;
+  	this.role.getUserData ()
+  	.subscribe (response => {
+  		let loggedIn = this.role.checkData (response);
 
-  constructor(private http: Http, private userService: UserService) { }
-
-  ngOnInit() {
-    this.user = this.userService.user;
-    this.userService.changeUserData.subscribe(USER => {
-      this.user = USER;
-    });
+  		if (loggedIn == true && response.role >= 2) {
+  			this.canPass = true;
+  			this.getProducts ();
+  			this.getUsers ();
+  		}
+  	});
   }
 
+  canPass: boolean = false;
+  products: Array<any> = [];
+  users: Array <any> = [];
+
+  addProduct (name, amount, hours, minutes, seconds) {
+  	this.service.addProduct (name, amount, [hours, minutes, seconds])
+  	.subscribe (response => {
+  		this.products.push ({name: name, value: amount, expire: response});
+  	});
+  }
+
+  getProducts () {
+  	this.service.getProducts ()
+  	.subscribe (response => {
+  		this.products = response;
+  	});
+  }
+
+  getUsers () {
+  	this.service.getUsers ()
+  	.subscribe (response => {
+  		this.users = response;
+  	});
+  }
+
+  changeRole (id, role, index) {
+  	this.service.changeRole (id, role)
+  	.subscribe ();
+
+  	this.users [index].role = role;
+  }
 }

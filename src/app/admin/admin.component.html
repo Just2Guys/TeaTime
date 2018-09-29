@@ -1,13 +1,38 @@
-<div id="header"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<div *ngIf="!user.loggedIn">
-  <p>You are not logged in!</p>
-</div>
 
-<div *ngIf="user.role != 2 && user.loggedIn">
-  <p>You are not admin!</p>
-</div>
+<div *ngIf = "canPass == true" id="container">
+	<div id="products">
+		<div id="product_add">
+			<form (ngSubmit) = "addProduct (this.name, this.amount, this.hours, this.minutes, this.seconds)">
+				<input type = "text" placeholder="Название продукта: " name = "name" [(ngModel)] = "name" autocomplete="off">
+				<input type = "number" placeholder="Кол-во продукта: " name = "amount" [(ngModel)] = "amount" autocomplete="off">
+				<p>Срок годности продукта: </p>
+				<input type = "number" placeholder="ЧЧ:" name = "hours" [(ngModel)] = "hours" autocomplete="off">
+				<input type = "number" placeholder="ММ:" name = "minutes" [(ngModel)] = "minutes" autocomplete="off">
+				<input type = "number" placeholder="CC:" name = "seconds" [(ngModel)] = "seconds" autocomplete="off">
+				<button>Добавить продукт на склад</button>
+			</form>
+		</div>
 
-<div id="admin_panel" *ngIf="user.role == 2">
-  
+		<div id="products_show">
+			<div id="product" *ngFor = "let product of products">
+					<p>ПРОДУКТ: </p>
+					<p id="name">Название: {{product.name}}</p>
+					<p>Кол-во: {{product.value}}</p>
+					<p>Срок годности: {{product.expire}}</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="users">
+		<div id="user" *ngFor = "let user of users; let i = index">
+			<p id = "id">ID: {{user._id}}</p>
+			<p>ROLE: {{user.role}} <span (click) = "changeRole (user._id, 1, i)">Set as driver</span> <span (click) = "changeRole (user._id, 2, i)">Set as admin</span></p>
+		</div>
+	</div>
 </div>

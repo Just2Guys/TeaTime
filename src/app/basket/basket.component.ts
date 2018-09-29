@@ -55,16 +55,16 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  addToBasket (dish: Dish) {
-    this.basketService.addToBasket(dish);
+  addOne (title: string, price: string) {
+    this.basketService.addOne(title, price);
   }
 
-  removeOneDish (dishTitle: string) {
-    this.basketService.removeOneDish(dishTitle);
+  removeOne (title: string) {
+    this.basketService.removeOne(title);
   }
 
-  removeFromBasket (dishTitle: string) {
-    this.basketService.removeFromBasket(dishTitle);
+  removeDish (title: string) {
+    this.basketService.removeDish(title);
   }
 
   makeOrder () {

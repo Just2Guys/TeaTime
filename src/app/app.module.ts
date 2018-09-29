@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 import { UserService } from './services/user.service';
+import { RoleService } from './services/role.service';
 import { BasketService } from './services/basket.service';
+import { AdminService } from './admin/admin.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -44,7 +46,9 @@ import { BasketComponent } from './basket/basket.component';
   ],
   providers: [
     UserService,
-    BasketService
+    RoleService,
+    BasketService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

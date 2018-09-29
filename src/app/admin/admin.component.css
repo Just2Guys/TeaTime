@@ -1,4 +1,105 @@
-#header {
-  margin-bottom: 60px;
-  width: 100%;
+#container  {
+	width: calc(100% - 120px);
+	float: left;
+	margin-left: 60px;
+}
+
+#product_add {
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: #fff;
+	border-radius: 2px;
+	width: 300px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	display: inline-block;
+}
+
+#product_add input {
+	padding: 5px;
+	border-radius: 2px;
+	border: 1px solid #ddd;
+	margin-left: 10px;
+	width: calc(100% - 30px);
+	margin-top: 7.5px;  
+}
+
+#product_add p {
+	margin-top: 5px;
+	margin-left: 10px;
+	color: #00A388;
+}
+
+#product_add button {
+	width: 100%;
+	margin-top: 10px;
+	padding: 10px;
+	cursor: pointer;
+	color: #fff;
+	background-color: #00A388;
+	border: none;
+	font-size: 17px;
+}
+
+#products_show {
+	float: left;
+	width: 30%;
+	height: 245px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
+	overflow-y: scroll;
+	background-color: #fff;	
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#product {
+	padding: 10px;
+	border-top: 1px solid #ddd;
+	font-family: "HeaderFont";
+}
+
+#product p {
+	margin-top: 10px;
+}
+
+#product #name {
+	color :#00A388;
+	font-family: "HeaderFont";
+}
+
+
+#users {
+	width: calc(70% - 340px);
+	background-color: #fff;
+	overflow-y: scroll;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	height: 245px;
+	border-radius: 2px;
+	float: left;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#users #user {
+	padding: 10px;
+	border-top: 1px solid #ddd;
+	font-family: "HeaderFont";
+}
+
+#users #user p span {
+	cursor: pointer;
+	margin-left: 10px;
+	border-bottom:1px solid #000;
+	font-family: sans-serif;
+}
+
+#users #user p span:hover {
+	color: #000;
+	border-bottom: 1px solid #ddd;
+}
+
+#users #user #id {
+	color :#00A388;
+	padding-bottom: 15px;
 }

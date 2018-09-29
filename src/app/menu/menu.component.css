@@ -59,7 +59,7 @@
     padding: 7px;
   }
 
-  .recipe {
+  .recipe, .description {
     font-size: 20px;
     width: 100%;
     display: block;
@@ -74,13 +74,18 @@
     height: 22px;
   }
 
+  .description_active {
+    height: 22px;
+    margin-bottom: 7px;
+  }
+
   .dish_add {
     font-size: 25px;
     padding: 0px 0px 0px 7px;
     height: 0px;
     overflow: hidden;
     z-index: 7;
-    width: 108px;
+    width: 98px;
     white-space: nowrap;
   }
 

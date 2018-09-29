@@ -72,6 +72,13 @@
     font-size: 40px;
   }
 
-
+  .dish {
+    width: 100%;
+    border-bottom: 1px solid black;
+    height: 40px;
+    transition: all 0.3s ease-in-out;
+    background-color: grey;
+    white-space: nowrap;
+  }
 
 }

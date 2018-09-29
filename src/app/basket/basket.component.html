@@ -4,12 +4,12 @@
 </div>
 <div id="basket">
   <div id="order">
-    <div class="dish" *ngFor="let dish of basket">
+    <div *ngFor="let dish of basket; let id = index" id="dish_{{id}}" class="dish">
       <p>{{dish.title}} {{dish.count}}
-        <a (click)="removeOneDish(dish.title)"> LESS </a>
-        <a (click)="addToBasket(dish)"> MORE </a>
+        <a (click)="removeOne(dish.title)"> LESS </a>
+        <a (click)="addOne(dish.title, dish.price)"> MORE </a>
         price: {{dish.price}} * {{dish.count}}
-        <a (click)="removeFromBasket(dish.title)"> X </a></p><br>
+        <a (click)="removeDish(dish.title)"> X </a></p><br>
     </div>
   </div>
   <div id="order_button" (click)="makeOrder()">Make Order!</div>
