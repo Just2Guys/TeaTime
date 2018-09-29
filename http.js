@@ -35,7 +35,7 @@ server.use (bodyParser.json ());
 server.use ('/user', user);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
-server.use ('/driver', driver);
+server.use ('/driver', driver.router);
 
 
 app.on ("ready", () => {
