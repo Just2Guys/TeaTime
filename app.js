@@ -2,6 +2,7 @@ const mongoose = require ("mongoose");
 const EventEmitter = require ("events");
 
 const Products = require ("./models/product");
+const Cars = require ("./models/car");
 
 class App extends EventEmitter {
 	
@@ -11,9 +12,6 @@ class App extends EventEmitter {
 		mongoose.connect (config.dbLink, {useNewUrlParser: true}, err => {
 			err ? this.emit ("error") : this.emit ("ready");
 		});	
-
-		this._freecars = 10;
-		this._carsWithOrders = [];
 	}
 
 	//check expire time of the all products in "store", if products expired remove them from collection
@@ -35,17 +33,27 @@ class App extends EventEmitter {
 		}
 	}
 
-	//update cars cords and then will send it to backend
-	setCordsOfCars (emit) {
-		setInterval (() => {
-			for (let car of this._carsWithOrders) {
-				emit ("carCords", {cords: car.goByWay (), id: car.id});
+
+	updateCarsCords () {
+		setInterval (async () => {
+			let cars = await Cars.find ();
+
+			for (let car of cars) {
+				let cords = updateCarsCords (car._id, car.cords);
+				//socket.emit ("cords", {id: car._id, car.cords});
 			}
+
 		}, 30 * 1000);
 	}
 
-	get amountOfFreeCars () {
-		return this._freecars;
+	upateCarCords (id, cords) {
+		let nextCord = cords [0];
+		Cars.update ({_id: id}, {cords: cords.splice (1, cords.length)}).exec ();
+		return nextCord;
+	}
+
+	async getCars () {
+		return await Cars.find ();
 	}
 }
 

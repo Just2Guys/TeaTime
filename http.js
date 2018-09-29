@@ -11,6 +11,7 @@ let app = new App (config);
 const admin = require ("./routes/admin");
 const user = require ('./routes/user');
 const stock = require ("./routes/stock");
+const driver = require ("./routes/driver");
 
 app.on ("error", () => {
 	console.log ("ERROR: App crashed due to code problem!");
@@ -31,15 +32,11 @@ server.use (session ({secret: "omg test profile of this man!!!", resave: false, 
 server.use (cookieParser ());
 server.use (bodyParser.json ());
 
-server.use ('/user', user.router);
+server.use ('/user', user);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
+server.use ('/driver', driver);
 
-//in case of order
-user.emitter.on ("order", orders => {
-	//here will be methods
-	console.log (orders);
-});
 
 app.on ("ready", () => {
 	server.listen (config.port);

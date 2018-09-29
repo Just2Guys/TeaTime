@@ -11,6 +11,7 @@ let app = new App (config);
 const admin = require ("./routes/admin");
 const user = require ('./routes/user');
 const stock = require ("./routes/stock");
+const driver = require ("./routes/driver");
 
 app.on ("error", () => {
 	console.log ("ERROR: App crashed due to code problem!");
@@ -39,6 +40,8 @@ server.use ((req, res, next) => {
 server.use ('/user', user);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
+server.use ('/driver', driver.router);
+
 
 app.on ("ready", () => {
 	server.listen (config.port);

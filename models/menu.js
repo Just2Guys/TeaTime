@@ -5,7 +5,7 @@ const MenuSchema = new Schema ({
 	title: {type: String, required: true},
 	image: {type: String, required: true},
 	description: {type:String, required: true},
-	recipe: {type: Array, required: true},
+	recipe: {type: Object, required: true},
 	price: {type: Number, require: true}
 });
 

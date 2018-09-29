@@ -7,30 +7,21 @@ for (let i = 0; i < generalMap.length; i++) {
 
 
 class Car {
-
-	constructor (order, destX, destY, id) {
-		this._order = order;
-		
-		this._x = 1;
-		this._y = 1;
-		this._way = [];
-		this._destX = destX;
-		this._destY = destY;
-		this._id = id;
-
-		this.findWay ();
-	}
-
-	findWay () {
+	findWay (destX, destY) {
 		let wave = 0;
 		let nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-		map [this._x][this._y] = wave;
+		map [8][7] = wave;
 
-		while (map [this._destX][this._destY] == -1) {
+		while (map [destX][destY] == -1) {
+			
 			for (let x = 0; x < map.length; x++) {
+				
 				for (let y = 0; y < map [x].length; y++) {
+					
 					if (map [x][y] == wave) {
+						
 						for (let cords of nearByElements) {
+							
 							if (map [x + cords [0]][y + cords [1]] != -1) {
 								continue;
 							}
@@ -44,7 +35,7 @@ class Car {
 			wave++;
 		}
 
-		this.writeWay (this._destX, this._destY);
+		this.writeWay (destX, destY);
 	}
 
 	writeWay (endX, endY) {
@@ -55,8 +46,10 @@ class Car {
 
 		let local_x = endX;
 		let local_y = endY;
+
+		let way = [];
 		
-		this._way.unshift(currentX, currentY);
+		way.unshift(currentX, currentY);
 
 		while (map [currentX][currentY] != 0) {
 
@@ -72,23 +65,10 @@ class Car {
 			currentX = local_x;
 			currentY = local_y;
 
-			this._way.unshift ([currentX, currentY]);
+			way.unshift ([currentX, currentY]);
 		}
 
-
-	}
-
-	get way () {
-		return this._way;
-	}
-
-	get id () {
-		return this._id;
-	}
-
-	goByWay ()	{
-		this._way.splice (0, 1);
-		return this._way;
+		return way;
 	}
 }
 
