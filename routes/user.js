@@ -51,6 +51,12 @@ router.get ('/exit', (req, res) => {
 router.post ('/makeOrder', async (req, res) => {
 	let orderResults = [];
 	let orders = [];
+	let user = await Users.findOne ({password: req.body.pass});
+
+	if (!user) {
+		res.json (false);
+		return false;
+	}
 
 	for (let title of req.body.dishes) {
 		let canOrder = await orderHelper.canMakeDish (title);
@@ -65,7 +71,7 @@ router.post ('/makeOrder', async (req, res) => {
 		orders.push(title);
 	}
 
-	orderHelper.saveOrder (orders, req.body.place, req.body.login);
+	orderHelper.saveOrder (orders, req.body.place, user.login);
 	res.json (orderResults);
 });
 

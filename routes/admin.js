@@ -8,6 +8,7 @@ const Products = require ('../models/product');
 const Dishes = require ('../models/menu');
 
 const roleChecker = require ("../components/role_checker");
+const directory = require ("../components/read_directory");
 
 router.use (async (req, res, next) => {
 
@@ -32,8 +33,12 @@ router.post ('/removeFromMenu', (req, res) => {
 	});
 });
 
-router.post ('/upload', multerSetting.single ("photo"), (req, res) => {
-	res.json (req.file.filename);
+router.post ('/upload', multerSetting.single ("photo"), async (req, res) => {
+	console.log (req.file);
+	let files = await directory.read ();
+	directory.rename (req.file.filename, files.length);
+	res.json (true);
+
 });
 
 router.post ('/addInMenu', (req, res) => {

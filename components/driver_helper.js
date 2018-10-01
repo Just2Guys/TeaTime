@@ -14,7 +14,7 @@ class DriverHelper {
 	async takeOrder (id, userId) {
 		let order = await Orders.findOne ({_id: id});
 		this.takeOrderToDriver (order, userId, )
-		Orders.remove ({_id: id}).exec ();
+		Orders.removeOne ({_id: id}).exec ();
 	}
 
 	takeOrderToDriver (order, userId) {
