@@ -34,17 +34,17 @@ router.post ('/removeFromMenu', (req, res) => {
 });
 
 router.post ('/upload', multerSetting.single ("photo"), async (req, res) => {
-	console.log (req.file);
 	let files = await directory.read ();
 	directory.rename (req.file.filename, files.length);
 	res.json (true);
 
 });
 
-router.post ('/addInMenu', (req, res) => {
+router.post ('/addInMenu', async (req, res) => {
+	let images = await directory.read ();
 	let dish = new Dishes ();
 	dish.title = req.body.title;
-	dish.image = req.body.image;
+	dish.image = images.length;
 	dish.description = req.body.description;
 	dish.recipe = req.body.recipe;
 	dish.price = req.body.price;	

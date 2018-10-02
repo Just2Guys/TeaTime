@@ -13,15 +13,15 @@ class DishHelper {
 
 		let canDo = true;
 
-		for (let component in order.recipe) {
-			let products = await Products.find ({name: component});
+		for (let component of order.recipe) {
+			let products = await Products.find ({name: component.name});
 			let value = 0;
 
 			for (let box of products) {
 				value += box.value;
 			}
 
-			canDo = value >=  order.recipe[component] ? true : false; 
+			canDo = value >= component.value ? true : false; 
 		}
 
 		return canDo;
@@ -31,20 +31,20 @@ class DishHelper {
 	async makeDish (name) {
 		let dish = await Menu.findOne ({title: name});
 
-		for (let component in dish.recipe) {
-			let product = await Products.find ({name: component});
+		for (let component of dish.recipe) {
+			let product = await Products.find ({name: component.name});
 
 			for (let box of product) {
 				if (component.value == 0) {
 					continue;
 				}
 
-				if (box.value <= dish.recipe [component]) {
-					dish.recipe [component] -= box.value;
+				if (box.value <= component.value) {
+					component.value -= box.value;
 					Products.removeOne ({_id: box._id}).exec ();
 				} else {
-					Products.updateOne ({_id: box._id}, {value: box.value - dish.recipe [component]}).exec ();
-					dish.recipe [component] = 0;
+					Products.updateOne ({_id: box._id}, {value: box.value - component.value}).exec ();
+					component.value = 0;
 				}
 			}
 		}

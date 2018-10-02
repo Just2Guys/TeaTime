@@ -5,7 +5,7 @@ const Products = require ("../models/product");
 
 router.get ('/menu', (req, res) => {
 	Menu.find ({}, (err, data) => {
-		err ? console.log (err) : res.json (data);
+		err ? console.log (err) : res.send	(data);
 	});
 });
 

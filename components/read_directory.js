@@ -11,9 +11,8 @@ function read () {
 
 
 function rename (source, filename) {
-	
 	return new Promise ((resolve, reject) => {
-		fs.rename ('./photos/' + source, './photos/' + filename, err => {
+		fs.rename ('./photos/' + source, './photos/' + filename + ".jpg", err => {
 			err ? reject (err) : resolve (true);
 		});
 	});
