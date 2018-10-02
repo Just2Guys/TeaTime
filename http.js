@@ -31,6 +31,7 @@ server.use((req, res, next) => {
 server.use (session ({secret: "omg test profile of this man!!!", resave: false, saveUninitialized: true, cookie: {maxAge: 60 * 60 * 1000}}));
 server.use (cookieParser ());
 server.use (bodyParser.json ());
+server.use ('/assets', express.static (__dirname + "/photos"));
 
 server.use ('/user', user);
 server.use ('/admin', admin);

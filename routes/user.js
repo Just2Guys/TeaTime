@@ -51,7 +51,7 @@ router.get ('/exit', (req, res) => {
 router.post ('/makeOrder', async (req, res) => {
 	let orderResults = [];
 	let orders = [];
-	let user = await Users.findOne ({password: req.body.pass});
+	let user = await regAuthClass.getUserDataByPass (req.session.pass);
 
 	if (!user) {
 		res.json (false);
