@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './admin.service';
 import { RoleService } from '../services/role.service';
+import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { Settings } from '../config';
 
 
 @Component({
@@ -8,7 +10,7 @@ import { RoleService } from '../services/role.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
 
   constructor(private service: AdminService,
   			  private role: RoleService) {
@@ -29,6 +31,23 @@ export class AdminComponent {
   canPass: boolean = false;
   products: Array<any> = [];
   users: Array <any> = [];
+  inputs: Array <any> = [];
+
+  public uploader: FileUploader = new FileUploader({url: Settings.serverLink + 'admin/upload/', itemAlias: 'photo'});
+
+  ngOnInit () {
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
+
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+         console.log('ImageUpload:uploaded:', item, status, response);
+         alert('File uploaded successfully');
+     };
+
+    this.uploader.onBeforeUploadItem = (fileItem: any) => {
+      fileItem.formData.push( { someField: "hekko" } );
+      fileItem.formData.push( { someField2: "ui" } );
+    };
+  }
 
   addProduct (name, amount, hours, minutes, seconds) {
   	this.service.addProduct (name, amount, [hours, minutes, seconds])
@@ -56,5 +75,20 @@ export class AdminComponent {
   	.subscribe ();
 
   	this.users [index].role = role;
+  }
+
+  AddComponent () {
+    this.inputs.push ({name: '', value: 0});
+  }
+
+  clearInputs () {
+    this.inputs = [];
+  }
+
+  addInMenu (title, desc, price) {
+    this.service.addInMenu (title, desc, price, this.inputs)
+    .subscribe (() => {
+      this.clearInputs ();
+    });
   }
 }

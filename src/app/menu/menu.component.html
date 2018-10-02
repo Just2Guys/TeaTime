@@ -2,7 +2,7 @@
 <div id="menu">
   <div class="dish" *ngFor="let dish of dishes; let id = index">
     <div class="main_block" id="main_block_{{id}}" (mouseenter)="showInfo(id)" (mouseleave)="closeInfo(id)">
-      <div class="dish_img" [ngStyle]="{'background-image': 'url(' + dish.image + ')'}"></div>
+      <div class="dish_img" [ngStyle]="{'background-image': 'url(http://localhost:8080/assets/' + dish.image + '.jpg)'}"></div>
       <p class="dish_title">{{dish.title}}</p>
       <p class="description" id="description_{{id}}">{{dish.description}}</p>
       <p class="recipe" *ngFor="let product of dish.recipe; let productId = index" id="recipe_{{id}}_{{productId}}">

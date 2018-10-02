@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { UserService } from './services/user.service';
 import { RoleService } from './services/role.service';
@@ -23,7 +24,8 @@ import { BasketComponent } from './basket/basket.component';
     MenuComponent,
     MainComponent,
     AdminComponent,
-    BasketComponent
+    BasketComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

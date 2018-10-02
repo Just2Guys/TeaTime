@@ -45,4 +45,19 @@ export class AdminService {
   		return this.http.post (Settings.serverLink + "admin/setRole", data, {headers: headers, withCredentials: true})
   		.map ((res: Response) =>  res.json ());
   	}
+
+
+    addInMenu (title, desc, price, inputs) {
+
+      let data = JSON.stringify ({
+        title: title,
+        description: desc,
+        price: price,
+        recipe: inputs
+      });
+
+      let headers = new Headers ({'Content-type': 'application/json'});
+      return this.http.post (Settings.serverLink + "admin/addInMenu", data, {headers: headers, withCredentials: true})
+      .map ((res: Response) => res.json ());
+    } 
 }	
