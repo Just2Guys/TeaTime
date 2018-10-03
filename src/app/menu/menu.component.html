@@ -9,8 +9,12 @@
         {{product.name}}: {{product.value}}<br>
       </p>
       <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}</p>
-      <p class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)">To basket</p>
+      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)">To basket</div>
     </div>
+  </div>
+  <div id="loadButton">
+    <button id="enableLoad" (click)="loadMenu()">Load More</button>
+    <div id="disableLoad">Nothing to Load</div>
   </div>
 </div>
 <app-basket></app-basket>

@@ -38,10 +38,10 @@ export class BasketComponent implements OnInit {
       this.openedBusket = true;
       document.getElementById("stick_1").style.transform = "rotate3d(-1, -2.4, 0, 180deg)";
       document.getElementById("stick_2").style.transform = "rotate3d(-1, 2.4, 0, 180deg)";
-      document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
       document.getElementById("basket_button").style.right = "400px";
+      document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
       document.getElementById("basket").style.width = "400px";
-      document.getElementById("basket").style.borderWidth = "1px 0px 1px 1px";
+      document.getElementById("basket").style.boxShadow = "0px 0px 2px rgba(0,0,0,0.5)";
     } else {
       this.openedBusket = false;
       document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
@@ -49,9 +49,7 @@ export class BasketComponent implements OnInit {
       document.getElementById("basket_button").style.borderRadius = "30px 0px 0px 30px";
       document.getElementById("basket_button").style.right = "0px";
       document.getElementById("basket").style.width = "0px";
-      setTimeout(() => {
-        document.getElementById("basket").style.borderWidth = "0px";
-      }, 400);
+      document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
     }
   }
 

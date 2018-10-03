@@ -1,6 +1,6 @@
 <header>
   <img src="../assets/logo.png">
-  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!user.loggedIn">
+  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!user.loggedIn" routerLink="">
     {{mainText[0]}}
   </a>
   <a nohref id='log_button' class="header_button" (click)="openAppBar('log')" *ngIf="!user.loggedIn">
@@ -25,7 +25,7 @@
 </div>
 
 <div id="user_bar" *ngIf="user.loggedIn">
-  <a nohref id="profile_button" class="bar_button">
+  <a nohref id="profile_button" class="bar_button" routerLink="profile" (click)=triggerUserButtonBar()>
     Profile
   </a><br>
   <a nohref id="exit_button" class="bar_button" (click)="accountExit()">

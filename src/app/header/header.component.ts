@@ -15,14 +15,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user: User = {
-    role: 0,
-    login: '',
-    name: '',
-    surname: '',
-    password: '',
-    loggedIn: false
-  }
+  user: User = UserNull;
 
   mainText = [
     "Регистрация",
@@ -48,16 +41,7 @@ export class HeaderComponent implements OnInit {
   constructor(private http: Http, private userService: UserService) { }
 
   ngOnInit() {
-    this.http.get (Settings.serverLink + "user/info", {withCredentials: true})
-    .map ((res:Response) => res.json ())
-    .subscribe (data => {
-
-      if (typeof data === "boolean") {
-        return false;
-      }
-
-      this.successedLogIn (data);
-    });
+    this.userService.getUserData();
 
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
@@ -133,7 +117,6 @@ export class HeaderComponent implements OnInit {
         .subscribe(data => {
           switch (data) {
             case 0:
-              this.user.loggedIn = true;
               this.userService.setUserData(this.user);
               break;
             case 1:
@@ -162,7 +145,7 @@ export class HeaderComponent implements OnInit {
               this.error = "Incorrect login or password.";
               this.showErrorMessage();
             } else
-              this.successedLogIn(data);
+              this.userService.setUserData(data);
           });
       }
     } else {
@@ -176,9 +159,9 @@ export class HeaderComponent implements OnInit {
     .subscribe(data => {
       if (data) {
         this.userBarOpened = false;
-        this.userService.setUserData(UserNull);
+        this.userService.clearUserData();
       } else
-        alert("Unable to exit!");
+        alert("Exit error!");
     });
   }
 

@@ -19,6 +19,7 @@ import 'rxjs/add/operator/catch';
 export class MenuComponent implements OnInit {
   user: User;
   dishes: Array<Dish> = [];
+  menuIndex: number = 0;
 
   constructor(private http: Http, private userService: UserService, private basketService: BasketService) {}
 
@@ -27,9 +28,21 @@ export class MenuComponent implements OnInit {
       this.user = USER;
     });
 
-    this.http.get (Settings.serverLink + "stock/menu")
+    this.loadMenu();
+  }
+
+  loadMenu () {
+    this.http.get (Settings.serverLink + "stock/menu/" + this.menuIndex)
     .map ((res: Response) => res.json ())
-    .subscribe (response => this.dishes = response);
+    .subscribe (response => {
+      if (response.length == 0) {
+        document.getElementById("enableLoad").style.transform = "translateY(-50px)";
+        document.getElementById("disableLoad").style.transform = "translateY(-50px)";
+      } else {
+        this.dishes = this.dishes.concat(response);
+        this.menuIndex++;
+      }
+    });
   }
 
 
@@ -49,9 +62,7 @@ export class MenuComponent implements OnInit {
     document.getElementById("description_" + id).classList.remove("description_active");
     for (let productId = 0; productId < this.dishes[id].recipe.length; productId++)
       document.getElementById("recipe_" + id + "_" + productId).classList.remove("recipe_active");
-    setTimeout(() => {
-      document.getElementById("main_block_" + id).classList.remove("main_block_active");
-    }, 100)
+    document.getElementById("main_block_" + id).classList.remove("main_block_active");
   }
 
   addOne (title: string, price: string) {

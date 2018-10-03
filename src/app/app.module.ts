@@ -16,6 +16,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MainComponent } from './main/main.component';
 import { AdminComponent } from './admin/admin.component';
 import { BasketComponent } from './basket/basket.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BasketComponent } from './basket/basket.component';
     MainComponent,
     AdminComponent,
     BasketComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,10 @@ import { BasketComponent } from './basket/basket.component';
       {
         path: 'admin',
         component: AdminComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ])
   ],

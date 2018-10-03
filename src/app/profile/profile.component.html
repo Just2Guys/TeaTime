@@ -1,0 +1,25 @@
+<div id="header"></div>
+
+
+
+<div *ngIf="user.loggedIn">
+
+<div *ngIf="user.role == 0">USER INFO</div>
+<div *ngIf="user.role == 1">DRIVER INFO</div>
+<div *ngIf="user.role == 2">ADMIN INFO</div>
+<div>Name: {{user.name}}</div><br>
+<div>Surname: {{user.surname}}</div><br>
+<button>Change name/surname</button>
+<div>Login: {{user.login}}</div><br>
+<button>Change password</button>
+<button>Change login</button>
+
+</div>
+
+
+
+<div *ngIf="!user.loggedIn">
+
+<div>You are not loggeed in!</div>
+
+</div>
