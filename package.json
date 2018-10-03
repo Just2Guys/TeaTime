@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "sudo service mongod start; sleep 3; node test.js",
-    "start": "sudo service mongod start; sleep 3; node http.js"
+    "test": "node test.js",
+    "start": "node http.js"
   },
   "author": "",
   "license": "ISC",
