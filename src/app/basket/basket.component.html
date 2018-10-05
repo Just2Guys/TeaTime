@@ -1,8 +1,8 @@
-<div id="basket_button" (click)="triggerBasket()">
+<div id="basket_button" (click)="triggerBasket()" *ngIf="user.loggedIn">
   <div id="stick_1" class="stick"></div>
   <div id="stick_2" class="stick"></div>
 </div>
-<div id="basket">
+<div id="basket" *ngIf="user.loggedIn">
   <div id="order">
     <div *ngFor="let dish of basket; let id = index" id="dish_{{id}}" class="dish">
       <p>{{dish.title}} {{dish.count}}
@@ -12,5 +12,21 @@
         <a (click)="removeDish(dish.title)"> X </a></p><br>
     </div>
   </div>
-  <div id="order_button" (click)="makeOrder()">Make Order!</div>
+  <div id="order_button" (click)="showLastStep()">Make Order!</div>
+
 </div>
+
+<div id="last_step" *ngIf="user.loggedIn">
+  <p>Where do u live?</p>
+  <div id="cross" (click)="closeLastStep()">
+    <div id="cross_1"></div>
+    <div id="cross_2"></div>
+  </div>
+  <div id="map">
+    <div *ngFor="let y of mapSizeY" class="line">
+      <div *ngFor="let x of mapSizeX" class="button" (click)="sendCoordinates(x, y)" id="button_{{x}}_{{y}}"></div>
+    </div>
+  </div>
+  <button id="button_submit">Make Order!</button>
+</div>
+<div id="last_step_background" *ngIf="user.loggedIn" (click)="closeLastStep()"></div>

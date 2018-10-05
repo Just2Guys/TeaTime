@@ -1,5 +1,9 @@
 @media all and (orientation: landscape) {
 
+  * {
+    font-family: "MainFont";
+  }
+
   .dish {
     width: 20%;
     float: left;
@@ -78,8 +82,8 @@
   }
 
   .description_active {
-    height: 22px;
-    margin-bottom: 7px;
+    height: 24px;
+    margin-bottom: 5px;
   }
 
   .dish_add {
@@ -116,7 +120,7 @@
     height: 50px;
     transition: all 0.2s ease-out;
     text-align: center;
-    font-size: 35px;
+    font-size: 40px;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
     border: none;
   }

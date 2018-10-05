@@ -9,7 +9,7 @@
         {{product.name}}: {{product.value}}<br>
       </p>
       <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}</p>
-      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)">To basket</div>
+      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">To basket</div>
     </div>
   </div>
   <div id="loadButton">

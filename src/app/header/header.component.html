@@ -1,6 +1,6 @@
 <header>
   <img src="../assets/logo.png">
-  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!user.loggedIn" routerLink="">
+  <a nohref id='reg_button' class="header_button" (click)="openAppBar('reg')" *ngIf="!user.loggedIn">
     {{mainText[0]}}
   </a>
   <a nohref id='log_button' class="header_button" (click)="openAppBar('log')" *ngIf="!user.loggedIn">

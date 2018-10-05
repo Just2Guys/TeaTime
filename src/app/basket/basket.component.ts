@@ -18,13 +18,17 @@ import 'rxjs/add/operator/catch';
 })
 export class BasketComponent implements OnInit {
 
+  mapSizeX: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  mapSizeY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
   openedBusket: boolean = false;
   basket: Array<object>;
-  user: User;
+  user: User = UserNull;
 
   constructor(private http: Http, private userService: UserService, private basketService: BasketService) { }
 
   ngOnInit() {
+    this.userService.getUserData();
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
     });
@@ -65,8 +69,33 @@ export class BasketComponent implements OnInit {
     this.basketService.removeDish(title);
   }
 
-  makeOrder () {
-    alert("soon!");
+  showLastStep () {
+    document.getElementById("last_step").style.display = "block";
+    document.getElementById("last_step_background").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("last_step").style.transform = "translate(-50%, -50%)";
+      setTimeout(() => {
+        document.getElementById("last_step").style.opacity = "1";
+        document.getElementById("last_step_background").style.opacity = "1";
+      }, 150);
+    }, 1);
+  }
+
+  closeLastStep () {
+    document.getElementById("last_step").style.transform = "translate(-50%, calc(-50% - 250px))";
+    document.getElementById("last_step").style.opacity = "0";
+    document.getElementById("last_step_background").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("last_step").style.display = "none";
+      document.getElementById("last_step_background").style.display = "none";
+    }, 300);
+  }
+
+  sendCoordinates (x: number, y: number) {
+    for (let i = 0; i < document.getElementsByClassName("button_active").length; i++) {
+      document.getElementsByClassName("button_active")[i].classList.remove("button_active");
+    }
+    document.getElementById("button_" + x + "_" + y).classList.add("button_active");
   }
 
 }

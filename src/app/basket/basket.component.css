@@ -1,5 +1,9 @@
 @media all and (orientation: landscape) {
 
+  * {
+    font-family: "MainFont";
+  }
+
   #basket_button {
     width: 30px;
     height: 60px;
@@ -78,6 +82,118 @@
     transition: all 0.3s ease-in-out;
     background-color: grey;
     white-space: nowrap;
+  }
+
+
+
+  #last_step {
+    background-color: #ddd;
+    height: calc(100vh - 135px);
+    width: calc(100vh - 220px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% - 250px));
+    opacity: 0;
+    z-index: 7;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease-in-out;
+    display: none;
+  }
+
+  .last_step_active {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  #last_step p {
+    text-align: center;
+    font-size: 30px;
+  }
+
+  #cross {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  #cross_1, #cross_2 {
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background-color: #000;
+    top: 50%;
+  }
+
+  #cross_1 {
+    transform: rotate(45deg);
+
+  }
+
+  #cross_2 {
+    transform: rotate(-45deg);
+  }
+
+  #last_step_background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    opacity: 0;
+    display: none;
+    transition: all 0.3s ease-in-out;
+    z-index: 6;
+  }
+
+  #map {
+    width: 100%;
+    height: calc(100% - 85px);
+    background-image: url("/assets/map.jpg");
+    background-size: cover;
+  }
+
+  .line {
+    width: 100%;
+    height: 6.25%;
+  }
+
+  .button {
+    width: 6.25%;
+    height: 100%;
+    float: left;
+    transition: all 0.05s ease-in-out;
+  }
+
+  .button:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .button_active {
+    width: calc(6.25% - 2px);
+    height: calc(100% - 2px);
+    border: 1px solid red;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  #button_submit {
+    font-size: 35px;
+    border: none;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    background-color: #00A388;
+    transition: all 0.2s ease-in-out;
+  }
+
+  #button_submit:hover {
+    background-color: #FF6138;
+    color: #fff;
   }
 
 }
