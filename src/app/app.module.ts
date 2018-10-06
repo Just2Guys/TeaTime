@@ -45,10 +45,6 @@ import { ProfileComponent } from './profile/profile.component';
       {
         path: 'admin',
         component: AdminComponent
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent
       }
     ])
   ],

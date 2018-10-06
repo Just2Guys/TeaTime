@@ -25,7 +25,7 @@
 </div>
 
 <div id="user_bar" *ngIf="user.loggedIn">
-  <a nohref id="profile_button" class="bar_button" routerLink="profile" (click)=triggerUserButtonBar()>
+  <a nohref id="profile_button" class="bar_button" (click)="openProfile()">
     Profile
   </a><br>
   <a nohref id="exit_button" class="bar_button" (click)="accountExit()">
@@ -70,3 +70,13 @@
     <div id="log_cross_1"></div>
   </div>
 </div>
+
+<div id="profile" *ngIf="user.loggedIn">
+  <app-profile></app-profile>
+  <div id="cross" (click)="closeProfile()">
+    <div id="cross_1"></div>
+    <div id="cross_2"></div>
+  </div>
+</div>
+
+<div id="profile_background" (click)="closeProfile()" *ngIf="user.loggedIn"></div>

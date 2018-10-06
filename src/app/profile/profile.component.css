@@ -1,8 +1,67 @@
 @media all and (orientation: landscape) {
 
-  #header {
-    height: 60px;
-    width: 100%;
+
+
+  * {
+    font-family: "MainFont";
   }
+
+  #p_profile {
+    width: 229px;
+    font-size: 38px;
+    text-align: center;
+  }
+
+  .title {
+    margin: calc(50vh - 310px) 0px 35px 0px;
+    width: 229px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .text {
+    width: 229px;
+    font-size: 27px;
+    text-align: left;
+  }
+
+  button {
+    width: 229px;
+    height: 34px;
+    border: none;
+    background-color: #00A388;
+    text-align: center;
+    font-size: 25px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 50px;
+    margin-right: calc(100vh - 249px);
+  }
+
+  button:hover {
+    background-color: #FF6138;
+    color: #fff;
+  }
+
+  #map_p {
+    position: absolute;
+    width: calc(100vh - 249px);
+    top: 0px;
+    right: 0px;
+    font-size: 38px;
+    text-align: center;
+  }
+
+  #map {
+    height: calc(100% - 49px);
+    width: calc(100vh - 249px);
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    background-image: url("/../../assets/map.jpg");
+    background-size: cover;
+  }
+
+
 
 }

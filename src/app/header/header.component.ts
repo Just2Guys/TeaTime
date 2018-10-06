@@ -165,6 +165,29 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  openProfile () {
+    this.triggerUserButtonBar();
+    document.getElementById("profile").style.display = "block";
+    document.getElementById("profile_background").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("profile").style.top = "50%";
+      setTimeout(() => {
+        document.getElementById("profile").style.opacity = "1";
+        document.getElementById("profile_background").style.opacity = "1";
+      }, 150);
+    }, 1);
+  }
+
+  closeProfile () {
+    document.getElementById("profile").style.top = "calc(50% - 250px)";
+    document.getElementById("profile").style.opacity = "0";
+    document.getElementById("profile_background").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("profile").style.display = "none";
+      document.getElementById("profile_background").style.display = "none";
+    }, 300);
+  }
+
 
   showErrorMessage () {
     document.getElementById("error_message").style.display = "block";

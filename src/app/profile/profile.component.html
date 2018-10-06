@@ -1,25 +1,21 @@
-<div id="header"></div>
 
+<div>
 
+<p id="p_profile">PROFILE</p>
 
-<div *ngIf="user.loggedIn">
-
-<div *ngIf="user.role == 0">USER INFO</div>
-<div *ngIf="user.role == 1">DRIVER INFO</div>
-<div *ngIf="user.role == 2">ADMIN INFO</div>
-<div>Name: {{user.name}}</div><br>
-<div>Surname: {{user.surname}}</div><br>
+<div *ngIf="user.role == 0" class="title">USER INFO</div>
+<div *ngIf="user.role == 1" class="title">DRIVER INFO</div>
+<div *ngIf="user.role == 2" class="title">ADMIN INFO</div>
+<div class="text">Name: {{user.name}}</div>
+<div class="text">Surname: {{user.surname}}</div>
 <button>Change name/surname</button>
-<div>Login: {{user.login}}</div><br>
+<div class="text">Login: {{user.login}}</div>
 <button>Change password</button>
-<button>Change login</button>
 
+
+
+<p id="map_p">Your Order</p>
+<div id="map">
 </div>
-
-
-
-<div *ngIf="!user.loggedIn">
-
-<div>You are not loggeed in!</div>
 
 </div>
