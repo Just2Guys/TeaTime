@@ -28,32 +28,32 @@ class App extends EventEmitter {
 		
 		for (let product of products) {
 			if (product.expire - Date.now () < 0) {
-					Products.remove ({_id: product._id}).exec();
+					Products.deleteOne ({_id: product._id}).exec();
 			}
 		}
 	}
 
 
-	updateCarsCords () {
+	updateCarsCords (io) {
 		setInterval (async () => {
+
 			let cars = await Cars.find ();
 
 			for (let car of cars) {
-				let cords = updateCarsCords (car._id, car.cords);
-				//socket.emit ("cords", {id: car._id, car.cords});
+				
+				let nextCords = car.cords [0];
+				let updated_cords = car.cords.splice (1, car.cords.length);
+
+				if (updated_cords.length == 0) {
+					Cars.deleteOne ({_id: car._id}).exec ();
+				} else {
+					Cars.updateOne ({_id: car._id}, {$set: {cords: updated_cords}}).exec ();
+				}
+
+				//io.emit ("cords", {id: car._id, nextCords: cords, login: car.order.login});
 			}
 
 		}, 30 * 1000);
-	}
-
-	upateCarCords (id, cords) {
-		let nextCord = cords [0];
-		Cars.update ({_id: id}, {cords: cords.splice (1, cords.length)}).exec ();
-		return nextCord;
-	}
-
-	async getCars () {
-		return await Cars.find ();
 	}
 }
 

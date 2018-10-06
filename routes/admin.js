@@ -6,20 +6,27 @@ const multerSetting = multer ({dest: 'photos/'});
 const Users = require ('../models/user');
 const Products = require ('../models/product');
 const Dishes = require ('../models/menu');
+const Cars = require ("../models/car");
 
 const roleChecker = require ("../components/role_checker");
 const directory = require ("../components/read_directory");
 
 router.use (async (req, res, next) => {
 
-	if (!req.session.pass) {
+	if (!req.session.pass && !req.session.test) {
 		res.json (false);
 		return false;
 	} 
 
-	await roleChecker (2, req.session.pass) == true ? next () : res.json (false);
+	await roleChecker (2, req.session.pass, req.session.test) == true ? next () : res.json (false);
 });
 
+
+router.get ('/cars', (req, res) => {
+	Cars.find ({}, (err, data) => {
+		err ? console.log (err) : res.json (data);
+	});
+});
 
 router.get ('/users', (req, res) => {
 	Users.find ({role: {$lt: 2}}, (err, data) => {

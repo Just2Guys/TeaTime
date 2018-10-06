@@ -2,24 +2,24 @@ const Cars = require ("../models/car");
 const Orders = require ("../models/order"); 
 const config = require ("../config");
 
-const Car = require ("./car");
+const Car = new (require ("./car"));
 
 class DriverHelper {
 
 	async canTakeOrder () {
 		let carsOnRoad = await Cars.find ();
-		return config.freeCars > carsOnRoad;
+		return config.cars > carsOnRoad;
 	}
 
 	async takeOrder (id, userId) {
 		let order = await Orders.findOne ({_id: id});
-		this.takeOrderToDriver (order, userId, )
-		Orders.removeOne ({_id: id}).exec ();
+		this.takeOrderToDriver (order, userId)
+		Orders.deleteOne ({_id: id});
 	}
 
 	takeOrderToDriver (order, userId) {
 		let car = new Cars ();
-		let way = Car.findWay (order.place.x, order.place.y);
+		let way = Car.findWay (order.place [0], order.place [1]);
 
 		car.userId = userId;
 		car.cords = way;

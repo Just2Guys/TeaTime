@@ -48,6 +48,16 @@ router.get ('/exit', (req, res) => {
 	res.json (true);
 });
 
+router.post ('/updateData', async (req, res) => {
+	if (!req.session.pass) {
+		res.json (false);
+		return false;
+	}
+
+	regAuthClass.updateData (req.session.pass, req.body.data);
+	res.json (true);
+});
+
 router.post ('/makeOrder', async (req, res) => {
 	let orderResults = [];
 	let orders = [];
@@ -72,6 +82,34 @@ router.post ('/makeOrder', async (req, res) => {
 	}
 
 	orderHelper.saveOrder (orders, req.body.place, user.login);
+	res.json (orderResults);
+});
+
+
+router.get ('/test', async (req, res) => {
+	let orderResults = [];
+	let orders = [];
+	let user = await regAuthClass.getUserDataByPass (req.session.pass);
+
+	if (!user) {
+		res.json (false);
+		return false;
+	}
+
+	for (let title of ['1488', '1488']) {
+		let canOrder = await orderHelper.canMakeDish (title);
+
+		if (canOrder == false) {
+			orderResults.push (0);
+			continue;
+		}
+
+		orderHelper.makeDish (title);
+		orderResults.push (1);
+		orders.push(title);
+	}
+
+	orderHelper.saveOrder (orders, [2, 2], user.login);
 	res.json (orderResults);
 });
 

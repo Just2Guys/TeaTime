@@ -48,6 +48,10 @@ class reg_auth {
 			return false;
 		}
 	}
+
+	updateData (password, data) {
+		User.updateOne ({password: password}, {'$set': data}).exec ();
+	}
 };
 
 

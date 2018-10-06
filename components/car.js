@@ -1,4 +1,5 @@
 const generalMap = require ("../map");
+const config = require ("../config");
 let map = [];
 
 for (let i = 0; i < generalMap.length; i++) {
@@ -8,9 +9,16 @@ for (let i = 0; i < generalMap.length; i++) {
 
 class Car {
 	findWay (destX, destY) {
+		if (map [destX][destY] != -8) {
+			return false;
+		}
+
+		//pointing house as road
+		map [destX][destY] = -1;
+
 		let wave = 0;
 		let nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-		map [8][7] = wave;
+		map [config.cords [0]][config.cords [1]] = wave;
 
 		while (map [destX][destY] == -1) {
 			
@@ -35,7 +43,7 @@ class Car {
 			wave++;
 		}
 
-		this.writeWay (destX, destY);
+		return this.writeWay (destX, destY);
 	}
 
 	writeWay (endX, endY) {
@@ -49,8 +57,6 @@ class Car {
 
 		let way = [];
 		
-		way.unshift(currentX, currentY);
-
 		while (map [currentX][currentY] != 0) {
 
 			for (let cords of nearByElements) {
@@ -68,7 +74,16 @@ class Car {
 			way.unshift ([currentX, currentY]);
 		}
 
-		return way;
+		let way_clone = [];
+
+		for  (let i = 0; i < way.length; i++) {
+			way_clone [i] = way [i].slice ();
+		}
+
+		let reversed = way_clone.reverse ();
+		let all_way = way.concat (reversed);
+
+		return all_way;
 	}
 }
 

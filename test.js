@@ -19,6 +19,16 @@ app.on ("error", () => {
 });
 
 const server = express ();
+const httpServer = require ("http").createServer (server);
+const io = require ("socket.io")(httpServer);
+
+io.on ("connection", socket => {
+	socket.on("init", () => console.log("user connected"));
+});
+
+io.on ("error", error => console.log (error));
+
+app.updateCarsCords (io);
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', "http://localhost:4200");
@@ -34,7 +44,7 @@ server.use (bodyParser.json ());
 server.use ('/assets', express.static (__dirname + "/photos"));
 
 server.use ((req, res, next) => {
-	req.session.pass = "14f6d85af3427dff65d28c282cd9be05";
+	req.session.test = "14f6d85af3427dff65d28c282cd9be05";
 	next ();
 });
 
@@ -43,9 +53,9 @@ server.use ('/admin', admin);
 server.use ('/stock', stock);
 server.use ('/driver', driver.router);
 
+httpServer.listen (config.port);
 
 app.on ("ready", () => {
-	server.listen (config.port);
 	console.log ("server listened on port:", config.port);
 	app.checkExpireTimeProducts ();
 });

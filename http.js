@@ -19,6 +19,10 @@ app.on ("error", () => {
 });
 
 const server = express ();
+const httpServer = require ("http").createServer (server);
+const io = require ("socket.io")(httpServer);
+
+app.updateCarsCords (io);
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', config.clientUrl);
@@ -40,7 +44,7 @@ server.use ('/driver', driver.router);
 
 
 app.on ("ready", () => {
-	server.listen (config.port);
+	httpServer.listen (config.port);
 	console.log ("server listened on port:", config.port);
 	app.checkExpireTimeProducts ();
 });
