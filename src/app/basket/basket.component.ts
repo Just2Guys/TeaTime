@@ -11,19 +11,31 @@ import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+class BasketDish {
+  title: string;
+  price: string;
+  count: number;
+}
+
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.css']
 })
+
 export class BasketComponent implements OnInit {
 
   mapSizeX: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   mapSizeY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
+  houseX: number = 0;
+  houseY: number = 0;
+
   openedBusket: boolean = false;
-  basket: Array<object>;
+  basket: Array<BasketDish>;
   user: User = UserNull;
+
+  httpHeaders: any;
 
   constructor(private http: Http, private userService: UserService, private basketService: BasketService) { }
 
@@ -32,9 +44,12 @@ export class BasketComponent implements OnInit {
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
     });
+
     this.basketService.changeBasket.subscribe(BASKET => {
       this.basket = BASKET;
     });
+
+    this.httpHeaders = new Headers({ 'Content-Type': 'application/json' });
   }
 
   triggerBasket () {
@@ -70,6 +85,10 @@ export class BasketComponent implements OnInit {
   }
 
   showLastStep () {
+    if (this.basket == undefined) {
+      alert("Choose what to order!");
+      return;
+    }
     document.getElementById("last_step").style.display = "block";
     document.getElementById("last_step_background").style.display = "block";
     setTimeout(() => {
@@ -91,11 +110,31 @@ export class BasketComponent implements OnInit {
     }, 300);
   }
 
-  sendCoordinates (x: number, y: number) {
+  setCoordinates (x: number, y: number) {
     for (let i = 0; i < document.getElementsByClassName("button_active").length; i++) {
       document.getElementsByClassName("button_active")[i].classList.remove("button_active");
     }
     document.getElementById("button_" + x + "_" + y).classList.add("button_active");
+    this.houseX = x;
+    this.houseY = y;
+  }
+
+  makeOrder () {
+    if (this.houseX == 0 || this.houseY == 0) {
+      alert("Click on place where do u live!");
+      return
+    }
+    let dishes = [];
+    for (let i = 0; i < this.basket.length; i++) {
+      for (let n = 0; n < this.basket[i].count; n++) {
+        dishes.push(this.basket[i].title);
+      }
+    }
+    this.http.post(Settings.serverLink + "user/makeOrder", JSON.stringify({dishes: dishes, place: [this.houseX, this.houseY]}), {headers: this.httpHeaders, withCredentials: true})
+    .map((res:Response) => res.json())
+    .subscribe(data => {
+
+    });
   }
 
 }

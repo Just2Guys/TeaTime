@@ -17,7 +17,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  user: User;
+  user: User = UserNull;
   dishes: Array<Dish> = [];
   menuIndex: number = 0;
 
