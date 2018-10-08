@@ -13,12 +13,12 @@ const directory = require ("../components/read_directory");
 
 router.use (async (req, res, next) => {
 
-	if (!req.session.pass && !req.session.test) {
+	if (!req.session.pass) {
 		res.json (false);
 		return false;
 	} 
 
-	await roleChecker (2, req.session.pass, req.session.test) == true ? next () : res.json (false);
+	await roleChecker (2, req.session.pass) == true ? next () : res.json (false);
 });
 
 

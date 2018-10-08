@@ -9,10 +9,6 @@ for (let i = 0; i < generalMap.length; i++) {
 
 class Car {
 	findWay (destX, destY) {
-		if (map [destX][destY] != -8) {
-			return false;
-		}
-
 		//pointing house as road
 		map [destX][destY] = -1;
 

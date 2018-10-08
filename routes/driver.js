@@ -12,12 +12,12 @@ const events = require ("events");
 
 
 router.use (async (req, res, next) => {
-	if (!req.session.pass && !req.session.test) {
+	if (!req.session.pass) {
 		res.json (false);
 		return false;
 	} 
 
-	await roleChecker (1, req.session.pass, req.session.test) == true ? next () : res.json (false);
+	await roleChecker (1, req.session.pass) == true ? next () : res.json (false);
 });
 
 router.get ('/orders', (req, res) => {

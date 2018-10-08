@@ -59,8 +59,7 @@ router.post ('/updateData', async (req, res) => {
 });
 
 router.post ('/makeOrder', async (req, res) => {
-	let orderResults = [];
-	let orders = [];
+	let checkResults = [];
 	let user = await regAuthClass.getUserDataByPass (req.session.pass);
 
 	if (!user) {
@@ -72,44 +71,22 @@ router.post ('/makeOrder', async (req, res) => {
 		let canOrder = await orderHelper.canMakeDish (title);
 
 		if (canOrder == false) {
-			orderResults.push (0);
-			continue;
-		}
-
-		orderHelper.makeDish (title);
-		orderResults.push (1);
-		orders.push(title);
+			checkResults.push (title);
+		}		
 	}
 
-	orderHelper.saveOrder (orders, req.body.place, user.login);
-	res.json (orderResults);
-});
 
-
-router.get ('/test', async (req, res) => {
-	let orderResults = [];
-	let orders = [];
-	let user = await regAuthClass.getUserDataByPass (req.session.pass);
-
-	if (!user) {
-		res.json (false);
+	if (checkResults.length != 0) {
+		res.json (checkResults);
 		return false;
 	}
 
-	for (let title of ['1488', '1488']) {
-		let canOrder = await orderHelper.canMakeDish (title);
-
-		if (canOrder == false) {
-			orderResults.push (0);
-			continue;
-		}
-
+	for (let title of req.body.dishes) {
 		orderHelper.makeDish (title);
-		orderResults.push (1);
-		orders.push(title);
 	}
 
-	orderHelper.saveOrder (orders, [2, 2], user.login);
+
+	orderHelper.saveOrder (req.body.dishes, req.body.place, user.login);
 	res.json (orderResults);
 });
 

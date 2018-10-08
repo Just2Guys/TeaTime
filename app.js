@@ -40,7 +40,6 @@ class App extends EventEmitter {
 			let cars = await Cars.find ();
 
 			for (let car of cars) {
-				
 				let nextCords = car.cords [0];
 				let updated_cords = car.cords.splice (1, car.cords.length);
 
@@ -50,7 +49,7 @@ class App extends EventEmitter {
 					Cars.updateOne ({_id: car._id}, {$set: {cords: updated_cords}}).exec ();
 				}
 
-				//io.emit ("cords", {id: car._id, nextCords: cords, login: car.order.login});
+				io.emit ("cords", {id: car._id, nextCords: nextCords, login: car.order.login});
 			}
 
 		}, 30 * 1000);

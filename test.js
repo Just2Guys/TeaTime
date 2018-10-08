@@ -26,8 +26,6 @@ io.on ("connection", socket => {
 	socket.on("init", () => console.log("user connected"));
 });
 
-io.on ("error", error => console.log (error));
-
 app.updateCarsCords (io);
 
 server.use((req, res, next) => {
@@ -44,7 +42,7 @@ server.use (bodyParser.json ());
 server.use ('/assets', express.static (__dirname + "/photos"));
 
 server.use ((req, res, next) => {
-	req.session.test = "14f6d85af3427dff65d28c282cd9be05";
+	req.session.pass = "14f6d85af3427dff65d28c282cd9be05";
 	next ();
 });
 
