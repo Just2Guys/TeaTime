@@ -58,6 +58,7 @@ export class BasketComponent implements OnInit {
       document.getElementById("stick_1").style.transform = "rotate3d(-1, -2.4, 0, 180deg)";
       document.getElementById("stick_2").style.transform = "rotate3d(-1, 2.4, 0, 180deg)";
       document.getElementById("basket_button").style.right = "400px";
+      document.getElementById("basket_button").style.width = "25px";
       document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
       document.getElementById("basket").style.width = "400px";
       document.getElementById("basket").style.boxShadow = "0px 0px 2px rgba(0,0,0,0.5)";
@@ -65,7 +66,8 @@ export class BasketComponent implements OnInit {
       this.openedBusket = false;
       document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
       document.getElementById("stick_2").style.transform = "rotate3d(0, 0, 1, -45deg)";
-      document.getElementById("basket_button").style.borderRadius = "30px 0px 0px 30px";
+      document.getElementById("basket_button").style.borderRadius = "0px 0px 0px 20px";
+      document.getElementById("basket_button").style.width = "115px";
       document.getElementById("basket_button").style.right = "0px";
       document.getElementById("basket").style.width = "0px";
       document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
@@ -111,6 +113,30 @@ export class BasketComponent implements OnInit {
   }
 
   setCoordinates (x: number, y: number) {
+    if ((x == 12 && y == 8) || ((x >= 13 && x <= 15) && (y >= 7 && y <= 9))) {
+      x = 13;
+      y = 10;
+    }
+
+    if ((x >= 9 && x <= 15) && (y >= 13 && y <= 15)) {
+      x = 9;
+      y = 13;
+    }
+
+    if ((x >= 4 && x <= 6) && (y == 2 || y == 3)) {
+      x = 6;
+      y = 3;
+    }
+
+    if ( ((x >= 8 && x <= 10) && (y >= 8 && y <= 10)) ||
+         ((x >= 11 && x <= 13) && (y >= 2 && y <= 4)) ||
+         (x == 12 && (y == 1 || y == 5)) ||
+         ((x == 10 || x == 14) && y == 3)
+       ) {
+      alert ("Unable to deliver there");
+      return;
+    }
+
     for (let i = 0; i < document.getElementsByClassName("button_active").length; i++) {
       document.getElementsByClassName("button_active")[i].classList.remove("button_active");
     }
@@ -122,7 +148,7 @@ export class BasketComponent implements OnInit {
   makeOrder () {
     if (this.houseX == 0 || this.houseY == 0) {
       alert("Click on place where do u live!");
-      return
+      return;
     }
     let dishes = [];
     for (let i = 0; i < this.basket.length; i++) {
@@ -133,7 +159,16 @@ export class BasketComponent implements OnInit {
     this.http.post(Settings.serverLink + "user/makeOrder", JSON.stringify({dishes: dishes, place: [this.houseX, this.houseY]}), {headers: this.httpHeaders, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
-
+      if (data.length == 0) {
+        alert("successed!");
+      } else {
+        let allDishes = data[0];
+        for (let i = 1; i < data.length; i++) {
+          if (data[i] != data[i - 1])
+            allDishes += ", " + data[i];
+        }
+        alert("sorry, we don't have enaugh ingridients for " + allDishes);
+      }
     });
   }
 

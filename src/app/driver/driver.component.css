@@ -1,0 +1,16 @@
+@media all and (orientation: landscape) {
+
+
+
+  * {
+    font-family: "MainFont";
+  }
+
+  #header {
+    width: 100%;
+    height: 60px;
+  }
+
+
+
+}

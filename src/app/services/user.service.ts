@@ -28,7 +28,7 @@ export class UserService {
   }
 
   getUserData () {
-    this.http.get (Settings.serverLink + "user/info", {withCredentials: true})
+    this.http.get(Settings.serverLink + "user/info", {withCredentials: true})
     .map ((res:Response) => res.json ())
     .subscribe (data => {
       if (typeof data === "boolean")

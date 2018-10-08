@@ -12,6 +12,9 @@
   <a nohref id='menu_button' class="header_button" routerLink="menu">
     {{mainText[2]}}
   </a>
+  <a nohref id='driver_button' class="header_button" routerLink="driver" *ngIf="user.role == 1 || user.role == 2">
+    Driver
+  </a>
   <a nohref id='admin_button' class="header_button" routerLink="admin" *ngIf="user.role == 2">
     Admin
   </a>

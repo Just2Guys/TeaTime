@@ -5,44 +5,46 @@
   }
 
   #basket_button {
-    width: 30px;
-    height: 60px;
-    border-radius: 30px 0px 0px 30px;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px 0px 1px 1px;
-    background-color: green;
+    width: 115px;
+    height: 39px;
+    border-radius: 0px 0px 0px 20px;
+    background-color: #00A388;
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 60px;
     right: 0px;
     z-index: 6;
     transition: all 0.2s ease-out;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  #basket_button p {
+    font-size: 30px;
+    padding: 0px 5px 0px 25px;
+    color: #fff;
   }
 
   #basket_button:hover {
-    width: 40px;
+    background-color: #FF6138;
   }
 
   .stick {
-    width: 25px;
+    width: 16px;
     height: 4px;
     border-radius: 2px;
-    background-color: black;
+    background-color: #fff;
     position: absolute;
+    left: 5px;
     transition: all 0.5s ease-in-out;
   }
 
   #stick_1 {
     transform: rotate3d(0, 0, 1, 45deg);
-    top: calc(50% + 8px);
-    left: calc(50% - 10px);
+    top: calc(50% + 3px);
   }
 
   #stick_2 {
     transform: rotate3d(0, 0, 1, -45deg);
-    top: calc(50% - 8px);
-    left: calc(50% - 10px);
+    top: calc(50% - 6px);
   }
 
 
@@ -55,13 +57,13 @@
     right: 0px;
     background-color: white;
     box-shadow: none;
-    z-index: 5;
+    z-index: 7;
     transition: width 0.2s ease-out;
-    overflow-y: scroll;
-    overflow-x: hidden;
   }
 
   #order {
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: calc(100% - 50px);
     width: 100%;
   }
@@ -70,9 +72,15 @@
     height: 50px;
     width: 100%;
     color: white;
-    background-color: green;
+    background-color: #00A388;
     text-align: center;
     font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  #order_button:hover {
+    background-color: #FF6138;
   }
 
   .dish {
@@ -95,7 +103,7 @@
     left: 50%;
     transform: translate(-50%, calc(-50% - 250px));
     opacity: 0;
-    z-index: 7;
+    z-index: 9;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease-in-out;
     display: none;
@@ -148,7 +156,7 @@
     opacity: 0;
     display: none;
     transition: all 0.3s ease-in-out;
-    z-index: 6;
+    z-index: 8;
   }
 
   #map {

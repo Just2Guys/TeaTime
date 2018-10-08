@@ -1,0 +1,9 @@
+<div id="header"></div>
+<div *ngIf="user.role == 1 || user.role == 2">
+  <div id="orders">
+    <button id="button_refresh" (click)="refreshOrders()">Refresh</button>
+    <div *ngFor="let order of orders" class="order">
+      {{order.login}} x={{order.place[0]}} y={{order.place[1]}}
+    </div>
+  </div>
+</div>

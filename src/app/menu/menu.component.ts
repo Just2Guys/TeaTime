@@ -16,6 +16,7 @@ import 'rxjs/add/operator/catch';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit {
   user: User = UserNull;
   dishes: Array<Dish> = [];
