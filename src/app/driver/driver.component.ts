@@ -9,12 +9,6 @@ import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-class order {
-  dishes: Array<string>;
-  login: string;
-  place: Array<number>;
-}
-
 @Component({
   selector: 'app-driver',
   templateUrl: './driver.component.html',
@@ -22,8 +16,12 @@ class order {
 })
 
 export class DriverComponent implements OnInit {
+
+  mapSizeX: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  mapSizeY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
   user: User = UserNull;
-  orders: Array<order> = [];
+  orders: Array<object> = [];
 
   constructor(private http: Http, private userService: UserService) {}
 
@@ -39,14 +37,29 @@ export class DriverComponent implements OnInit {
     this.http.get(Settings.serverLink + "driver/orders", {withCredentials: true})
     .map ((res:Response) => res.json ())
     .subscribe (data => {
-      this.orders = [];
-      for (let i = 0; i < data.length; i++) {
-        this.orders.push({
-          dishes: data[i].dishes,
-          login: data[i].login,
-          place: data[i].place
-        });
-      }
+      this.orders = data;
+    });
+  }
+
+  triggerOrder (id: number, length: number) {
+    for (let i = 0; i <= length; i++) {
+      document.getElementById("dish_" + id + "_" + i).classList.toggle("dish_active");
+    }
+  }
+
+  triggerRoad (id: number, place: Array<number>) {
+    let x = place[0];
+    let y = place[1];
+    document.getElementById("button_" + x + "_" + y).classList.toggle("button_map_active");
+  }
+
+  takeOrder (order: object) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this.http.post(Settings.serverLink + "driver/takeOrder", JSON.stringify({order: order}), {headers: headers, withCredentials: true})
+    .map((res:Response) => res.json())
+    .subscribe(data => {
+      alert("yes!");
     });
   }
 

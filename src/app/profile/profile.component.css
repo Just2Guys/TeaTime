@@ -27,7 +27,7 @@
 
   button {
     width: 229px;
-    height: 34px;
+    height: auto;
     border: none;
     background-color: #00A388;
     text-align: center;
