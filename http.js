@@ -37,11 +37,18 @@ server.use (cookieParser ());
 server.use (bodyParser.json ());
 server.use ('/assets', express.static (__dirname + "/photos"));
 
-server.use ('/user', user);
+server.use ('/user', user.router);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
 server.use ('/driver', driver.router);
 
+driver.emitter.on ("deleteOrder", id => {
+	io.emit ("driverDeleteOrder", id);
+});
+
+user.emitter.on ("newOrder", order => {
+	io.emit ("driverNewOrder", order);
+});
 
 app.on ("ready", () => {
 	httpServer.listen (config.port);

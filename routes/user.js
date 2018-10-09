@@ -2,6 +2,8 @@ const router = require ("express").Router ();
 const regAuthClass = new (require ("../components/reg_auth"));
 const orderHelper = new (require ("../components/order"));
 
+const events = require ("events");
+const emitter = new events.EventEmitter ();
 
 router.post ('/register', async (req, res) => {
 	let typeOfError = 0;
@@ -86,8 +88,12 @@ router.post ('/makeOrder', async (req, res) => {
 	}
 
 
-	orderHelper.saveOrder (req.body.dishes, req.body.place, user.login);
-	res.json (orderResults);
+	let order = orderHelper.saveOrder (req.body.dishes, req.body.place, user.login);
+	emitter.emit ("newOrder", order);
+	res.json (checkResults);
 });
 
-module.exports = router;
+module.exports = {
+	router: router,
+	emitter: emitter
+};

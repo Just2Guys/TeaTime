@@ -7,7 +7,7 @@ const Users = require ("../models/user");
 const Cars  = require ("../models/car");
 
 const events = require ("events");
-//const eventEmitter = new events.eventEmitter ();	
+const eventEmitter = new events.EventEmitter ();	
 
 
 
@@ -37,22 +37,11 @@ router.post ('/takeOrder', async (req, res) => {
 
 	if (canTakeOrder == true) {
 		DriverHelper.takeOrder (req.body.order, user._id);
-	}
-});
-
-router.get ('/takeOrder', async (req, res) => {
-	let user = await Users.findOne ({password: req.session.pass});
-	let canTakeOrder = await DriverHelper.canTakeOrder ();
-	let order = await Orders.findOne ();
-
-	if (canTakeOrder == true) {
-		DriverHelper.takeOrder (order._id, user._id);
-	} else {
-		res.json (false);
+		eventEmitter.emit ("deleteOrder", order._id);
 	}
 });
 
 module.exports = {
 	router: router,
-	emitter: undefined
+	emitter: eventEmitter
 };

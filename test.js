@@ -46,10 +46,19 @@ server.use ((req, res, next) => {
 	next ();
 });
 
-server.use ('/user', user);
+server.use ('/user', user.router);
 server.use ('/admin', admin);
 server.use ('/stock', stock);
 server.use ('/driver', driver.router);
+
+driver.emitter.on ("deleteOrder", id => {
+	io.emit ("driverDeleteOrder", id);
+});
+
+user.emitter.on ("newOrder", order => {
+	io.emit ("driverNewOrder", order);
+});
+
 
 httpServer.listen (config.port);
 

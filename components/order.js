@@ -57,6 +57,8 @@ class DishHelper {
 		order.place = place;
 		order.login = login;
 		order.save ();
+
+		return order;
 	}
 };
 
