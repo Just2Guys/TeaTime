@@ -59,10 +59,8 @@ user.emitter.on ("newOrder", order => {
 	io.emit ("driverNewOrder", order);
 });
 
-
-httpServer.listen (config.port);
-
 app.on ("ready", () => {
+	httpServer.listen (config.port);
 	console.log ("server listened on port:", config.port);
 	app.checkExpireTimeProducts ();
 });

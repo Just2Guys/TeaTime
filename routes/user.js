@@ -69,6 +69,14 @@ router.post ('/makeOrder', async (req, res) => {
 		return false;
 	}
 
+	let userInOrder = await orderHelper.userInOrder (user._id, user.login);
+	
+	if (userInOrder === true) {
+		//we can't order because you can store only one order
+		res.json (false);
+		return false;
+	}
+
 	for (let title of req.body.dishes) {
 		let canOrder = await orderHelper.canMakeDish (title);
 

@@ -1,6 +1,7 @@
 const Products = require ("../models/product");
 const Menu = require ("../models/menu");
 const Order = require ("../models/order");
+const Cars = require ("../models/car");
 
 class DishHelper {
 
@@ -25,6 +26,21 @@ class DishHelper {
 		}
 
 		return canDo;
+	}
+
+	async userInOrder (id, login) {
+		let freeOrder = await Order.findOne ({login: login});
+		if (freeOrder) {
+			return true;
+		}
+
+		let carOrder = await Cars.findOne ({userId: id});
+
+		if (carOrder) {
+			return true;
+		}
+
+		return false;
 	}
 
 

@@ -44,7 +44,7 @@ class App extends EventEmitter {
 				let updated_cords = car.cords.splice (1, car.cords.length);
 
 				if (updated_cords.length == 0) {
-					Cars.deleteOne ({_id: car._id}).exec ();
+				 	Cars.deleteOne ({_id: car._id}).exec ();
 				} else {
 					Cars.updateOne ({_id: car._id}, {$set: {cords: updated_cords}}).exec ();
 				}
