@@ -34,6 +34,7 @@ export class BasketComponent implements OnInit {
   openedBusket: boolean = false;
   basket: Array<BasketDish>;
   user: User = UserNull;
+  orderPrice: number = 0;
 
   httpHeaders: any;
 
@@ -47,6 +48,10 @@ export class BasketComponent implements OnInit {
 
     this.basketService.changeBasket.subscribe(BASKET => {
       this.basket = BASKET;
+      this.orderPrice = 0;
+      for (let i = 0; i < BASKET.length; i++) {
+        this.orderPrice += BASKET[i].price * BASKET[i].count;
+      }
     });
 
     this.httpHeaders = new Headers({ 'Content-Type': 'application/json' });
@@ -62,6 +67,10 @@ export class BasketComponent implements OnInit {
       document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
       document.getElementById("basket").style.width = "400px";
       document.getElementById("basket").style.boxShadow = "0px 0px 2px rgba(0,0,0,0.5)";
+      document.getElementById("background").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("background").style.opacity = "1";
+      }, 1);
     } else {
       this.openedBusket = false;
       document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
@@ -71,6 +80,10 @@ export class BasketComponent implements OnInit {
       document.getElementById("basket_button").style.right = "0px";
       document.getElementById("basket").style.width = "0px";
       document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
+      document.getElementById("background").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("background").style.display = "none";
+      }, 201);
     }
   }
 

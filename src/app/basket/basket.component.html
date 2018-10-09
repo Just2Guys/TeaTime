@@ -1,3 +1,4 @@
+<div id="background" (click)="triggerBasket()"></div>
 <div id="basket_button" (click)="triggerBasket()" *ngIf="user.loggedIn">
   <div id="stick_1" class="stick"></div>
   <div id="stick_2" class="stick"></div>
@@ -13,6 +14,7 @@
         <a (click)="removeDish(dish.title)"> X </a></p><br>
     </div>
   </div>
+  <div id="order_price">{{orderPrice}}</div>
   <div id="order_button" (click)="showLastStep()">Make Order!</div>
 
 </div>

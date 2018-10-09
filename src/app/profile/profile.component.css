@@ -62,6 +62,108 @@
     background-size: cover;
   }
 
+  #div_change_name, #div_change_pass {
+    min-width: 300px;
+    max-width: 400px;
+    height: auto;
+    background-color: white;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    display: none;
+    border: 1px solid #00846e;
+    z-index: 3;
+  }
+
+  #div_change_name p, #div_change_pass p {
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+    margin-top: 120px;
+    text-align: center;
+    font-family: "HeaderFont";
+  }
+
+  .logo {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    left: 50%;
+    padding: 10px calc(50% - 50px) 10px calc(50% - 50px);
+    transform: translate(-50%, 0px);
+  }
+
+  .cross {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+
+  .cross_0, .cross_1 {
+    position: absolute;
+    top: 12px;
+    width: 25px;
+    height: 2px;
+    background-color: black;
+  }
+
+  .cross_0 { transform: rotate(45deg); }
+  .cross_1 { transform: rotate(-45deg); }
+
+  .form_input {
+    font-size: 20px;
+    width: calc(100% - 100px);
+    margin: 25px 45px 10px 45px;
+    padding: 5px;
+    border: 0;
+    border-bottom: 2px solid grey;
+    background-color: white;
+    outline: none;
+    font-family: "FormFont";
+    font-weight: 500;
+  }
+
+  .form_input:focus {
+    border-color: black;
+  }
+
+  #name_input_login, #pass_input_old_pass {
+    margin-top: 10px;
+  }
+
+  .form_submit {
+    width: 100%;
+    font-size: 25px;
+    padding: 10px 0 10px 0;
+    border-width: 0px;
+    color: #F0F0DF;
+    background-color: #00A388;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    margin: 0px;
+  }
+
+  .background {
+    position: fixed;
+    top: calc(50% - 50vh);
+    left: calc(50% - 50vw);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    display: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+
 
 
 }

@@ -1,3 +1,6 @@
+<div id="background_change_name" class="background" (click)="closeForm('change_name')"></div>
+<div id="background_change_pass" class="background" (click)="closeForm('change_pass')"></div>
+
 
 <div>
 
@@ -8,9 +11,40 @@
 <div *ngIf="user.role == 2" class="title">ADMIN INFO</div>
 <div class="text">Name: {{user.name}}</div>
 <div class="text">Surname: {{user.surname}}</div>
-<button>Change name/surname</button>
+<button (click)="openForm('change_name')">Change name/surname</button>
 <div class="text">Login: {{user.login}}</div>
-<button>Change password</button>
+<button (click)="openForm('change_pass')">Change password</button>
+
+
+<div id="div_change_name">
+  <img src="../assets/logo.png" class="logo">
+  <p>Настройки</p>
+  <form id="form_change_name" (ngSubmit)="changeName()">
+    <input type="text" id="name_input_name" class="form_input" name="name" placeholder="Name"value="{{user.name}}"><br>
+    <input type="text" id="name_input_surname" class="form_input" name="surname" placeholder="Surname" value="{{user.surname}}"><br>
+    <input type="password" id="name_input_password" class="form_input" name="password" placeholder="Password" value="">
+    <button type="submit" id="name_button_submit" class="form_submit" name="submit">Change</button>
+  </form>
+  <div class="cross" (click)="closeForm('change_name')">
+    <div class="cross_0"></div>
+    <div class="cross_1"></div>
+  </div>
+</div>
+
+<div id="div_change_pass">
+  <img src="../assets/logo.png" class="logo">
+  <p>Настройки</p>
+  <form id="form_change_pass" (ngSubmit)="changePass()">
+    <input type="password" id="pass_input_old_pass" class="form_input" name="oldPass" placeholder="Old Password"value=""><br>
+    <input type="password" id="pass_input_new_pass" class="form_input" name="newPass" placeholder="New Password" value=""><br>
+    <input type="password" id="name_input_repeat" class="form_input" name="repeat" placeholder="Repeat Password" value="">
+    <button type="submit" id="pass_button_submit" class="form_submit" name="submit">Change</button>
+  </form>
+  <div class="cross" (click)="closeForm('change_pass')">
+    <div class="cross_0"></div>
+    <div class="cross_1"></div>
+  </div>
+</div>
 
 
 
