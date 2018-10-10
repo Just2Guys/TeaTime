@@ -51,13 +51,44 @@ router.get ('/exit', (req, res) => {
 });
 
 router.post ('/updateData', async (req, res) => {
+		// userPassword: ';ksfdfjfmkls',
+		// dataToChange: {
+		// 	'anme'
+		// }
 	if (!req.session.pass) {
 		res.json (false);
 		return false;
 	}
 
-	regAuthClass.updateData (req.session.pass, req.body.data);
+	let user = await regAuthClass.getUserDataByPass (req.session.pass);
+	let correct_pass = regAuthClass.checkPassword (user.login, req.body.userPassword, req.session.pass);
+
+	if (correct_pass == false) {
+		res.json (false);
+		return false;
+	}
+
+	regAuthClass.updateData (req.session.pass, req.body.dataToChange, password);
+
+	if (req.body.data.dataToChange.password) {
+		let password = regAuthClass.createPassword (req.body.dataToChange.password, user.login);
+		req.session.pass = password;
+	}
+
 	res.json (true);
+});
+
+router.get ('/haveOrder', async (req, res) => {
+
+	if (!req.session.pass) {
+		res.json (false);
+		return false;
+	}
+
+	let user = await regAuthClass.getUserDataByPass (req.session.pass);
+	let userInOrder = await orderHelper.userInOrder (user._id, user.login);
+	
+	res.json (userInOrder);
 });
 
 router.post ('/makeOrder', async (req, res) => {
@@ -70,7 +101,7 @@ router.post ('/makeOrder', async (req, res) => {
 	}
 
 	let userInOrder = await orderHelper.userInOrder (user._id, user.login);
-	
+
 	if (userInOrder === true) {
 		//we can't order because you can store only one order
 		res.json (false);

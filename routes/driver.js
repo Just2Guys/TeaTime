@@ -32,13 +32,11 @@ router.get ('/car', async (req, res) => {
 });
 
 router.post ('/takeOrder', async (req, res) => {
-
 	let user = await Users.findOne ({password: req.session.pass});
 	let canTakeOrder = await DriverHelper.canTakeOrder ();
-
 	if (canTakeOrder == true) {
 		DriverHelper.takeOrder (req.body.order, user._id);
-		eventEmitter.emit ("deleteOrder", req.body.order._id);
+		//eventEmitter.emit ("deleteOrder", req.body.order._id);
 		res.json (true);
 	} else {
 		res.json (false);

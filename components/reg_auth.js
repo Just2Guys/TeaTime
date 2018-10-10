@@ -31,6 +31,11 @@ class reg_auth {
 		return 0;
 	}
 
+	checkPassword (login, client_password, session) {
+		let password = this.createPassword (client_password, login);
+		return password == session;
+	}
+
 	async getUserDataByPass (password) {
 		try {
 			let data = await User.findOne ({password: password});	
@@ -49,7 +54,12 @@ class reg_auth {
 		}
 	}
 
-	updateData (password, data) {
+	updateData (password, data, newPassword) {
+		
+		if (data.password) {
+			data.password = newPassword;
+		}
+
 		User.updateOne ({password: password}, {'$set': data}).exec ();
 	}
 };
