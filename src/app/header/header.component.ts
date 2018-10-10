@@ -3,7 +3,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { User, UserNull } from '../user.class';
 import { UserService } from '../services/user.service';
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -112,7 +112,7 @@ export class HeaderComponent implements OnInit {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       if (main == "reg") {
-        this.http.post(Settings.serverLink + "user/register", JSON.stringify({data: this.user}), {headers: headers, withCredentials: true})
+        this.http.post(HttpConfig.serverLink + "user/register", JSON.stringify({data: this.user}), {headers: HttpConfig.headers, withCredentials: true})
         .map((res:Response) => res.json())
         .subscribe(data => {
           switch (data) {
@@ -138,7 +138,7 @@ export class HeaderComponent implements OnInit {
           }
         });
       } else {
-          this.http.post(Settings.serverLink + "user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
+          this.http.post(HttpConfig.serverLink + "user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
           .map((res:Response) => res.json())
           .subscribe(data => {
             if (data === false) {
@@ -154,7 +154,7 @@ export class HeaderComponent implements OnInit {
   }
 
   accountExit () {
-    this.http.get(Settings.serverLink + "user/exit", {withCredentials: true})
+    this.http.get(HttpConfig.serverLink + "user/exit", {withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data) {

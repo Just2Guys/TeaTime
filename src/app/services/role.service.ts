@@ -1,7 +1,7 @@
 import  { Http, Response } from '@angular/http';
 import	{ Injectable } from '@angular/core';
 
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 
 import 'rxjs/add/operator/map';
 
@@ -13,7 +13,7 @@ export class RoleService {
 
 
 	getUserData () {
-		return this.http.get (Settings.serverLink + "user/info", {withCredentials: true})
+		return this.http.get (HttpConfig.serverLink + "user/info", {withCredentials: true})
 		.map ((res: Response) => res.json ());
 	}
 

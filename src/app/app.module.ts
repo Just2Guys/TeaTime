@@ -9,6 +9,7 @@ import { UserService } from './services/user.service';
 import { RoleService } from './services/role.service';
 import { BasketService } from './services/basket.service';
 import { AdminService } from './admin/admin.service';
+import { OrderService } from './services/order.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -58,7 +59,8 @@ import { DriverComponent } from './driver/driver.component';
     UserService,
     RoleService,
     BasketService,
-    AdminService
+    AdminService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

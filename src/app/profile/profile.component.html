@@ -19,10 +19,13 @@
 <div id="div_change_name">
   <img src="../assets/logo.png" class="logo">
   <p>Настройки</p>
-  <form id="form_change_name" (ngSubmit)="changeName()">
-    <input type="text" id="name_input_name" class="form_input" name="name" placeholder="Name"value="{{user.name}}"><br>
-    <input type="text" id="name_input_surname" class="form_input" name="surname" placeholder="Surname" value="{{user.surname}}"><br>
-    <input type="password" id="name_input_password" class="form_input" name="password" placeholder="Password" value="">
+  <form id="form_change_name" (ngSubmit)="changeName(formName, formSurname, password)">
+    <input type="text" id="name_input_name" class="form_input" name="name"
+      placeholder="Name" value="{{user.name}}" [(ngModel)]="formName"><br>
+    <input type="text" id="name_input_surname" class="form_input" name="formSurname"
+      placeholder="Surname" value="{{user.surname}}" [(ngModel)]="formSurname"><br>
+    <input type="password" id="name_input_password" class="form_input" name="password"
+      placeholder="Password" value="" [(ngModel)]="password">
     <button type="submit" id="name_button_submit" class="form_submit" name="submit">Change</button>
   </form>
   <div class="cross" (click)="closeForm('change_name')">

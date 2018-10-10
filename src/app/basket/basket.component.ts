@@ -3,8 +3,9 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { UserService } from '../services/user.service';
 import { BasketService } from '../services/basket.service';
+import { OrderService } from '../services/order.service';
 import { Dish } from '../dish.class';
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
@@ -34,17 +35,25 @@ export class BasketComponent implements OnInit {
   openedBusket: boolean = false;
   basket: Array<BasketDish>;
   user: User = UserNull;
+  haveOrder: boolean;
   orderPrice: number = 0;
 
   httpHeaders: any;
 
-  constructor(private http: Http, private userService: UserService, private basketService: BasketService) { }
+  constructor(private http: Http, private userService: UserService, private basketService: BasketService, private orderService: OrderService) { }
 
   ngOnInit() {
     this.userService.getUserData();
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
     });
+
+    this.orderService.getHaveOrder();
+    this.orderService.changeHaveOrder.subscribe(HaveOrder => {
+      this.haveOrder = HaveOrder;
+    });
+
+    this.getBasket();
 
     this.basketService.changeBasket.subscribe(BASKET => {
       this.basket = BASKET;
@@ -57,34 +66,67 @@ export class BasketComponent implements OnInit {
     this.httpHeaders = new Headers({ 'Content-Type': 'application/json' });
   }
 
+  getBasket () {
+    let BASKET = this.basketService.getBasket();
+    this.basket = BASKET;
+    this.orderPrice = 0;
+    for (let i = 0; i < BASKET.length; i++) {
+      this.orderPrice += Number(BASKET[i].price) * Number(BASKET[i].count);
+    }
+  }
+
   triggerBasket () {
     if (!this.openedBusket) {
-      this.openedBusket = true;
-      document.getElementById("stick_1").style.transform = "rotate3d(-1, -2.4, 0, 180deg)";
-      document.getElementById("stick_2").style.transform = "rotate3d(-1, 2.4, 0, 180deg)";
-      document.getElementById("basket_button").style.right = "400px";
-      document.getElementById("basket_button").style.width = "25px";
-      document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
-      document.getElementById("basket").style.width = "400px";
-      document.getElementById("basket").style.boxShadow = "0px 0px 2px rgba(0,0,0,0.5)";
-      document.getElementById("background").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("background").style.opacity = "1";
-      }, 1);
+      this.openBasket();
     } else {
-      this.openedBusket = false;
-      document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
-      document.getElementById("stick_2").style.transform = "rotate3d(0, 0, 1, -45deg)";
-      document.getElementById("basket_button").style.borderRadius = "0px 0px 0px 20px";
-      document.getElementById("basket_button").style.width = "115px";
-      document.getElementById("basket_button").style.right = "0px";
-      document.getElementById("basket").style.width = "0px";
-      document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
-      document.getElementById("background").style.opacity = "0";
-      setTimeout(() => {
-        document.getElementById("background").style.display = "none";
-      }, 201);
+      this.closeBasket();
     }
+  }
+
+  openBasket () {
+    this.openedBusket = true;
+    document.getElementById("stick_1").style.transform = "rotate3d(-1, -2.4, 0, 180deg)";
+    document.getElementById("stick_2").style.transform = "rotate3d(-1, 2.4, 0, 180deg)";
+    document.getElementById("basket_button").style.right = "400px";
+    document.getElementById("basket_button").style.width = "25px";
+    document.getElementById("basket_button").style.borderRadius = "2px 0px 0px 2px";
+    document.getElementById("basket").style.width = "400px";
+    document.getElementById("basket").style.boxShadow = "0px 0px 2px rgba(0,0,0,0.5)";
+    document.getElementById("background").style.display = "block";
+    for (let i = 0; i < this.basket.length; i++) {
+      document.getElementById("price_" + i).style.left = "0%";
+    }
+    setTimeout(() => {
+      document.getElementById("background").style.opacity = "1";
+    }, 1);
+  }
+
+  closeBasket () {
+    this.openedBusket = false;
+    document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
+    document.getElementById("stick_2").style.transform = "rotate3d(0, 0, 1, -45deg)";
+    document.getElementById("basket_button").style.borderRadius = "0px 0px 0px 20px";
+    document.getElementById("basket_button").style.width = "115px";
+    document.getElementById("basket_button").style.right = "0px";
+    document.getElementById("basket").style.width = "0px";
+    document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
+    document.getElementById("background").style.opacity = "0";
+    for (let i = 0; i < this.basket.length; i++) {
+      document.getElementById("price_" + i).style.left = "100%";
+    }
+    setTimeout(() => {
+      document.getElementById("background").style.display = "none";
+    }, 201);
+  }
+
+  showInfo (id: number) {
+    document.getElementById("buttons_" + id).style.height = "40px";
+    document.getElementById("dish_" + id).style.height = "94px";
+  }
+
+  closeInfo (id: number) {
+    document.getElementById("buttons_" + id).style.height = "0px";
+    document.getElementById("dish_" + id).style.height = "54px";
   }
 
   addOne (title: string, price: string) {
@@ -169,11 +211,13 @@ export class BasketComponent implements OnInit {
         dishes.push(this.basket[i].title);
       }
     }
-    this.http.post(Settings.serverLink + "user/makeOrder", JSON.stringify({dishes: dishes, place: [this.houseX, this.houseY]}), {headers: this.httpHeaders, withCredentials: true})
+    this.http.post(HttpConfig.serverLink + "user/makeOrder", JSON.stringify({dishes: dishes, place: [this.houseX, this.houseY]}), {headers: this.httpHeaders, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data.length == 0) {
         alert("successed!");
+        this.orderService.toggleHaveOrder();
+        this.closeLastStep();
       } else {
         let allDishes = data[0];
         for (let i = 1; i < data.length; i++) {

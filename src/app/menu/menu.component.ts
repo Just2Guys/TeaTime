@@ -4,7 +4,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 import { UserService } from '../services/user.service';
 import { BasketService } from '../services/basket.service';
 import { Dish } from '../dish.class';
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
@@ -34,7 +34,7 @@ export class MenuComponent implements OnInit {
   }
 
   loadMenu () {
-    this.http.get (Settings.serverLink + "stock/menu/" + this.menuIndex)
+    this.http.get (HttpConfig.serverLink + "stock/menu/" + this.menuIndex)
     .map ((res: Response) => res.json ())
     .subscribe (response => {
       if (response.length == 0) {

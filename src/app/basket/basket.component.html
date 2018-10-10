@@ -1,4 +1,4 @@
-<div id="background" (click)="triggerBasket()"></div>
+<div id="background" (click)="closeBasket()"></div>
 <div id="basket_button" (click)="triggerBasket()" *ngIf="user.loggedIn">
   <div id="stick_1" class="stick"></div>
   <div id="stick_2" class="stick"></div>
@@ -6,16 +6,20 @@
 </div>
 <div id="basket" *ngIf="user.loggedIn">
   <div id="order">
-    <div *ngFor="let dish of basket; let id = index" id="dish_{{id}}" class="dish">
-      <p>{{dish.title}} {{dish.count}}
-        <a (click)="removeOne(dish.title)"> LESS </a>
-        <a (click)="addOne(dish.title, dish.price)"> MORE </a>
-        price: {{dish.price}} * {{dish.count}}
-        <a (click)="removeDish(dish.title)"> X </a></p><br>
+    <div *ngFor="let dish of basket; let id = index" id="dish_{{id}}" class="dish"
+      (mouseenter)="showInfo(id)" (mouseleave)="closeInfo(id)">
+      <p class="dishName">{{dish.title}}</p>
+      <p class="dishPrice" id="price_{{id}}">{{dish.count}}*{{dish.price}}</p>
+      <div class="buttons" id="buttons_{{id}}">
+        <div (click)="removeOne(dish.title)" class="less"></div>
+        <div (click)="addOne(dish.title, dish.price)" class="more"></div>
+        <div (click)="removeDish(dish.title)" class="remove"></div>
+      </div>
     </div>
   </div>
   <div id="order_price">{{orderPrice}}</div>
-  <div id="order_button" (click)="showLastStep()">Make Order!</div>
+  <div id="order_button" (click)="showLastStep()" *ngIf="!haveOrder">Make Order!</div>
+  <div id="order_button" *ngIf="haveOrder">Order's on way</div>
 
 </div>
 
@@ -27,7 +31,7 @@
   </div>
   <div id="map">
     <div *ngFor="let y of mapSizeY" class="line">
-      <div *ngFor="let x of mapSizeX" class="button" (click)="setCoordinates(x, y)" id="button_{{x}}_{{y}}"></div>
+      <div *ngFor="let x of mapSizeX" class="button" (click)="setCoordinates(y, x)" id="button_{{y}}_{{x}}"></div>
     </div>
   </div>
   <button id="button_submit" (click)="makeOrder()">Make Order!</button>

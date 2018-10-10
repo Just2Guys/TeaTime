@@ -51,4 +51,8 @@ export class BasketService {
     }
   }
 
+  getBasket () {
+    return this.basket;
+  }
+
 }

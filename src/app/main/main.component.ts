@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
 
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 import { UserService } from '../services/user.service';
 import { User } from '../user.class';
 

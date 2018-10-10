@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './admin.service';
 import { RoleService } from '../services/role.service';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-import { Settings } from '../config';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { HttpConfig } from '../config';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
   users: Array <any> = [];
   inputs: Array <any> = [];
 
-  public uploader: FileUploader = new FileUploader({url: Settings.serverLink + 'admin/upload/', itemAlias: 'photo'});
+  public uploader: FileUploader = new FileUploader({url: HttpConfig.serverLink + 'admin/upload/', itemAlias: 'photo'});
 
   ngOnInit () {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };

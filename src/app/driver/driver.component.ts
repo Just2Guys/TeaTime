@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
 
 import { UserService } from '../services/user.service';
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
@@ -34,7 +34,7 @@ export class DriverComponent implements OnInit {
   }
 
   refreshOrders () {
-    this.http.get(Settings.serverLink + "driver/orders", {withCredentials: true})
+    this.http.get(HttpConfig.serverLink + "driver/orders", {withCredentials: true})
     .map ((res:Response) => res.json ())
     .subscribe (data => {
       this.orders = data;
@@ -48,15 +48,13 @@ export class DriverComponent implements OnInit {
   }
 
   triggerRoad (id: number, place: Array<number>) {
-    let x = place[0];
-    let y = place[1];
+    let y = place[0];
+    let x = place[1];
     document.getElementById("button_" + x + "_" + y).classList.toggle("button_map_active");
   }
 
   takeOrder (order: object) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this.http.post(Settings.serverLink + "driver/takeOrder", JSON.stringify({order: order}), {headers: headers, withCredentials: true})
+    this.http.post(HttpConfig.serverLink + "driver/takeOrder", JSON.stringify({order: order}), {headers: HttpConfig.headers, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       alert("yes!");

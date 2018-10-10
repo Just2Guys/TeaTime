@@ -2,7 +2,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/http';
 
 import { User, UserNull } from '../user.class';
-import { Settings } from '../config';
+import { HttpConfig } from '../config';
 
 import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -28,7 +28,7 @@ export class UserService {
   }
 
   getUserData () {
-    this.http.get(Settings.serverLink + "user/info", {withCredentials: true})
+    this.http.get(HttpConfig.serverLink + "user/info", {withCredentials: true})
     .map ((res:Response) => res.json ())
     .subscribe (data => {
       if (typeof data === "boolean")
