@@ -18,7 +18,17 @@ function rename (source, filename) {
 	});
 }
 
+
+function deleteFile (filename) {
+	return new Promise ((resolve, reject) => {
+		fs.unlink ('./photos/' + filename + ".jpg", err => {
+			err ? reject (err) : resolve (true);
+		});
+	});
+}
+
 module.exports = {
 	read: read,
-	rename: rename
+	rename: rename,
+	delete: deleteFile
 };

@@ -1,7 +1,19 @@
 const router = require ("express").Router ();
 const multer = require ("multer");
 
-const multerSetting = multer ({dest: 'photos/'});
+const storage = multer.diskStorage ({
+	destination: (req, file, cb) => {
+		cb (null, "photos");
+	},
+
+	filename: async (req, file, cb) => {
+		let files = await directory.read ();
+		let filename = files.length == 0 ? 1 : Number (files [files.length - 1].split (".jpg")[0]) + 1;
+		cb (null, filename + ".jpg");
+	}
+});
+
+const multerSetting = multer ({storage: storage});
 
 const Users = require ('../models/user');
 const Products = require ('../models/product');
@@ -35,10 +47,10 @@ router.get ('/users', (req, res) => {
 	});
 });
 
-router.post ('/removeFromMenu', (req, res) => {
-	Dishes.remove ({_id: req.body.id}, err => {
-		err ? console.log (err) : res.json (true);
-	});
+router.post ('/removeFromMenu', async (req, res) => {
+	let dish = await Dishes.findOne ({_id: req.body.id});
+	directory.delete (dish.image);
+	Dishes.deleteOne ({_id: req.body.id}).exec ();
 });
 
 router.get ('/menu', (req, res) => {
@@ -48,19 +60,18 @@ router.get ('/menu', (req, res) => {
 });
 
 router.post ('/upload', multerSetting.single ("photo"), async (req, res) => {
-	let files = await directory.read ();
-
-	directory.rename (req.file.filename, files.length);
 	res.json (true);
 });
 
 router.post ('/addInMenu', async (req, res) => {
 	let dishes = await Dishes.find ();
 
+	let lastDish = dishes.length == 0 ? 1 : dishes [dishes.length - 1].image + 1;
+
 	let images = await directory.read ();
 	let dish = new Dishes ();
 	dish.title = req.body.title;
-	dish.image = dishes.length + 1;
+	dish.image = lastDish;
 	dish.description = req.body.description;
 	dish.recipe = req.body.recipe;
 	dish.price = req.body.price;	
