@@ -52,14 +52,43 @@
     text-align: center;
   }
 
-  #map {
+  .map {
     height: calc(100% - 49px);
     width: calc(100vh - 249px);
     position: fixed;
     bottom: 0px;
     right: 0px;
-    background-image: url("/../../assets/map.jpg");
+    background-image: url("/../../assets/map.png");
     background-size: cover;
+  }
+
+  .line {
+    width: 100%;
+    height: 3.125%;
+  }
+
+  .button {
+    width: 3.125%;
+    height: 100%;
+    float: left;
+    transition: all 0.05s ease-in-out;
+  }
+
+  .button_active {
+    width: calc(3.125% - 2px);
+    height: calc(100% - 2px);
+    border: 1px solid red;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  #not_have_order {
+    font-size: 30px;
+    width: 100%;
+    height: 0px;
+    padding: calc(50% - 18px) 0px calc(50% + 18px) 0px;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    color: #fff;
   }
 
   #div_change_name, #div_change_pass {

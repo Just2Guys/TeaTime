@@ -30,6 +30,7 @@
     <div id="cross_2"></div>
   </div>
   <div id="map">
+    <img src="./../../assets/pointer.png" id="pointer">
     <div *ngFor="let y of mapSizeY" class="line">
       <div *ngFor="let x of mapSizeX" class="button" (click)="setCoordinates(y, x)" id="button_{{y}}_{{x}}"></div>
     </div>

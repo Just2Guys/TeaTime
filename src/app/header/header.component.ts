@@ -3,6 +3,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { User, UserNull } from '../user.class';
 import { UserService } from '../services/user.service';
+import { AlertService } from '../services/alert.service';
 import { HttpConfig } from '../config';
 
 import { Observable, Subject } from 'rxjs';
@@ -33,12 +34,11 @@ export class HeaderComponent implements OnInit {
 
   userBarOpened = false;
   repeatPass: string;
-  error: string;
   incorrectLogin: boolean;
   incorrectPassword: boolean;
   incorrectRepeat: boolean;
 
-  constructor(private http: Http, private userService: UserService) { }
+  constructor(private http: Http, private userService: UserService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.userService.getUserData();
@@ -98,17 +98,20 @@ export class HeaderComponent implements OnInit {
 
 
   postBarData (main: string) {
-    this.error = "";
+    let error = false;
     if (this.user.login == "") {
-      this.error += "Incorrect login. ";
+      this.alertService.addAlert("Error", "Incorrect login.");
+      error = true;
     }
     if (this.user.password == "") {
-      this.error += "Incorrect password. ";
+      this.alertService.addAlert("Error", "Incorrect password.");
+      error = true;
     } else
     if (this.repeatPass != this.user.password && main == "reg") {
-      this.error += "Password's repeated incorrect";
+      this.alertService.addAlert("Error", "Password have been repeated incorrectly");
+      error = true;
     }
-    if (this.error == "") {
+    if (!error) {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       if (main == "reg") {
@@ -118,22 +121,19 @@ export class HeaderComponent implements OnInit {
           switch (data) {
             case 0:
               this.userService.setUserData(this.user);
+              this.alertService.addAlert("Success", "Registered account " + this.user.login + ".");
               break;
             case 1:
-              this.error = "Login must be less than 32 symbols.";
-              this.showErrorMessage();
+              this.alertService.addAlert("Error", "Login must be less than 32 symbols.");
               break;
             case 2:
-              this.error = "Name and surname must be less than 32 symbols.";
-              this.showErrorMessage();
+              this.alertService.addAlert("Error", "Name and surname must be less than 32 symbols.");
               break;
             case 3:
-              this.error = "Password must be more than 4 symbols and less than 32 symbols";
-              this.showErrorMessage();
+              this.alertService.addAlert("Error", "Password must be more than 4 symbols and less than 32 symbols");
               break;
             case 4:
-              this.error = "This login exsist.";
-              this.showErrorMessage();
+              this.alertService.addAlert("Error", "This login already exsists.");
               break;
           }
         });
@@ -142,14 +142,12 @@ export class HeaderComponent implements OnInit {
           .map((res:Response) => res.json())
           .subscribe(data => {
             if (data === false) {
-              this.error = "Incorrect login or password.";
-              this.showErrorMessage();
+              this.alertService.addAlert("Error", "Incorrect login or password.");
             } else
               this.userService.setUserData(data);
+              this.alertService.addAlert("Success", "Welcome, " + this.user.login + ".");
           });
       }
-    } else {
-      this.showErrorMessage();
     }
   }
 
@@ -160,8 +158,9 @@ export class HeaderComponent implements OnInit {
       if (data) {
         this.userBarOpened = false;
         this.userService.clearUserData();
+        this.alertService.addAlert("Success", "Exit from account.");
       } else
-        alert("Exit error!");
+        this.alertService.addAlert("Error", "Exit Error!");
     });
   }
 
@@ -188,18 +187,5 @@ export class HeaderComponent implements OnInit {
     }, 300);
   }
 
-
-  showErrorMessage () {
-    document.getElementById("error_message").style.display = "block";
-    setTimeout(() => {
-      document.getElementById("error_message").style.opacity = "1";
-    }, 1);
-    setTimeout(() => {
-      document.getElementById("error_message").style.opacity = "0";
-      setTimeout(() => {
-        document.getElementById("error_message").style.display = "none";
-      }, 501);
-    }, 3000);
-  }
 
 }

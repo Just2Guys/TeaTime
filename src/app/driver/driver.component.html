@@ -2,22 +2,22 @@
 <div *ngIf="user.role == 1 || user.role == 2">
   <div id="orders">
     <div *ngFor="let order of orders, let id = index" class="order"
-      (mouseenter)="triggerRoad(id, order.place)"
-      (mouseleave)="triggerRoad(id, order.place)">
+      (mouseenter)="showWay(order)"
+      (mouseleave)="hideWay(order)">
       <p (click)="triggerOrder(id, order.dishes.length)">{{order.login}}</p>
       <ul>
         <li *ngFor="let dish of order.dishes, let m = index" class="dish" id="dish_{{id}}_{{m}}">
-          {{dish}}
+          {{dish.title}}: {{dish.count}}
         </li>
-        <li class="dish dish_last" id="dish_{{id}}_{{order.dishes.length}}" (click)="takeOrder(order)">
+        <li class="dish dish_last" id="dish_{{id}}_{{order.dishes.length}}" (click)="takeOrder(id)">
           Take an order!
         </li>
       </ul>
     </div>
   </div>
   <div id="map">
-    <div class="line" *ngFor="let y of mapSizeY">
-      <div *ngFor="let x of mapSizeX" class="button_map" id="button_{{x}}_{{y}}"></div>
+    <div *ngFor="let y of mapSizeY" class="driver_line">
+      <div *ngFor="let x of mapSizeX" class="driver_button" (click)="toggleRoad(order)" id="driver_button_{{y}}_{{x}}"></div>
     </div>
   </div>
 </div>

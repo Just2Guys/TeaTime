@@ -21,8 +21,64 @@
 	border: 1px solid #ddd;
 	margin-left: 10px;
 	width: calc(100% - 30px);
+	margin-top: 7.5px;   
+}
+
+
+#addInMenu button, input[type=submit] {
+	padding: 5px 10px 5px 10px;
+	background-color: #00A388;
+	color: #fff;
+	font-family: "MainFont";
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	width: 100%;
+}
+
+#addInMenu input[type=button] {
+	margin-top: 15px;
+	padding: 5px 10px 5px 10px;
+	background-color: #fff;
+	color: #00A388;
+	font-family: "MainFont";
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	width: 100%;
+
+	transition: all.3s ease;
+}
+
+#addInMenu input[type=button]:hover {
+	color: #FF6138;
+}
+
+#addInMenu input[type=button], input[type=submit]{
+	border-bottom:1px solid  #02946e;
+}
+
+#addInMenu p {
+	font-family:  "HeaderFont";
+	color: #00A388;
+	text-align: center;
+	margin-top :15px;
+	padding-bottom: 5px;
+	font-size: 20px;
+}
+
+
+
+#addInMenu input[type=text], #addInMenu input[type=number] {
+	padding: 5px;
+	border-radius: 2px;
+	border: 1px solid #ddd;
+	margin-left: 10px;
+	width: calc(100% - 30px);
 	margin-top: 7.5px;  
 }
+
+
 
 #product_add p {
 	margin-top: 5px;
@@ -56,7 +112,7 @@
 #product {
 	padding: 10px;
 	border-top: 1px solid #ddd;
-	font-family: "HeaderFont";
+	font-family: "MainFont";
 }
 
 #product p {
@@ -65,7 +121,6 @@
 
 #product #name {
 	color :#00A388;
-	font-family: "HeaderFont";
 }
 
 
@@ -84,7 +139,21 @@
 #users #user {
 	padding: 10px;
 	border-top: 1px solid #ddd;
-	font-family: "HeaderFont";
+	font-family: "MainFont";
+}
+
+#users button {
+	cursor: pointer;
+	margin-bottom: 10px;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	font-size: 17px;
+	border-bottom: 1px solid #000;
+}
+
+#users button:hover {
+	color: #000;
+	border-bottom: 1px solid #ddd;
 }
 
 #users #user p span {
@@ -105,9 +174,8 @@
 }
 
 #addInMenu {
-	width: 300px;
 	float: left;
-	margin-left: 10px;
+	margin-left: 10px;	
 	margin-top: 10px;
 	background-color: #fff;
 	border-radius: 2px;

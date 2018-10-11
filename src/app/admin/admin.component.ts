@@ -24,12 +24,14 @@ export class AdminComponent implements OnInit {
   			this.canPass = true;
   			this.getProducts ();
   			this.getUsers ();
+        this.getMenu ();
   		}
   	});
   }
 
   canPass: boolean = false;
   products: Array<any> = [];
+  menu: Array<any> = [];
   users: Array <any> = [];
   inputs: Array <any> = [];
 
@@ -42,11 +44,6 @@ export class AdminComponent implements OnInit {
          console.log('ImageUpload:uploaded:', item, status, response);
          alert('File uploaded successfully');
      };
-
-    this.uploader.onBeforeUploadItem = (fileItem: any) => {
-      fileItem.formData.push( { someField: "hekko" } );
-      fileItem.formData.push( { someField2: "ui" } );
-    };
   }
 
   addProduct (name, amount, hours, minutes, seconds) {
@@ -89,6 +86,19 @@ export class AdminComponent implements OnInit {
     this.service.addInMenu (title, desc, price, this.inputs)
     .subscribe (() => {
       this.clearInputs ();
+    });
+  }
+
+  removeDish (index) {
+    this.service.removeDish (this.menu [index]._id)
+    .subscribe ();
+    this.menu.splice (index, 1);
+  }
+
+  getMenu () {
+    this.service.getMenu ()
+    .subscribe (response => {
+      this.menu = response;
     });
   }
 }

@@ -18,9 +18,7 @@ export class AdminService {
 			expire: expire
 		});
 
-		let headers = new Headers ({'Content-type': 'application/json'});
-
-		return this.http.post (HttpConfig.serverLink + "admin/addProduct", data, {headers: headers, withCredentials: true})
+		return this.http.post (HttpConfig.serverLink + "admin/addProduct", data, {headers: HttpConfig.headers, withCredentials: true})
 		.map ((res: Response) => res.json ());
 	}
 
@@ -34,15 +32,27 @@ export class AdminService {
   		.map ((res: Response) => res.json ());
   	}
 
+    getMenu () {
+      return this.http.get (HttpConfig.serverLink + "admin/menu", {withCredentials: true})
+      .map ((res: Response) => res.json ());
+    }
+
+    removeDish (id) {
+      let data = JSON.stringify ({
+        id: id
+      });
+
+      return this.http.post (HttpConfig.serverLink + "admin/removeFromMenu", data, {headers: HttpConfig.headers, withCredentials: true})
+      .map ((res: Response) => res.json ());
+    }
+
   	changeRole (id, role) {
   		let data = JSON.stringify ({
   			id: id,
   			role: role
   		});
 
-  		let headers = new Headers ({'Content-type': 'application/json'});
-
-  		return this.http.post (HttpConfig.serverLink + "admin/setRole", data, {headers: headers, withCredentials: true})
+  		return this.http.post (HttpConfig.serverLink + "admin/setRole", data, {headers: HttpConfig.headers, withCredentials: true})
   		.map ((res: Response) =>  res.json ());
   	}
 
@@ -56,8 +66,7 @@ export class AdminService {
         recipe: inputs
       });
 
-      let headers = new Headers ({'Content-type': 'application/json'});
-      return this.http.post (HttpConfig.serverLink + "admin/addInMenu", data, {headers: headers, withCredentials: true})
+      return this.http.post (HttpConfig.serverLink + "admin/addInMenu", data, {headers: HttpConfig.headers, withCredentials: true})
       .map ((res: Response) => res.json ());
     }
 }

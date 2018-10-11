@@ -4,6 +4,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 import { UserService } from '../services/user.service';
 import { BasketService } from '../services/basket.service';
 import { OrderService } from '../services/order.service';
+import { AlertService } from '../services/alert.service';
 import { Dish } from '../dish.class';
 import { HttpConfig } from '../config';
 import { User, UserNull } from '../user.class';
@@ -26,8 +27,8 @@ class BasketDish {
 
 export class BasketComponent implements OnInit {
 
-  mapSizeX: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  mapSizeY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  mapSizeX: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
+  mapSizeY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
 
   houseX: number = 0;
   houseY: number = 0;
@@ -40,7 +41,12 @@ export class BasketComponent implements OnInit {
 
   httpHeaders: any;
 
-  constructor(private http: Http, private userService: UserService, private basketService: BasketService, private orderService: OrderService) { }
+  constructor(private http: Http,
+              private userService: UserService,
+              private basketService: BasketService,
+              private orderService: OrderService,
+              private alertService: AlertService
+              ){}
 
   ngOnInit() {
     this.userService.getUserData();
@@ -142,14 +148,14 @@ export class BasketComponent implements OnInit {
   }
 
   showLastStep () {
-    if (this.basket == undefined) {
-      alert("Choose what to order!");
+    if (this.basket == undefined || this.basket.length == 0) {
+      this.alertService.addAlert("Error", "The basket is empty.");
       return;
     }
     document.getElementById("last_step").style.display = "block";
     document.getElementById("last_step_background").style.display = "block";
     setTimeout(() => {
-      document.getElementById("last_step").style.transform = "translate(-50%, -50%)";
+      document.getElementById("last_step").style.transform = "translate(-50%, 0px)";
       setTimeout(() => {
         document.getElementById("last_step").style.opacity = "1";
         document.getElementById("last_step_background").style.opacity = "1";
@@ -158,7 +164,7 @@ export class BasketComponent implements OnInit {
   }
 
   closeLastStep () {
-    document.getElementById("last_step").style.transform = "translate(-50%, calc(-50% - 250px))";
+    document.getElementById("last_step").style.transform = "translate(-50%, -250px)";
     document.getElementById("last_step").style.opacity = "0";
     document.getElementById("last_step_background").style.opacity = "0";
     setTimeout(() => {
@@ -168,29 +174,7 @@ export class BasketComponent implements OnInit {
   }
 
   setCoordinates (x: number, y: number) {
-    if ((x == 12 && y == 8) || ((x >= 13 && x <= 15) && (y >= 7 && y <= 9))) {
-      x = 13;
-      y = 10;
-    }
 
-    if ((x >= 9 && x <= 15) && (y >= 13 && y <= 15)) {
-      x = 9;
-      y = 13;
-    }
-
-    if ((x >= 4 && x <= 6) && (y == 2 || y == 3)) {
-      x = 6;
-      y = 3;
-    }
-
-    if ( ((x >= 8 && x <= 10) && (y >= 8 && y <= 10)) ||
-         ((x >= 11 && x <= 13) && (y >= 2 && y <= 4)) ||
-         (x == 12 && (y == 1 || y == 5)) ||
-         ((x == 10 || x == 14) && y == 3)
-       ) {
-      alert ("Unable to deliver there");
-      return;
-    }
 
     for (let i = 0; i < document.getElementsByClassName("button_active").length; i++) {
       document.getElementsByClassName("button_active")[i].classList.remove("button_active");
@@ -202,9 +186,81 @@ export class BasketComponent implements OnInit {
 
   makeOrder () {
     if (this.houseX == 0 || this.houseY == 0) {
-      alert("Click on place where do u live!");
+      this.alertService.addAlert("Error", "You didn't choose the place on the map!");
       return;
+    } else if (
+      (this.houseX >= 11 && this.houseX <= 16) && (this.houseY >= 2 && this.houseY <= 3)
+    ) {
+      this.houseX = 14;
+      this.houseY = 3;
+    } else if (
+      (this.houseX >= 24 && this.houseX <= 31) && (this.houseY >= 2 && this.houseY <= 7)
+    ) {
+      this.houseX = 27;
+      this.houseY = 7;
+    } else if (
+      (this.houseX >= 25 && this.houseX <= 26) && (this.houseY >= 10 && this.houseY <= 11)
+    ) {
+      this.houseX = 25;
+      this.houseY = 10;
+    } else if (
+      (this.houseX >= 19 && this.houseX <= 22) && (this.houseY >= 8 && this.houseY <= 10)
+    ) {
+      this.houseX = 20;
+      this.houseY = 8;
+    } else if (
+      (this.houseX >= 4 && this.houseX <= 7) && (this.houseY >= 7 && this.houseY <= 8)
+    ) {
+      this.houseX = 7;
+      this.houseY = 7;
+    } else if (
+      (this.houseX >= 30 && this.houseX <= 31) && (this.houseY >= 9 && this.houseY <= 12)
+    ) {
+      this.houseX = 31;
+      this.houseY = 11;
+    } else if (
+      this.houseX == 30 && (this.houseY >= 9 || this.houseY <= 12)
+    ) {
+      this.houseX = 29;
+      this.houseY = 16;
+    } else if (
+      (this.houseX >= 27 && this.houseX <= 29) && (this.houseY >= 17 && this.houseY <= 19)
+    ) {
+      this.houseX = 28;
+      this.houseY = 17;
+    } else if (
+      (this.houseX >= 21 && this.houseX <= 25) && (this.houseY >= 16 && this.houseY <= 18)
+    ) {
+      this.houseX = 23;
+      this.houseY = 16;
+    } else if (
+      this.houseX == 20 && this.houseY <= 17
+    ) {
+      this.houseY = 16;
+    } else if (
+      (this.houseX >= 19 && this.houseX <= 25) && (this.houseY >= 20 && this.houseY <= 22)
+    ) {
+      this.houseX = 25;
+      this.houseY = 21;
+    } else if (
+      (this.houseX >= 17 && this.houseX <= 19) && (this.houseY >= 29 && this.houseY <= 30)
+    ) {
+      this.houseX = 20;
+      this.houseY = 29;
+    } else if (
+      (this.houseX >= 24 && this.houseX <= 30) && (this.houseY >= 28 && this.houseY <= 30)
+    ) {
+      this.houseX = 25;
+      this.houseY = 30;
     }
+    else if (
+     (this.houseX >= 2 && this.houseX <= 10 && this.houseY >= 21 && this.houseY <= 31) ||
+     (this.houseX >= 11 && this.houseX <= 13 && this.houseY >= 28 && this.houseY <= 31)
+   ) {
+     this.houseX = 12;
+     this.houseY = 28;
+   }
+
     let dishes = [];
     for (let i = 0; i < this.basket.length; i++) {
       for (let n = 0; n < this.basket[i].count; n++) {
@@ -215,7 +271,7 @@ export class BasketComponent implements OnInit {
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data.length == 0) {
-        alert("successed!");
+        this.alertService.addAlert("Success", "You have made an order successfully");
         this.orderService.toggleHaveOrder();
         this.closeLastStep();
       } else {
@@ -224,7 +280,7 @@ export class BasketComponent implements OnInit {
           if (data[i] != data[i - 1])
             allDishes += ", " + data[i];
         }
-        alert("sorry, we don't have enaugh ingridients for " + allDishes);
+        this.alertService.addAlert("Info", "Sorry, we don't have enaugh ingridients for: " + allDishes + ".");
       }
     });
   }

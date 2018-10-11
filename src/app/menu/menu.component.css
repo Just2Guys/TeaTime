@@ -20,7 +20,7 @@
     background-color: #f9f9e8;
     transition: box-shadow 0.1s ease;
     cursor: pointer;
-    border-radius: 20px 20px 2px 2px;
+    border-radius: 7px 7px 2px 2px;
   }
 
   .main_block_active {
@@ -39,7 +39,7 @@
     background-position: center center;
     width: 100%;
     padding-top: 85%;
-    border-radius: 20px 20px 0px 0px
+    border-radius: 7px 7px 0px 0px;
   }
 
   .dish_title {
@@ -57,7 +57,7 @@
     bottom: 0px;
     transition: all 0.2s ease-in-out;
     z-index: 7;
-    background-color: #f9f9e8;
+    color: #00A388;
   }
 
   .dish_price_active {
@@ -66,8 +66,20 @@
     padding: 0px 5px 0px 5px;
   }
 
-  .recipe, .description {
+  .recipe {
     font-size: 20px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    overflow: hidden;
+    padding-left: 10px;
+    height: 0px;
+    transition: all 0.1s ease;
+  }
+
+  .description {
+    color: #777;
+    font-size: 17px;
     width: 100%;
     display: block;
     text-align: left;
@@ -100,12 +112,10 @@
     margin-top: 5px;
     height: 30px;
     transition: all 0.2s ease-in-out;
-    background-color: #00A388;
   }
 
   .dish_add_active:hover {
-    color: white;
-    background-color: #FF6138;
+    color: #00A388;
   }
 
   #loadButton {
@@ -142,6 +152,17 @@
 
   #disableLoad:hover {
     background-color: #d8d8d0;
+  }
+
+
+  @media (max-width: 1440px; min-width: 1081px) {
+    .dish { width: 25%; padding-bottom: calc(23% + 65px);}
+    .main_block { width: 23%; }
+  }
+
+  @media (max-width: 1080px) {
+    .dish { width: 33.3%; padding-bottom: calc(31.3% + 65px); }
+    .main_block { width: 31.3%; }
   }
 
 }

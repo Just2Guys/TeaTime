@@ -6,10 +6,10 @@
       <p class="dish_title">{{dish.title}}</p>
       <p class="description" id="description_{{id}}">{{dish.description}}</p>
       <p class="recipe" *ngFor="let product of dish.recipe; let productId = index" id="recipe_{{id}}_{{productId}}">
-        {{product.name}}: {{product.value}}<br>
+        &#9679; {{product.name}}: {{product.value}}g<br>
       </p>
       <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}</p>
-      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">To basket</div>
+      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">Add</div>
     </div>
   </div>
   <div id="loadButton">

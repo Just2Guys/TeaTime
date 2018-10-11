@@ -8,6 +8,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { UserService } from './services/user.service';
 import { RoleService } from './services/role.service';
 import { BasketService } from './services/basket.service';
+import { AlertService } from './services/alert.service';
 import { AdminService } from './admin/admin.service';
 import { OrderService } from './services/order.service';
 
@@ -19,6 +20,12 @@ import { AdminComponent } from './admin/admin.component';
 import { BasketComponent } from './basket/basket.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DriverComponent } from './driver/driver.component';
+import { AlertComponent } from './alert/alert.component';
+
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { HttpConfig } from "./config";
+
+const config: SocketIoConfig = {url: HttpConfig.serverLink, options: {}};
 
 @NgModule({
   declarations: [
@@ -30,12 +37,14 @@ import { DriverComponent } from './driver/driver.component';
     BasketComponent,
     FileSelectDirective,
     ProfileComponent,
-    DriverComponent
+    DriverComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    SocketIoModule.forRoot (config),
     RouterModule.forRoot([
       {
         path: '',
@@ -59,6 +68,7 @@ import { DriverComponent } from './driver/driver.component';
     UserService,
     RoleService,
     BasketService,
+    AlertService,
     AdminService,
     OrderService
   ],

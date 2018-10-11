@@ -35,15 +35,16 @@
 			<p>ROLE: {{user.role}} <span (click) = "changeRole (user._id, 1, i)">Set as driver</span> <span (click) = "changeRole (user._id, 2, i)">Set as admin</span> <span (click) = "changeRole (user._id, 0, i)">Set as user</span></p>
 		</div>
 	</div>
+</div>
 
-
-	<div id="addInMenu">
+<div *ngIf = "canPass == true" id="container">
+		<div id="addInMenu">
 		
 		<div id="writeDish">
 			<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
 		
-			<button type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-      			Upload an Image
+			<button for = "photo" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+      			Загрузить картинку
 			</button>
 		</div>
 		<p>Adding Menu</p>
@@ -58,8 +59,18 @@
 				<input type = "number" name = "{{i}}_number" [(ngModel)] = "input.value" placeholder="value:">
 			</div>
 
-			<input type="submit" value ="submit">
-			<input type="button" (click) = "AddComponent ()" value ="AddComponent">
+			<input type="button" (click) = "AddComponent ()" value ="Добавить ингридиент">
+			<input type="submit" value ="Добавить блюдо">
 		</form>
+	</div>
+
+	<div id="users">
+		<div id="user" *ngFor = "let dish of menu; let i = index">
+			<p id = "id">Название: {{dish.title}}</p>
+			<button (click) = "removeDish (i)">Удалить блюдо</button>
+			<p *ngFor = "let element of dish.recipe">
+				&#9679; {{element.name}}: {{element.value}}p
+			</p>
+		</div>
 	</div>
 </div>
