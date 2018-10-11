@@ -8,8 +8,8 @@
   <div id="order">
     <div *ngFor="let dish of basket; let id = index" id="dish_{{id}}" class="dish"
       (mouseenter)="showInfo(id)" (mouseleave)="closeInfo(id)">
-      <p class="dishName">{{dish.title}}</p>
-      <p class="dishPrice" id="price_{{id}}">{{dish.count}}*{{dish.price}}</p>
+      <p class="dishName">Блюдо: {{dish.title}}</p>
+      <p class="dishPrice" id="price_{{id}}">Цена: {{dish.count}} * {{dish.price}}$</p>
       <div class="buttons" id="buttons_{{id}}">
         <div (click)="removeOne(dish.title)" class="less"></div>
         <div (click)="addOne(dish.title, dish.price)" class="more"></div>
@@ -17,9 +17,9 @@
       </div>
     </div>
   </div>
-  <div id="order_price">{{orderPrice}}</div>
+  <div id="order_price">Итого: {{orderPrice}}$</div>
   <div id="order_button" (click)="showLastStep()" *ngIf="!haveOrder">Make Order!</div>
-  <div id="order_button" *ngIf="haveOrder">Order's on way</div>
+  <div id="order_button" *ngIf="haveOrder">You've just made an order</div>
 
 </div>
 

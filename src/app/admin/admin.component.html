@@ -31,7 +31,7 @@
 
 	<div id="users">
 		<div id="user" *ngFor = "let user of users; let i = index">
-			<p id = "id">ID: {{user._id}}</p>
+			<p id = "id">ID: {{user.login}}</p>
 			<p>ROLE: {{user.role}} <span (click) = "changeRole (user._id, 1, i)">Set as driver</span> <span (click) = "changeRole (user._id, 2, i)">Set as admin</span> <span (click) = "changeRole (user._id, 0, i)">Set as user</span></p>
 		</div>
 	</div>

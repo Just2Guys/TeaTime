@@ -8,7 +8,7 @@
       <p class="recipe" *ngFor="let product of dish.recipe; let productId = index" id="recipe_{{id}}_{{productId}}">
         &#9679; {{product.name}}: {{product.value}}g<br>
       </p>
-      <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}</p>
+      <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}$</p>
       <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">Add</div>
     </div>
   </div>

@@ -21,6 +21,7 @@ class Order {
   dishes: Array<Dish>;
   place: Array<number>;
   login: string;
+  price: number;
 }
 
 @Component({
@@ -82,7 +83,8 @@ export class DriverComponent implements OnInit {
         this.orders.push({
           dishes: [],
           place: data[n].place,
-          login: data[n].login
+          login: data[n].login,
+          price: data[n].price
         });
         for (let m = 0; m < data[n].dishes.length; m++) {
           if (m == 0) {

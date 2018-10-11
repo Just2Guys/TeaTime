@@ -4,7 +4,7 @@
     <div *ngFor="let order of orders, let id = index" class="order"
       (mouseenter)="showWay(order)"
       (mouseleave)="hideWay(order)">
-      <p (click)="triggerOrder(id, order.dishes.length)">{{order.login}}</p>
+      <p (click)="triggerOrder(id, order.dishes.length)">{{order.login}}<span class="price">{{order.price}}$</span></p>
       <ul>
         <li *ngFor="let dish of order.dishes, let m = index" class="dish" id="dish_{{id}}_{{m}}">
           {{dish.title}}: {{dish.count}}

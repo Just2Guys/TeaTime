@@ -30,6 +30,15 @@
     transition: all 0.2s ease-in-out;
   }
 
+  .price {
+    text-align: right;
+    display: block;
+    width: 100%;
+    overflow-x: hidden;
+    position: absolute;
+    transform: translateY(-100%);
+  }
+
   .order p:hover {
     background-color: #FF6138;
     color: #fff;
