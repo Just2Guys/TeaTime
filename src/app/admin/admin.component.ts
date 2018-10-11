@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './admin.service';
+import { AlertService } from '../services/alert.service';
 import { RoleService } from '../services/role.service';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { HttpConfig } from '../config';
@@ -13,7 +14,8 @@ import { HttpConfig } from '../config';
 export class AdminComponent implements OnInit {
 
   constructor(private service: AdminService,
-  			  private role: RoleService) {
+  			  private role: RoleService,
+          private alertService: AlertService) {
 
 
   	this.role.getUserData ()
@@ -42,7 +44,7 @@ export class AdminComponent implements OnInit {
 
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
          console.log('ImageUpload:uploaded:', item, status, response);
-         alert('File uploaded successfully');
+         this.alertService.addAlert('Success', 'Файл загружен успешно.');
      };
   }
 
@@ -50,6 +52,7 @@ export class AdminComponent implements OnInit {
   	this.service.addProduct (name, amount, [hours, minutes, seconds])
   	.subscribe (response => {
   		this.products.push ({name: name, value: amount, expire: response});
+      this.alertService.addAlert('Success', 'Продукт добавлен успешно.');
   	});
   }
 
@@ -72,6 +75,7 @@ export class AdminComponent implements OnInit {
   	.subscribe ();
 
   	this.users [index].role = role;
+    this.alertService.addAlert('Success', 'Роль сменена успешно.');
   }
 
   AddComponent () {
@@ -86,6 +90,7 @@ export class AdminComponent implements OnInit {
     this.service.addInMenu (title, desc, price, this.inputs)
     .subscribe (() => {
       this.clearInputs ();
+      this.alertService.addAlert('Success', 'Блюдо добавлено успешно.');
     });
   }
 
@@ -93,6 +98,7 @@ export class AdminComponent implements OnInit {
     this.service.removeDish (this.menu [index]._id)
     .subscribe ();
     this.menu.splice (index, 1);
+    this.alertService.addAlert('Success', 'Блюдо удалено успешно.');
   }
 
   getMenu () {

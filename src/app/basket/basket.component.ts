@@ -149,7 +149,7 @@ export class BasketComponent implements OnInit {
 
   showLastStep () {
     if (this.basket == undefined || this.basket.length == 0) {
-      this.alertService.addAlert("Error", "The basket is empty.");
+      this.alertService.addAlert("Error", "Корзина пуста.");
       return;
     }
     document.getElementById("last_step").style.display = "block";
@@ -238,7 +238,7 @@ export class BasketComponent implements OnInit {
 
   makeOrder () {
     if (this.houseX == 0 || this.houseY == 0) {
-      this.alertService.addAlert("Error", "you didn't choose the place on the map!");
+      this.alertService.addAlert("Error", "Сперва укажите, куда надо доставить заказ!");
       return;
     }
 
@@ -252,7 +252,7 @@ export class BasketComponent implements OnInit {
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data.length == 0) {
-        this.alertService.addAlert("Success", "you have made an order successfully");
+        this.alertService.addAlert("Success", "Заказ успешно сделан.");
         this.orderService.toggleHaveOrder();
         this.closeLastStep();
       } else {
@@ -261,7 +261,7 @@ export class BasketComponent implements OnInit {
           if (data[i] != data[i - 1])
             allDishes += ", " + data[i];
         }
-        this.alertService.addAlert("Info", "Sorry, we don't have enaugh ingridients for: " + allDishes + ".");
+        this.alertService.addAlert("Info", "Простите, у нас не достаточно ингредиентов для: " + allDishes + ".");
       }
     });
   }

@@ -128,7 +128,7 @@ export class DriverComponent implements OnInit {
     this.http.post(HttpConfig.serverLink + "driver/takeOrder", JSON.stringify({order: this.ordersData[id]}), {headers: HttpConfig.headers, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
-      this.alertService.addAlert("Success", "You have just taken an order.");
+      this.alertService.addAlert("Info", "Вы приняли заказ.");
     });
   }
 

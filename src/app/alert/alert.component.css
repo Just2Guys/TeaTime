@@ -15,20 +15,26 @@
   .alert {
     width: 260px;
     padding: 10px 20px 10px 20px;
-    font-size: 20px;
+    font-size: 17px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: "MainFont";
+  }
+
+  .strong {
+    font-family: "HeaderFont" !important;
+    font-size: 20px !important;
   }
 
   .Error {
-    background-color: red;
+    background-color: #eb2807;
   }
 
   .Success {
-    background-color: green;
+    background-color: #04ca28;
   }
 
   .Info {
-    background-color: orange;
+    background-color: #d06d05;
   }
 
 

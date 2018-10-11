@@ -3,6 +3,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 
 import { UserService } from '../services/user.service';
 import { BasketService } from '../services/basket.service';
+import { AlertService } from '../services/alert.service';
 import { Dish } from '../dish.class';
 import { HttpConfig } from '../config';
 import { User, UserNull } from '../user.class';
@@ -22,7 +23,10 @@ export class MenuComponent implements OnInit {
   dishes: Array<Dish> = [];
   menuIndex: number = 0;
 
-  constructor(private http: Http, private userService: UserService, private basketService: BasketService) {}
+  constructor(private http: Http,
+    private userService: UserService,
+    private basketService: BasketService,
+    private alertService: AlertService) {}
 
   ngOnInit() {
     this.userService.getUserData();
@@ -70,6 +74,7 @@ export class MenuComponent implements OnInit {
   }
 
   addOne (title: string, price: string) {
+    this.alertService.addAlert("Success", title + " - блюдо добавлено в корзину.");
     this.basketService.addOne(title, price);
   }
 

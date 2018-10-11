@@ -4,6 +4,7 @@ import { Http, Response, JsonpModule, Headers, RequestOptions } from '@angular/h
 import { HttpConfig } from '../config';
 import { UserService } from '../services/user.service';
 import { OrderService } from '../services/order.service';
+import { AlertService } from '../services/alert.service';
 import { User, UserNull } from '../user.class';
 
 import { Observable, Subject } from 'rxjs';
@@ -27,7 +28,10 @@ export class ProfileComponent implements OnInit {
   formSurname: string;
   car: any = [];
 
-  constructor(private http: Http, private userService: UserService, private orderService: OrderService) { }
+  constructor(private http: Http,
+    private userService: UserService,
+    private orderService: OrderService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.userService.changeUserData.subscribe(USER => {
@@ -91,36 +95,36 @@ export class ProfileComponent implements OnInit {
 
   changeName (name: string, surname: string, password: string) {
     if (name == "" || surname == "") {
-      alert("Заполните все поля!");
+      this.alertService.addAlert("Info", "Заполните все поля!");
       return;
     }
     this.http.post(HttpConfig.serverLink + "user/updateData", JSON.stringify({userPassword: password, dataToChange: {name: name, surname: surname}}), {headers: HttpConfig.headers, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data) {
-        alert("successed!");
+        this.alertService.addAlert("Success", "Имя/Фамилия успешно изменены.");
         this.userService.getUserData();
         this.closeForm("change_name");
       } else {
-        alert("Incorrect password!");
+        this.alertService.addAlert("Error", "Неверный пароль!");
       }
     });
   }
 
   changePass (oldPass: string, newPass: string, repeat: string) {
     if (newPass != repeat) {
-      alert("You've repeated password incorrectly!");
+      this.alertService.addAlert("Error", "Пароли не совпадают!");
       return;
     }
     this.http.post(HttpConfig.serverLink + "user/updateData", JSON.stringify({userPassword: oldPass, dataToChange: {newPassword: newPass}}), {headers: HttpConfig.headers, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data) {
-        alert("successed!");
+        this.alertService.addAlert("Success", "Пароль успешно изменен!");
         this.userService.getUserData();
         this.closeForm("change_pass");
       } else {
-        alert("Incorrect password!");
+        this.alertService.addAlert("Error", "Неверный пароль!");
       }
     });
   }

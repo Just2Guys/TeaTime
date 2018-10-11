@@ -100,15 +100,15 @@ export class HeaderComponent implements OnInit {
   postBarData (main: string) {
     let error = false;
     if (this.user.login == "") {
-      this.alertService.addAlert("Error", "Incorrect login.");
+      this.alertService.addAlert("Error", "Неверный логин.");
       error = true;
     }
     if (this.user.password == "") {
-      this.alertService.addAlert("Error", "Incorrect password.");
+      this.alertService.addAlert("Error", "Неверный пароль.");
       error = true;
     } else
     if (this.repeatPass != this.user.password && main == "reg") {
-      this.alertService.addAlert("Error", "Password have been repeated incorrectly");
+      this.alertService.addAlert("Error", "Пароли не совпадают.");
       error = true;
     }
     if (!error) {
@@ -121,19 +121,19 @@ export class HeaderComponent implements OnInit {
           switch (data) {
             case 0:
               this.userService.setUserData(this.user);
-              this.alertService.addAlert("Success", "Registered account " + this.user.login + ".");
+              this.alertService.addAlert("Success", "Успешно зарегестрирован аккаунт " + this.user.login + ".");
               break;
             case 1:
-              this.alertService.addAlert("Error", "Login must be less than 32 symbols.");
+              this.alertService.addAlert("Error", "Логин должен быть короче 32-х символов.");
               break;
             case 2:
-              this.alertService.addAlert("Error", "Name and surname must be less than 32 symbols.");
+              this.alertService.addAlert("Error", "Имя и фамилия должны быть короче 32-х символов.");
               break;
             case 3:
-              this.alertService.addAlert("Error", "Password must be more than 4 symbols and less than 32 symbols");
+              this.alertService.addAlert("Error", "Пароль должен быть длиннее 4-х символов и короче 32-х символов.");
               break;
             case 4:
-              this.alertService.addAlert("Error", "This login already exsists.");
+              this.alertService.addAlert("Error", "Такой логин уже существует.");
               break;
           }
         });
@@ -142,10 +142,10 @@ export class HeaderComponent implements OnInit {
           .map((res:Response) => res.json())
           .subscribe(data => {
             if (data === false) {
-              this.alertService.addAlert("Error", "Incorrect login or password.");
+              this.alertService.addAlert("Error", "Неверный логин или пароль.");
             } else
               this.userService.setUserData(data);
-              this.alertService.addAlert("Success", "Welcome, " + this.user.login + ".");
+              this.alertService.addAlert("Success", "Зраствуйте, " + this.user.login + "!");
           });
       }
     }
@@ -158,9 +158,9 @@ export class HeaderComponent implements OnInit {
       if (data) {
         this.userBarOpened = false;
         this.userService.clearUserData();
-        this.alertService.addAlert("Success", "Exit from account.");
+        this.alertService.addAlert("Info", "Вы вышли с аккаунта.");
       } else
-        this.alertService.addAlert("Error", "Exit Error!");
+        this.alertService.addAlert("Error", "Ошибка при выходе, перезагрузите страницу!");
     });
   }
 
