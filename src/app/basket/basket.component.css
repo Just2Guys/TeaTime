@@ -96,16 +96,17 @@
   .dish {
     width: 100%;
     height: 54px;
-    border-bottom: 1px solid black;
+    font-family: 'MainFont';
+    overflow-x: hidden;
+    border-bottom: 1px solid #ddd;
     transition: all 0.1s ease-in-out;
-    background-color: #3978a3;
     white-space: nowrap;
     overflow-y: hidden;
   }
 
   .dish p {
-    font-size: 35px;
-    padding: 4px;
+    font-size: 20px;
+    padding: 4px 8px 4px 4px;
   }
 
   .dishName {
