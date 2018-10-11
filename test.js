@@ -20,10 +20,8 @@ app.on ("error", () => {
 
 const server = express ();
 const httpServer = require ("http").createServer (server);
-const io = require ("socket.io")(httpServer);
-
-io.on ("connection", socket => {
-	socket.on("init", () => console.log("user connected"));
+const io = require ("socket.io")(httpServer, {
+	origins: "http://localhost:4200"
 });
 
 app.updateCarsCords (io);

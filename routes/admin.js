@@ -7,6 +7,7 @@ const Users = require ('../models/user');
 const Products = require ('../models/product');
 const Dishes = require ('../models/menu');
 const Cars = require ("../models/car");
+const Menu = require ("../models/menu");
 
 const roleChecker = require ("../components/role_checker");
 const directory = require ("../components/read_directory");
@@ -37,6 +38,12 @@ router.get ('/users', (req, res) => {
 router.post ('/removeFromMenu', (req, res) => {
 	Dishes.remove ({_id: req.body.id}, err => {
 		err ? console.log (err) : res.json (true);
+	});
+});
+
+router.get ('/menu', (req, res) => {
+	Menu.find ({}, (err, data) => {
+		err ? console.log (err) : res.json (data);
 	});
 });
 

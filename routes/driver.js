@@ -36,7 +36,7 @@ router.post ('/takeOrder', async (req, res) => {
 	let canTakeOrder = await DriverHelper.canTakeOrder ();
 	if (canTakeOrder == true) {
 		DriverHelper.takeOrder (req.body.order, user._id);
-		//eventEmitter.emit ("deleteOrder", req.body.order._id);
+		eventEmitter.emit ("deleteOrder", req.body.order._id);
 		res.json (true);
 	} else {
 		res.json (false);

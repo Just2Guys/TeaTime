@@ -51,15 +51,13 @@ router.get ('/exit', (req, res) => {
 });
 
 router.post ('/updateData', async (req, res) => {
-		// userPassword: ';ksfdfjfmkls',
-		// dataToChange: {
-		// 	'anme'
-		// }
+	console.log (req.body);
 	if (!req.session.pass) {
 		res.json (false);
 		return false;
 	}
 
+	let password = undefined;
 	let user = await regAuthClass.getUserDataByPass (req.session.pass);
 	let correct_pass = regAuthClass.checkPassword (user.login, req.body.userPassword, req.session.pass);
 
@@ -68,12 +66,14 @@ router.post ('/updateData', async (req, res) => {
 		return false;
 	}
 
-	regAuthClass.updateData (req.session.pass, req.body.dataToChange, password);
-
-	if (req.body.data.dataToChange.password) {
+	if (req.body.dataToChange.password) {
 		let password = regAuthClass.createPassword (req.body.dataToChange.password, user.login);
+		regAuthClass.updateData (req.session.pass, req.body.dataToChange, password);
 		req.session.pass = password;
+	} else {
+		regAuthClass.updateData (req.session.pass, req.body.dataToChange, password);
 	}
+
 
 	res.json (true);
 });
