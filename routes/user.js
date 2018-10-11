@@ -50,6 +50,13 @@ router.get ('/exit', (req, res) => {
 	res.json (true);
 });
 
+router.get ('/car', async (req, res) => {
+	let user = await regAuthClass.getUserDataByPass (req.session.pass);
+	let car = await orderHelper.getUserCar (user.login);
+
+	res.json (car);
+});
+
 router.post ('/updateData', async (req, res) => {
 	console.log (req.body);
 	if (!req.session.pass) {
@@ -93,6 +100,7 @@ router.get ('/haveOrder', async (req, res) => {
 
 router.post ('/makeOrder', async (req, res) => {
 	let checkResults = [];
+	let price = 0;
 	let user = await regAuthClass.getUserDataByPass (req.session.pass);
 
 	if (!user) {
@@ -123,11 +131,11 @@ router.post ('/makeOrder', async (req, res) => {
 	}
 
 	for (let title of req.body.dishes) {
-		orderHelper.makeDish (title);
+		price += await orderHelper.makeDish (title);
 	}
 
 
-	let order = orderHelper.saveOrder (req.body.dishes, req.body.place, user.login);
+	let order = orderHelper.saveOrder (req.body.dishes, req.body.place, user.login, price);
 	emitter.emit ("newOrder", order);
 	res.json (checkResults);
 });

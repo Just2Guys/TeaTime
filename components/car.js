@@ -10,14 +10,14 @@ for (let i = 0; i < generalMap.length; i++) {
 class Car {
 	findWay (destX, destY) {
 		//pointing house as road
+		console.log (map [destX][destY]);
 		map [destX][destY] = -1;
 
 		let wave = 0;
 		let nearByElements = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 		map [config.cords [0]][config.cords [1]] = wave;
 
-		while (map [destX][destY] == -1) {
-			
+		while (map [destX][destY] == -1) {	
 			for (let x = 0; x < map.length; x++) {
 				
 				for (let y = 0; y < map [x].length; y++) {

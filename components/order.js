@@ -28,6 +28,10 @@ class DishHelper {
 		return canDo;
 	}
 
+	async getUserCar (login) {
+		return await Cars.findOne ({client: login});
+	}
+
 	async userInOrder (id, login) {
 		let freeOrder = await Order.findOne ({login: login});
 		if (freeOrder) {
@@ -64,12 +68,15 @@ class DishHelper {
 				}
 			}
 		}
+
+		return dish.price;
 	}
 
 
-	saveOrder (dishes, place, login) {
+	saveOrder (dishes, place, login, price) {
 		let order = new Order ();
 		order.dishes = dishes;
+		order.price = price;
 		order.place = place;
 		order.login = login;
 		order.save ();

@@ -22,6 +22,7 @@ class DriverHelper {
 		let way = Car.findWay (order.place [0], order.place [1]);
 
 		car.userId = userId;
+		car.client = order.login;
 		car.cords = way;
 		car.order = order;
 		car.save ();
