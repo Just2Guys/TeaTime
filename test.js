@@ -40,7 +40,7 @@ server.use (bodyParser.json ());
 server.use ('/assets', express.static (__dirname + "/photos"));
 
 server.use ((req, res, next) => {
-	req.session.pass = "ff07c3d600987d425bcc03f6ea9ead6b";
+	req.session.pass = "be5ef6f9c5348d55aefaafdca8ed74d2";
 	next ();
 });
 

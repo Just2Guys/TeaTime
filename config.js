@@ -1,7 +1,7 @@
 port = 8080;
 dbLink = "mongodb://localhost:27017/test";
 clientUrl = "http://localhost:4200";
-cords = [14, 19];
+cords = [16, 16];
 cars = 7;
 
 exports.port = port;

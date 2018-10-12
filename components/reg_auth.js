@@ -58,7 +58,6 @@ class reg_auth {
 		
 		if (data.password) {
 			data.password = newPassword;
-			console.log (data.password);
 		}
 
 		User.updateOne ({password: password}, {'$set': data}).exec ();

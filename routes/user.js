@@ -58,7 +58,7 @@ router.get ('/car', async (req, res) => {
 });
 
 router.post ('/updateData', async (req, res) => {
-	console.log (req.body);
+
 	if (!req.session.pass) {
 		res.json (false);
 		return false;
