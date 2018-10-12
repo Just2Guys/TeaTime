@@ -3,6 +3,7 @@ const EventEmitter = require ("events");
 
 const Products = require ("./models/product");
 const Cars = require ("./models/car");
+const timeOfRefresh = require ("./config").timeOfRefresh;
 
 class App extends EventEmitter {
 	
@@ -52,7 +53,7 @@ class App extends EventEmitter {
 				io.emit ("cords", {id: car._id});
 			}
 
-		}, 30 * 1000);
+		}, timeOfRefresh * 1000);
 	}
 }
 
