@@ -38,7 +38,7 @@ class DishHelper {
 			return true;
 		}
 
-		let carOrder = await Cars.findOne ({userId: id});
+		let carOrder = await Cars.findOne ({client: login});
 
 		if (carOrder) {
 			return true;
