@@ -49,7 +49,7 @@ class App extends EventEmitter {
 					Cars.updateOne ({_id: car._id}, {$set: {cords: updated_cords}}).exec ();
 				}
 
-				io.emit ("cords", {id: car._id, nextCords: nextCords, login: car.order.login});
+				io.emit ("cords", {id: car._id});
 			}
 
 		}, 30 * 1000);
