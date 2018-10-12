@@ -138,15 +138,16 @@ export class HeaderComponent implements OnInit {
           }
         });
       } else {
-          this.http.post(HttpConfig.serverLink + "user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
-          .map((res:Response) => res.json())
-          .subscribe(data => {
-            if (data === false) {
-              this.alertService.addAlert("Error", "Неверный логин или пароль.");
-            } else
-              this.userService.setUserData(data);
-              this.alertService.addAlert("Success", "Зраствуйте, " + this.user.login + "!");
-          });
+        this.http.post(HttpConfig.serverLink + "user/login", JSON.stringify({login: this.user.login, password: this.user.password}), {headers: headers, withCredentials: true})
+        .map((res:Response) => res.json())
+        .subscribe(data => {
+          if (data === false) {
+            this.alertService.addAlert("Error", "Неверный логин или пароль.");
+          } else {
+            this.userService.setUserData(data);
+            this.alertService.addAlert("Success", "Зраствуйте, " + this.user.login + "!");
+          }
+        });
       }
     }
   }

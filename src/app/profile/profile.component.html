@@ -37,10 +37,13 @@
 <div id="div_change_pass">
   <img src="../assets/logo.png" class="logo">
   <p>Настройки</p>
-  <form id="form_change_pass" (ngSubmit)="changePass()">
-    <input type="password" id="pass_input_old_pass" class="form_input" name="oldPass" placeholder="Old Password"value=""><br>
-    <input type="password" id="pass_input_new_pass" class="form_input" name="newPass" placeholder="New Password" value=""><br>
-    <input type="password" id="name_input_repeat" class="form_input" name="repeat" placeholder="Repeat Password" value="">
+  <form id="form_change_pass" (ngSubmit)="changePass(formOldPass, formNewPass, formRepeat)">
+    <input type="password" id="pass_input_old_pass" class="form_input" name="oldPass"
+      placeholder="Old Password" [(ngModel)]="formOldPass" value=""><br>
+    <input type="password" id="pass_input_new_pass" class="form_input" name="newPass"
+      placeholder="New Password" [(ngModel)]="formNewPass" value=""><br>
+    <input type="password" id="name_input_repeat" class="form_input" name="repeat"
+      placeholder="Repeat Password" [(ngModel)]="formRepeat" value="">
     <button type="submit" id="pass_button_submit" class="form_submit" name="submit">Change</button>
   </form>
   <div class="cross" (click)="closeForm('change_pass')">

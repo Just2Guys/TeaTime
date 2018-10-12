@@ -1,5 +1,6 @@
 <div id="alerts">
   <div *ngFor="let alert of alerts" class="{{alert.type}} alert">
+    <img class="cross" src="./../../assets/cross.png" (click)="removeAlert(alert.id)">
     <span class="strong">{{alert.type}}</span><br>{{alert.content}}
   </div>
 </div>
