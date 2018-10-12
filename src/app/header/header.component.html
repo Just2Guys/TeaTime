@@ -13,10 +13,10 @@
     {{mainText[2]}}
   </a>
   <a nohref id='driver_button' class="header_button" routerLink="driver" *ngIf="user.role == 1 || user.role == 2">
-    Driver
+    Водитель
   </a>
   <a nohref id='admin_button' class="header_button" routerLink="admin" *ngIf="user.role == 2">
-    Admin
+    Админ
   </a>
   <a nohref id='logo_button' routerLink="">
     TeaTime
@@ -29,10 +29,10 @@
 
 <div id="user_bar" *ngIf="user.loggedIn">
   <a nohref id="profile_button" class="bar_button" (click)="openProfile()">
-    Profile
+    Профиль
   </a><br>
   <a nohref id="exit_button" class="bar_button" (click)="accountExit()">
-    Exit
+    Выход
   </a>
 </div>
 

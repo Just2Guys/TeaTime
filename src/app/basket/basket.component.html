@@ -2,7 +2,7 @@
 <div id="basket_button" (click)="triggerBasket()" *ngIf="user.loggedIn">
   <div id="stick_1" class="stick"></div>
   <div id="stick_2" class="stick"></div>
-  <p>Basket</p>
+  <p>Корзина</p>
 </div>
 <div id="basket" *ngIf="user.loggedIn">
   <div id="order">
@@ -18,13 +18,13 @@
     </div>
   </div>
   <div id="order_price">Итого: {{orderPrice}}$</div>
-  <div id="order_button" (click)="showLastStep()" *ngIf="!haveOrder">Make Order!</div>
-  <div id="order_button" *ngIf="haveOrder">You've just made an order</div>
+  <div id="order_button" (click)="showLastStep()" *ngIf="!haveOrder">Заказать!</div>
+  <div id="order_button" *ngIf="haveOrder">Вы только что заказывали.</div>
 
 </div>
 
 <div id="last_step" *ngIf="user.loggedIn">
-  <p>Where do u live?</p>
+  <p>Куда доставить заказ?</p>
   <div id="cross" (click)="closeLastStep()">
     <div id="cross_1"></div>
     <div id="cross_2"></div>
@@ -35,6 +35,6 @@
       <div *ngFor="let x of mapSizeX" class="button" (click)="setCoordinates(y, x)" id="button_{{y}}_{{x}}"></div>
     </div>
   </div>
-  <button id="button_submit" (click)="makeOrder()">Make Order!</button>
+  <button id="button_submit" (click)="makeOrder()">Заказать!</button>
 </div>
 <div id="last_step_background" *ngIf="user.loggedIn" (click)="closeLastStep()"></div>

@@ -9,12 +9,12 @@
         &#9679; {{product.name}}: {{product.value}}g<br>
       </p>
       <p class="dish_price" id="dish_price_{{id}}">{{dish.price}}$</p>
-      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">Add</div>
+      <div class="dish_add" id="dish_add_{{id}}" (click)="addOne(dish.title, dish.price)" *ngIf="user.loggedIn">Добавить</div>
     </div>
   </div>
   <div id="loadButton">
-    <button id="enableLoad" (click)="loadMenu()">Load More</button>
-    <div id="disableLoad">Nothing to Load</div>
+    <button id="enableLoad" (click)="loadMenu()">Загрузить больше</button>
+    <div id="disableLoad">Больше нечего загружать</div>
   </div>
 </div>
 <app-basket></app-basket>

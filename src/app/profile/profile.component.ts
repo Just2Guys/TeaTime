@@ -48,16 +48,12 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    this.orderService.changeCarCordinates.subscribe(Car => {
-      this.car = Car;
+    this.orderService.changeCarCordinates.subscribe(data => {
+      this.car = data;
       for (let x = 1; x <= this.mapSizeX.length; x++) {
         for (let y = 1; y <= this.mapSizeY.length; y++) {
-          document.getElementById("button_" + x + "_" + y).style.backgroundColor = "rgba(0, 0, 0, 0)";
+          document.getElementById("button_" + x + "_" + y).style.backgroundColor = "rgba(0, 0, 0, 0.0)";
         }
-      }
-      if (this.car.length == 0) {
-        this.orderService.toggleHaveOrder();
-        return;
       }
       for (let i = 0; i < this.car.length; i++) {
         document.getElementById("button_" + this.car[i][0] + "_" + this.car[i][1]).style.backgroundColor = "rgba(256, 0, 0, 0.7)";

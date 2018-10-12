@@ -112,7 +112,7 @@ export class BasketComponent implements OnInit {
     document.getElementById("stick_1").style.transform = "rotate3d(0, 0, 1, 45deg)";
     document.getElementById("stick_2").style.transform = "rotate3d(0, 0, 1, -45deg)";
     document.getElementById("basket_button").style.borderRadius = "0px 0px 0px 20px";
-    document.getElementById("basket_button").style.width = "115px";
+    document.getElementById("basket_button").style.width = "145px";
     document.getElementById("basket_button").style.right = "0px";
     document.getElementById("basket").style.width = "0px";
     document.getElementById("basket").style.boxShadow = "0px 0px 0px rgba(0,0,0,0.5)";
@@ -233,6 +233,9 @@ export class BasketComponent implements OnInit {
       (x >= 28 && x <= 31 && y >= 11 && y <= 13)) {
       this.houseX = 28;
       this.houseY = 12;
+    } else {
+      this.houseX = x;
+      this.houseY = y;
     }
   }
 
@@ -252,7 +255,7 @@ export class BasketComponent implements OnInit {
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data.length == 0) {
-        this.alertService.addAlert("Success", "Заказ успешно сделан.");
+        this.alertService.addAlert("Success", "Заказ успешно создан.");
         this.orderService.toggleHaveOrder();
         this.closeLastStep();
       } else {

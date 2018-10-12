@@ -37,16 +37,23 @@ export class OrderService {
     .subscribe(data => {
       if (data == null)
         return;
-      for (let i = 0; i < data.cords.length - 1; i++) {
-        if (data.cords[i] == data.cords[i+1]) {
-          this.car = [];
-          for (let n = 0; n <= i; n++) {
-            this.car.push(data.cords[n]);
-          }
+      let reverseMoment;
+      for (let i = 1; i < data.cords.length; i++) {
+        if (data.cords[i][0] == data.cords[i-1][0] && data.cords[i][1] == data.cords[i-1][1]) {
+          reverseMoment = i;
           break;
         }
+        if (i == data.cords.length - 1) {
+          this.toggleHaveOrder();
+          return;
+        }
+      }
+      this.car = [];
+      for (let i = 0; i < reverseMoment; i++) {
+        this.car.push(data.cords[i]);
       }
       this.changeCarCordinates.emit(this.car);
+
     });
   }
 

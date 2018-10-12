@@ -5,7 +5,7 @@
   }
 
   #basket_button {
-    width: 115px;
+    width: 145px;
     height: 39px;
     border-radius: 0px 0px 0px 20px;
     background-color: #00A388;
@@ -19,9 +19,11 @@
   }
 
   #basket_button p {
-    font-size: 30px;
-    padding: 0px 5px 0px 25px;
+    font-size: 25px;
+    padding: 7px 5px 0px 25px;
     color: #fff;
+    font-weight: 100;
+    font-family: "HeaderFont" !important;
   }
 
   #basket_button:hover {
@@ -30,7 +32,7 @@
 
   .stick {
     width: 16px;
-    height: 4px;
+    height: 2px;
     border-radius: 2px;
     background-color: #fff;
     position: absolute;
@@ -45,7 +47,7 @@
 
   #stick_2 {
     transform: rotate3d(0, 0, 1, -45deg);
-    top: calc(50% - 6px);
+    top: calc(50% - 7px);
   }
 
 
