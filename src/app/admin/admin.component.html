@@ -31,32 +31,32 @@
 
 	<div id="users">
 		<div id="user" *ngFor = "let user of users; let i = index">
-			<p id = "id">ID: {{user.login}}</p>
-			<p>ROLE: {{user.role}} <span (click) = "changeRole (user._id, 1, i)">Set as driver</span> <span (click) = "changeRole (user._id, 2, i)">Set as admin</span> <span (click) = "changeRole (user._id, 0, i)">Set as user</span></p>
+			<p id = "id">Логин: {{user.login}}</p>
+			<p>Роль: {{user.role}} <span (click) = "changeRole (user._id, 1, i)">Водитель</span> <span (click) = "changeRole (user._id, 2, i)">Админ</span> <span (click) = "changeRole (user._id, 0, i)">Пользователь</span></p>
 		</div>
 	</div>
 </div>
 
 <div *ngIf = "canPass == true" id="container">
 		<div id="addInMenu">
-		
+
 		<div id="writeDish">
 			<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-		
+
 			<button for = "photo" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
       			Загрузить картинку
 			</button>
 		</div>
-		<p>Adding Menu</p>
+		<p>Добавить блюдо</p>
 		<form (ngSubmit) = "addInMenu (title, desc, price)">
-			<input type="text" name="title" placeholder="Title:" [(ngModel)] = "title">
-			<input type="text" name="desc" placeholder="Description:" [(ngModel)] = "desc">
-			<input type="text" name="price" placeholder="Price: " [(ngModel)] = "price">
-			
+			<input type="text" name="title" placeholder="Название:" [(ngModel)] = "title">
+			<input type="text" name="desc" placeholder="Описание:" [(ngModel)] = "desc">
+			<input type="text" name="price" placeholder="Цена: " [(ngModel)] = "price">
+
 			<div *ngFor = "let input of inputs; let i = index">
-				<p>Component: </p>
-				<input type = "text" name = "{{i}}" [(ngModel)] = "input.name" placeholder="Product title">
-				<input type = "number" name = "{{i}}_number" [(ngModel)] = "input.value" placeholder="value:">
+				<p>Ингредиент: </p>
+				<input type = "text" name = "{{i}}" [(ngModel)] = "input.name" placeholder="Название продукта:">
+				<input type = "number" name = "{{i}}_number" [(ngModel)] = "input.value" placeholder="Количество:">
 			</div>
 
 			<input type="button" (click) = "AddComponent ()" value ="Добавить ингридиент">

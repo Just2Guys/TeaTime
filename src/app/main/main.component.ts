@@ -19,12 +19,33 @@ import 'rxjs/add/operator/catch';
 
 export class MainComponent implements OnInit {
   user: User;
+  currentSlide: number = 0;
 
-  constructor(private http: Http, private userService: UserService) { }
+  constructor(private http: Http, private userService: UserService) {}
 
   ngOnInit() {
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
     });
+
+    let slidesAmount = document.getElementsByClassName("slide").length
+    document.getElementById("slider").style.width = 100 * slidesAmount + "%";
   }
+
+  sliderNext () {
+    this.currentSlide++;
+    if (this.currentSlide >= document.getElementsByClassName("slide").length)
+      this.currentSlide = 0;
+    document.getElementById("slider").style.left = -100 * this.currentSlide + "%";
+  }
+
+  sliderPrev () {
+    this.currentSlide--;
+    if (this.currentSlide < 0)
+      this.currentSlide = document.getElementsByClassName("slide").length - 1;
+    document.getElementById("slider").style.left = -100 * this.currentSlide + "%";
+  }
+
+
+
 }

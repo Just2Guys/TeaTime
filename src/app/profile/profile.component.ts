@@ -11,6 +11,8 @@ import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { Socket } from 'ngx-socket-io';
+
 
 @Component({
   selector: 'app-profile',
@@ -24,43 +26,73 @@ export class ProfileComponent implements OnInit {
 
   user: User = UserNull;
   haveOrder: boolean = false;
+  mapHaveOrder: boolean = false;
   formName: string;
   formSurname: string;
-  car: any = [];
+  carCords: any;
+  carId: any;
 
   constructor(private http: Http,
     private userService: UserService,
     private orderService: OrderService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    private socket: Socket) {
+      this.socket.on("cords", data => {
+        this.orderService.socketFunction(data);
+      });
+    }
 
   ngOnInit() {
+    this.loadRoad();
+
     this.userService.changeUserData.subscribe(USER => {
       this.user = USER;
       this.formName = this.user.name;
       this.formSurname = this.user.surname;
     });
 
-    this.orderService.getHaveOrder();
     this.orderService.changeHaveOrder.subscribe(HaveOrder => {
       this.haveOrder = HaveOrder;
-      if (HaveOrder) {
-        this.orderService.getCarCordinates();
-      }
+      this.mapHaveOrder = HaveOrder;
     });
 
-    this.orderService.changeCarCordinates.subscribe(data => {
-      this.car = data;
-      for (let x = 1; x <= this.mapSizeX.length; x++) {
-        for (let y = 1; y <= this.mapSizeY.length; y++) {
-          document.getElementById("button_" + x + "_" + y).style.backgroundColor = "rgba(0, 0, 0, 0.0)";
-        }
+    this.orderService.changeCarId.subscribe(data => {
+      this.carId = data;
+    });
+
+    this.orderService.changeCarCords.subscribe(data => {
+      this.carCords = data;
+
+      if (data.length == 0) {
+        this.mapHaveOrder = false;
+        return;
       }
-      for (let i = 0; i < this.car.length; i++) {
-        document.getElementById("button_" + this.car[i][0] + "_" + this.car[i][1]).style.backgroundColor = "rgba(256, 0, 0, 0.7)";
+
+      let els = document.getElementsByClassName("button_active");
+
+      for (let i = 0; i < els.length; i++) {
+        els[i].classList.remove("button_active");
       }
+
+      for (let i = 0; i < data.length; i++) {
+        document.getElementById("button_" + data[i][0] + "_" + data[i][1]).classList.add("button_active");
+      }
+
+
+
     });
 
     this.userService.getUserData();
+  }
+
+  loadRoad () {
+    this.http.get(HttpConfig.serverLink + "user/haveOrder", {withCredentials: true})
+    .map ((res:Response) => res.json ())
+    .subscribe (HaveOrder => {
+      this.haveOrder = HaveOrder;
+      this.orderService.getCarId();
+      this.orderService.getCarCords();
+    });
   }
 
   openForm (main: string) {
@@ -112,7 +144,7 @@ export class ProfileComponent implements OnInit {
       this.alertService.addAlert("Error", "Пароли не совпадают!");
       return;
     }
-    this.http.post(HttpConfig.serverLink + "user/updateData", JSON.stringify({userPassword: oldPass, dataToChange: {newPassword: newPass}}), {headers: HttpConfig.headers, withCredentials: true})
+    this.http.post(HttpConfig.serverLink + "user/updateData", JSON.stringify({userPassword: oldPass, dataToChange: {password: newPass}}), {headers: HttpConfig.headers, withCredentials: true})
     .map((res:Response) => res.json())
     .subscribe(data => {
       if (data) {

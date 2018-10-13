@@ -179,51 +179,51 @@ export class BasketComponent implements OnInit {
     document.getElementById("pointer").style.left = left + "%";
     document.getElementById("pointer").style.top = top + "%";
     if ((y >= 11 && y <= 16) && (x >= 2 && x <= 3)) {
-      this.houseX = 14;
-      this.houseY = 3;
+      this.houseY = 14;
+      this.houseX = 3;
     } else
     if ((y >= 24 && y <= 31) && (x >= 2 && x <= 7)) {
-      this.houseX = 27;
-      this.houseY = 7;
+      this.houseY = 27;
+      this.houseX = 7;
     } else
     if ((y >= 25 && y <= 26) && (x >= 10 && x <= 11)) {
-      this.houseX = 25;
-      this.houseY = 10;
+      this.houseY = 25;
+      this.houseX = 10;
     } else
     if ((y >= 19 && y <= 22) && (x >= 8 && x <= 10)) {
-      this.houseX = 20;
-      this.houseY = 8;
+      this.houseY = 20;
+      this.houseX = 8;
     } else
     if ((y >= 4 && y <= 7) && (x >= 7 && x <= 8)) {
-      this.houseX = 7;
       this.houseY = 7;
+      this.houseX = 7;
     } else
     if ((y >= 30 && y <= 31) && (x >= 9 && x <= 12)) {
-      this.houseX = 31;
-      this.houseY = 11;
+      this.houseY = 31;
+      this.houseX = 11;
     } else
     if (y == 30 && (x >= 9 || x <= 12)) {
-      this.houseX = 29;
-      this.houseY = 16;
+      this.houseY = 29;
+      this.houseX = 16;
     } else
     if ((y >= 27 && y <= 29) && (x >= 17 && x <= 19)) {
-      this.houseX = 28;
-      this.houseY = 17;
+      this.houseY = 28;
+      this.houseX = 17;
     } else
     if ((y >= 21 && y <= 25) && (x >= 16 && x <= 18)) {
-      this.houseX = 23;
-      this.houseY = 16;
+      this.houseY = 23;
+      this.houseX = 16;
     } else
     if (y == 20 && x <= 17) {
-      this.houseY = 16;
+      this.houseX = 16;
     } else
     if ((y >= 19 && y <= 25) && (x >= 20 && x <= 22)) {
-      this.houseX = 25;
-      this.houseY = 21;
+      this.houseY = 25;
+      this.houseX = 21;
     } else
     if ((y >= 17 && y <= 19) && (x >= 29 && x <= 30)) {
-      this.houseX = 20;
-      this.houseY = 29;
+      this.houseY = 20;
+      this.houseX = 29;
     } else
     if ((y >= 24 && y <= 30) && (x >= 28 && x <= 30)) {
       this.houseY = 25;
@@ -231,11 +231,11 @@ export class BasketComponent implements OnInit {
     } else
     if ((x >= 21 && x <= 31 && y >= 2 && y <= 10) ||
       (x >= 28 && x <= 31 && y >= 11 && y <= 13)) {
-      this.houseX = 28;
       this.houseY = 12;
+      this.houseX = 28;
     } else {
-      this.houseX = x;
-      this.houseY = y;
+      this.houseY = x;
+      this.houseX = y;
     }
   }
 

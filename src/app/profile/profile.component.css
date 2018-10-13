@@ -72,13 +72,19 @@
     height: 100%;
     float: left;
     transition: all 0.05s ease-in-out;
+    background-size: cover;
   }
 
   .button_active {
-    width: calc(3.125% - 2px);
-    height: calc(100% - 2px);
-    border: 1px solid red;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(256, 0, 0, 0.85) !important;
+  }
+
+  .car {
+    background-image: url("/assets/car.png");
+  }
+
+  .house {
+    background-color: rgba(0, 256, 0, 0.85) !important;
   }
 
   #not_have_order {

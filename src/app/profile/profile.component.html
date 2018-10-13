@@ -55,12 +55,12 @@
 
 
 <p id="map_p">Your Order</p>
-<div class="map" *ngIf="haveOrder">
+<div class="map" *ngIf="mapHaveOrder">
   <div *ngFor="let y of mapSizeY" class="line">
     <div *ngFor="let x of mapSizeX" class="button" (click)="setCoordinates(y, x)" id="button_{{y}}_{{x}}"></div>
   </div>
 </div>
-<div class="map" *ngIf="!haveOrder">
+<div class="map" *ngIf="!mapHaveOrder">
   <p id="not_have_order">
     You don't have any order!
   </p>
