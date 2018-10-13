@@ -61,7 +61,7 @@ class DishHelper {
 
 				if (box.value <= component.value) {
 					component.value -= box.value;
-					Products.removeOne ({_id: box._id}).exec ();
+					Products.delteOne ({_id: box._id}).exec ();
 				} else {
 					Products.updateOne ({_id: box._id}, {value: box.value - component.value}).exec ();
 					component.value = 0;
